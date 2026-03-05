@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SC Hub Mining — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep:#080a0e;--bg-panel:#0d1117;--bg-card:#151b24;--bg-input:#1a2030;--bg-hover:#1e2738;
+  --border:#222a38;--border-bright:#2e3a4e;
+  --text-primary:#dce0e8;--text-secondary:#7a8290;--text-dim:#4a505a;
+  --accent:#e8751a;--accent-dim:rgba(232,117,26,0.12);
+  --green:#3dd68c;--green-dim:rgba(61,214,140,0.10);
+  --red:#e84040;--red-dim:rgba(232,64,64,0.10);
+  --cyan:#4dc9f6;--cyan-dim:rgba(77,201,246,0.10);
+  --yellow:#f0c040;--yellow-dim:rgba(240,192,64,0.10);
+  --purple:#9b7edb;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg-deep);color:var(--text-primary);font-family:'Rajdhani',sans-serif;font-size:14px;line-height:1.45;min-height:100vh}
+a{color:var(--cyan);text-decoration:none}
+.app{max-width:1600px;margin:0 auto;padding:12px 16px}
+.header{display:flex;align-items:baseline;gap:16px;padding:8px 0 12px;border-bottom:1px solid var(--border);margin-bottom:16px;flex-wrap:wrap}
+.header-tag{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:3px;text-transform:uppercase}
+.header-title{font-size:22px;font-weight:700;letter-spacing:1px}
+.header-status{margin-left:auto;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text-dim)}
+.header-status.loaded{color:var(--green)}
+.header-link{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border:1px solid var(--border);transition:all .15s}
+.header-link:hover{border-color:var(--accent);color:var(--accent)}
+.nav{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:14px}
+.nav-btn{padding:8px 18px;background:none;border:none;color:var(--text-secondary);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s}
+.nav-btn:hover{color:var(--text-primary)}
+.nav-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+.panel{display:none}.panel.active{display:block}
+.section-title{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.card{background:var(--bg-panel);border:1px solid var(--border);padding:14px;margin-bottom:10px}
+select,input[type="text"],input[type="number"],textarea{background:var(--bg-input);color:var(--text-primary);border:1px solid var(--border);padding:5px 8px;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;outline:none}
+select:focus,input:focus,textarea:focus{border-color:var(--accent)}
+.chip{padding:3px 10px;border:1px solid var(--border);background:var(--bg-card);color:var(--text-secondary);font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .12s;user-select:none;display:inline-block}
+.chip:hover{border-color:var(--text-secondary)}.chip.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent)}
+.chip.green{background:var(--green-dim);border-color:var(--green);color:var(--green)}
+.chip.red{background:var(--red-dim);border-color:var(--red);color:var(--red)}
+.btn{padding:6px 16px;border:1px solid var(--accent);background:var(--accent-dim);color:var(--accent);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:1px;text-transform:uppercase}
+.btn:hover{background:var(--accent);color:var(--bg-deep)}
+.btn.green{border-color:var(--green);background:var(--green-dim);color:var(--green)}.btn.green:hover{background:var(--green);color:var(--bg-deep)}
+.btn.red{border-color:var(--red);background:var(--red-dim);color:var(--red)}.btn.red:hover{background:var(--red);color:var(--bg-deep)}
+.filter-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.filter-label{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase}
+.tbl-wrap{overflow-x:auto;max-height:500px;overflow-y:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:5px 8px;border:1px solid var(--border)}
+th{background:var(--bg-card);font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;text-align:left;position:sticky;top:0;z-index:2;white-space:nowrap}
+td{background:var(--bg-panel)}
+tr:hover td{background:var(--bg-hover)}
+td input,td select{width:100%;background:transparent;border:none;color:var(--text-primary);font-size:12px;padding:2px 4px}
+td input:focus,td select:focus{outline:1px solid var(--accent)}
+.mono{font-family:'Share Tech Mono',monospace;font-size:12px}
+.import-zone{border:2px dashed var(--border);padding:30px;text-align:center;cursor:pointer;transition:border-color .2s}
+.import-zone:hover,.import-zone.dragover{border-color:var(--accent)}
+
+/* Map Editor */
+.map-editor-layout{display:grid;grid-template-columns:1fr 320px;gap:14px}
+@media(max-width:900px){.map-editor-layout{grid-template-columns:1fr}}
+.map-editor-canvas-wrap{position:relative}
+.map-editor-canvas{display:block;background:var(--bg-panel);border:1px solid var(--border);cursor:crosshair;aspect-ratio:1/1;width:100%}
+.map-editor-sidebar{display:flex;flex-direction:column;gap:8px;max-height:calc(100vh - 140px);overflow-y:auto}
+.map-info-card{background:var(--bg-card);border:1px solid var(--border);padding:10px}
+.map-info-title{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.prop-row{display:flex;gap:6px;align-items:center;margin-bottom:5px;font-size:12px}
+.prop-label{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text-dim);min-width:60px;text-transform:uppercase;letter-spacing:1px}
+.prop-row input,.prop-row select{flex:1;min-width:0}
+.prop-row input[type="number"]{width:60px;flex:none}
+.prop-row input[type="checkbox"]{width:auto;flex:none}
+.unplaced-list{max-height:300px;overflow-y:auto}
+.unplaced-item{padding:4px 8px;font-size:12px;cursor:pointer;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.unplaced-item:hover{background:var(--bg-hover)}
+.unplaced-item .code{font-family:'Share Tech Mono',monospace;color:var(--text-dim);font-size:10px}
+.unplaced-item .type{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--accent);text-transform:uppercase}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <span class="header-tag">// SC Hub</span>
+    <span class="header-title">Mining Admin</span>
+    <a href="../index.html" class="header-link">&larr; Back to Site</a>
+    <span id="status" class="header-status">Loading...</span>
+  </div>
+  <div class="nav" id="nav">
+    <button class="nav-btn active" data-tab="map">Map Editor</button>
+    <button class="nav-btn" data-tab="locations">Locations</button>
+    <button class="nav-btn" data-tab="ores">Ores</button>
+    <button class="nav-btn" data-tab="settings">Settings</button>
+    <button class="nav-btn" data-tab="io">Import / Export</button>
+  </div>
+
+  <!-- MAP EDITOR -->
+  <div id="panel-map" class="panel active">
+    <div class="filter-row">
+      <span class="filter-label">System:</span>
+      <button class="chip active" data-ms="Stanton" onclick="setMapSys('Stanton',this)">Stanton</button>
+      <button class="chip" data-ms="Pyro" onclick="setMapSys('Pyro',this)">Pyro</button>
+      <button class="chip" data-ms="Nyx" onclick="setMapSys('Nyx',this)">Nyx</button>
+      <span style="margin-left:auto;display:flex;gap:4px">
+        <button class="chip" onclick="addRing()">+ Add Ring</button>
+        <button class="chip green" onclick="addNewNode()">+ Add Location</button>
+      </span>
+    </div>
+    <div class="map-editor-layout">
+      <div class="map-editor-canvas-wrap">
+        <canvas id="editor-canvas" class="map-editor-canvas"></canvas>
+      </div>
+      <div class="map-editor-sidebar">
+        <div class="map-info-card" id="sys-config">
+          <div class="map-info-title">// System Scale</div>
+          <div class="prop-row"><span class="prop-label">Rings</span><input type="range" id="ring-scale" min="20" max="50" value="36" oninput="updateSysConfig()" style="flex:1"><span class="mono" id="ring-scale-val" style="min-width:24px;text-align:right">36</span></div>
+          <div class="prop-row"><span class="prop-label">Edge</span><input type="range" id="edge-scale" min="30" max="60" value="46" oninput="updateSysConfig()" style="flex:1"><span class="mono" id="edge-scale-val" style="min-width:24px;text-align:right">46</span></div>
+        </div>
+        <div class="map-info-card" id="node-props" style="display:none">
+          <div class="map-info-title">// Selected Node</div>
+          <div id="node-props-content"></div>
+        </div>
+        <div class="map-info-card">
+          <div class="map-info-title">// Unplaced Locations <span id="unplaced-count" class="mono" style="color:var(--text-dim)"></span></div>
+          <div class="filter-row" style="margin-bottom:4px">
+            <input type="text" id="unplaced-search" placeholder="Search..." style="width:140px;font-size:11px" oninput="renderUnplaced()">
+            <select id="unplaced-type-filter" style="width:100px;font-size:11px" onchange="renderUnplaced()">
+              <option value="all">All Types</option>
+              <option value="planet">Planets</option>
+              <option value="station">Stations</option>
+              <option value="asteroid_belt">Belts</option>
+              <option value="cluster">Clusters</option>
+              <option value="mining_base">Mining Bases</option>
+            </select>
+          </div>
+          <div class="unplaced-list" id="unplaced-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOCATIONS -->
+  <div id="panel-locations" class="panel">
+    <div class="section-title">// Locations (<span id="loc-count">0</span>)</div>
+    <div class="filter-row">
+      <span class="filter-label">Search:</span>
+      <input type="text" id="loc-filter" placeholder="Code or name..." style="width:200px" oninput="renderLocTable()">
+      <span class="filter-label">System:</span>
+      <select id="loc-sys-filter" style="width:120px" onchange="renderLocTable()">
+        <option value="all">All</option><option>Stanton</option><option>Pyro</option><option>Nyx</option>
+      </select>
+      <span class="filter-label">Type:</span>
+      <select id="loc-type-filter" style="width:120px" onchange="renderLocTable()"><option value="all">All</option></select>
+    </div>
+    <div class="tbl-wrap" id="loc-table"></div>
+  </div>
+
+  <!-- ORES -->
+  <div id="panel-ores" class="panel">
+    <div class="section-title">// Ores (<span id="ore-count">0</span>)</div>
+    <div class="tbl-wrap" id="ore-table"></div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div id="panel-settings" class="panel">
+    <div class="section-title">// Meta Settings</div>
+    <div class="card" id="settings-form"></div>
+  </div>
+
+  <!-- IMPORT / EXPORT -->
+  <div id="panel-io" class="panel">
+    <div class="section-title">// Override Data</div>
+    <div class="import-zone" id="import-zone">
+      <div style="font-size:15px;margin-bottom:6px">Drop a <strong>mining_data.json</strong> to replace current data</div>
+      <div style="color:var(--text-dim);font-size:12px">Data auto-loads from data/mining_data.json on page open. Use this to load a different file.</div>
+      <input type="file" id="file-input" accept=".json" style="display:none">
+    </div>
+    <div style="margin-top:16px">
+      <div class="section-title">// Export</div>
+      <div class="filter-row">
+        <button class="btn green" onclick="doExport()">Download mining_data.json</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// STATE
+// ============================================================
+let D = null;
+let mapSys = 'Stanton';
+let selectedNode = null;
+let dragging = null;
+
+const MC = { // map color palette
+  star:'#f0c040',planet:'#4dc9f6',moon:'#8a9ab0',
+  lagrange:'#e8751a',refinery:'#3dd68c',gate:'#9b7edb',
+  orbitLine:'rgba(77,201,246,0.15)',ring:'rgba(232,117,26,0.35)',
+  station:'#3dd68c',text:'#5a6270',textBright:'#dce0e8',selected:'#ffffff',
+};
+
+// ============================================================
+// AUTO-LOAD from ../data/mining_data.json
+// ============================================================
+fetch('../data/mining_data.json')
+  .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json(); })
+  .then(data => { D = data; onDataLoaded(); })
+  .catch(e => {
+    document.getElementById('status').textContent = 'Auto-load failed — drop file in Import tab';
+    document.getElementById('status').style.color = '#e84040';
+  });
+
+function onDataLoaded() {
+  if (!D.map_positions) D.map_positions = {stanton:{},pyro:{},nyx:{}};
+  document.getElementById('status').textContent = `${Object.keys(D.locations||{}).length} locations, ${Object.keys(D.ores||{}).length} ores`;
+  document.getElementById('status').className = 'header-status loaded';
+  initAll();
+}
+
+function initAll() {
+  renderSettings();
+  renderLocTable();
+  renderOreTable();
+  renderMapEditor();
+  renderUnplaced();
+  const types = new Set(Object.values(D.locations).map(l => l.type));
+  const sel = document.getElementById('loc-type-filter');
+  sel.innerHTML = '<option value="all">All</option>';
+  [...types].sort().forEach(t => { const o = document.createElement('option'); o.value=t; o.textContent=t; sel.appendChild(o); });
+  document.getElementById('loc-count').textContent = Object.keys(D.locations).length;
+  document.getElementById('ore-count').textContent = Object.keys(D.ores).length;
+}
+
+// ============================================================
+// IMPORT / EXPORT
+// ============================================================
+const importZone = document.getElementById('import-zone');
+const fileInput = document.getElementById('file-input');
+importZone.addEventListener('click', () => fileInput.click());
+importZone.addEventListener('dragover', e => { e.preventDefault(); importZone.classList.add('dragover'); });
+importZone.addEventListener('dragleave', () => importZone.classList.remove('dragover'));
+importZone.addEventListener('drop', e => {
+  e.preventDefault(); importZone.classList.remove('dragover');
+  if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+});
+fileInput.addEventListener('change', () => { if (fileInput.files[0]) loadFile(fileInput.files[0]); });
+
+function loadFile(file) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    try { D = JSON.parse(reader.result); onDataLoaded(); }
+    catch(e) { alert('Invalid JSON: ' + e.message); }
+  };
+  reader.readAsText(file);
+}
+
+function doExport() {
+  if (!D) { alert('No data loaded'); return; }
+  const blob = new Blob([JSON.stringify(D, null, 2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'mining_data.json'; a.click();
+}
+
+// ============================================================
+// NAV
+// ============================================================
+document.getElementById('nav').addEventListener('click', e => {
+  const tab = e.target.dataset.tab; if (!tab) return;
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + tab));
+  if (tab === 'map') setTimeout(renderMapEditor, 50);
+});
+
+// ============================================================
+// SETTINGS
+// ============================================================
+function renderSettings() {
+  const m = D.meta;
+  const fields = [['current_patch','Patch'],['data_updated','Data Updated'],['regolith_export_date','Regolith Date'],['news_reel','News Reel'],['source','Source']];
+  document.getElementById('settings-form').innerHTML = fields.map(([k,l]) =>
+    `<div class="prop-row"><span class="prop-label" style="min-width:120px">${l}</span><input value="${m[k]||''}" onchange="D.meta['${k}']=this.value" style="flex:1"></div>`
+  ).join('');
+}
+
+// ============================================================
+// LOCATION TABLE
+// ============================================================
+function renderLocTable() {
+  if (!D) return;
+  const search = document.getElementById('loc-filter').value.toLowerCase();
+  const sysFil = document.getElementById('loc-sys-filter').value;
+  const typeFil = document.getElementById('loc-type-filter').value;
+  const locs = Object.entries(D.locations).filter(([code, loc]) => {
+    if (sysFil !== 'all' && loc.system !== sysFil) return false;
+    if (typeFil !== 'all' && loc.type !== typeFil) return false;
+    if (search && !code.toLowerCase().includes(search) && !(loc.display_name||'').toLowerCase().includes(search)) return false;
+    return true;
+  }).sort((a,b) => a[0].localeCompare(b[0]));
+  let html = '<table><thead><tr><th>Code</th><th>Display Name</th><th>System</th><th>Type</th><th>Parent</th><th>Region</th><th>Refinery</th><th>L-Point</th><th>Notes</th></tr></thead><tbody>';
+  locs.slice(0,100).forEach(([code, loc]) => {
+    html += `<tr>
+      <td class="mono" style="font-size:10px">${code}</td>
+      <td><input value="${loc.display_name||''}" onchange="D.locations['${code}'].display_name=this.value"></td>
+      <td><select onchange="D.locations['${code}'].system=this.value">${['Stanton','Pyro','Nyx'].map(s=>`<option${loc.system===s?' selected':''}>${s}</option>`).join('')}</select></td>
+      <td><select onchange="D.locations['${code}'].type=this.value">${['planet','moon','lagrange','asteroid_belt','ring','cluster','mining_base','station','gate','unknown'].map(t=>`<option${loc.type===t?' selected':''}>${t}</option>`).join('')}</select></td>
+      <td><input value="${loc.parent||''}" onchange="D.locations['${code}'].parent=this.value||null" style="width:60px"></td>
+      <td><input value="${loc.region||''}" onchange="D.locations['${code}'].region=this.value" style="width:80px"></td>
+      <td style="text-align:center"><input type="checkbox" ${loc.has_refinery?'checked':''} onchange="D.locations['${code}'].has_refinery=this.checked"></td>
+      <td><input type="number" value="${loc.lpoint||''}" onchange="D.locations['${code}'].lpoint=this.value?parseInt(this.value):null" style="width:40px"></td>
+      <td><input value="${loc.notes||''}" onchange="D.locations['${code}'].notes=this.value" style="width:120px"></td></tr>`;
+  });
+  html += '</tbody></table>';
+  if (locs.length > 100) html += `<div style="color:var(--text-dim);margin-top:6px;font-size:11px">Showing 100 of ${locs.length}</div>`;
+  document.getElementById('loc-table').innerHTML = html;
+}
+
+// ============================================================
+// ORE TABLE
+// ============================================================
+function renderOreTable() {
+  if (!D) return;
+  const ores = Object.entries(D.ores).sort((a,b) => a[1].display_name.localeCompare(b[1].display_name));
+  let html = '<table><thead><tr><th>Code</th><th>Display Name</th><th>UEX Name</th><th>Form</th><th>Mining Method</th><th>Crafting Slots</th><th>Notes</th><th>Image URL</th></tr></thead><tbody>';
+  ores.forEach(([code, ore]) => {
+    html += `<tr>
+      <td class="mono" style="font-size:10px">${code}</td>
+      <td><input value="${ore.display_name||''}" onchange="D.ores['${code}'].display_name=this.value"></td>
+      <td><input value="${ore.uex_name||''}" onchange="D.ores['${code}'].uex_name=this.value"></td>
+      <td class="mono" style="font-size:10px">${ore.form}</td>
+      <td><select onchange="D.ores['${code}'].mining_method=this.value">${['ship','fps','vehicle','fps_vehicle'].map(m=>`<option${ore.mining_method===m?' selected':''}>${m}</option>`).join('')}</select></td>
+      <td><input value="${(ore.crafting_slots||[]).join(', ')}" onchange="D.ores['${code}'].crafting_slots=this.value?this.value.split(',').map(s=>s.trim()):[]" style="width:140px"></td>
+      <td><input value="${ore.notes||''}" onchange="D.ores['${code}'].notes=this.value" style="width:120px"></td>
+      <td><input value="${ore.image_url||''}" onchange="D.ores['${code}'].image_url=this.value" style="width:120px"></td></tr>`;
+  });
+  document.getElementById('ore-table').innerHTML = html + '</tbody></table>';
+}
+
+// ============================================================
+// MAP EDITOR
+// ============================================================
+let editorHitAreas = []; // {x, y, r, code, draggable}
+
+function setMapSys(sys, btn) {
+  mapSys = sys;
+  document.querySelectorAll('[data-ms]').forEach(b => b.classList.toggle('active', b.dataset.ms === sys));
+  selectedNode = null;
+  renderMapEditor();
+  renderUnplaced();
+}
+
+function renderMapEditor() {
+  if (!D) return;
+  const canvas = document.getElementById('editor-canvas');
+  const ctx = canvas.getContext('2d');
+  const container = canvas.parentElement;
+  const size = Math.min(container.clientWidth, 900);
+  canvas.width = size; canvas.height = size;
+  ctx.clearRect(0, 0, size, size);
+  editorHitAreas = [];
+
+  const sysKey = mapSys.toLowerCase();
+  const positions = D.map_positions[sysKey] || {};
+  const planets = D.planets || {};
+  const gates = D.jump_gates || {};
+  const locations = D.locations || {};
+
+  let maxRing = 1;
+  for (const pos of Object.values(positions)) { if (pos.ring && pos.ring > maxRing) maxRing = pos.ring; }
+  const cfg = positions._config || {};
+  const ringScale = cfg.ring_scale || 36;
+  const edgeScale = cfg.edge_scale || 46;
+  const ringSpacing = (size * ringScale / 100) / (maxRing + 0.5);
+  const edgeR = size * edgeScale / 100;
+  // Sync sliders
+  const rSlider = document.getElementById('ring-scale');
+  const eSlider = document.getElementById('edge-scale');
+  if (rSlider) { rSlider.value = ringScale; document.getElementById('ring-scale-val').textContent = ringScale; }
+  if (eSlider) { eSlider.value = edgeScale; document.getElementById('edge-scale-val').textContent = edgeScale; }
+  const s = v => Math.max(v, 2);
+  const cx = size/2, cy = size/2;
+
+  const toXY = (angle, radius) => ({
+    x: cx + Math.cos((angle-90)*Math.PI/180) * radius,
+    y: cy + Math.sin((angle-90)*Math.PI/180) * radius,
+  });
+
+  // Orbit rings with labels
+  for (let r = 1; r <= maxRing; r++) {
+    ctx.beginPath(); ctx.arc(cx, cy, r*ringSpacing, 0, Math.PI*2);
+    ctx.strokeStyle = MC.orbitLine; ctx.lineWidth = 1; ctx.stroke();
+    ctx.font = `500 ${s(size*0.01)}px 'Share Tech Mono'`; ctx.fillStyle = 'rgba(77,201,246,0.15)';
+    ctx.textAlign = 'left'; ctx.fillText(`r${r}`, cx + r*ringSpacing + 3, cy - 2);
+  }
+
+  // Edge ring
+  ctx.beginPath(); ctx.arc(cx, cy, edgeR, 0, Math.PI*2);
+  ctx.strokeStyle = 'rgba(155,126,219,0.1)'; ctx.lineWidth = 1; ctx.setLineDash([4,4]); ctx.stroke(); ctx.setLineDash([]);
+
+  // Star
+  const starR = s(size*0.016);
+  const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, starR*4);
+  grad.addColorStop(0, 'rgba(240,192,64,0.4)'); grad.addColorStop(1, 'rgba(240,192,64,0)');
+  ctx.beginPath(); ctx.arc(cx, cy, starR*4, 0, Math.PI*2); ctx.fillStyle = grad; ctx.fill();
+  ctx.beginPath(); ctx.arc(cx, cy, starR, 0, Math.PI*2); ctx.fillStyle = MC.star; ctx.fill();
+  ctx.font = `700 ${s(size*0.02)}px Rajdhani`; ctx.fillStyle = MC.textBright;
+  ctx.textAlign = 'center'; ctx.fillText(mapSys.toUpperCase(), cx, cy + starR + 14);
+
+  // Belts — from map_positions (belt_radius) or fallback
+  for (const [code, loc] of Object.entries(locations)) {
+    if (loc.system !== mapSys || loc.type !== 'asteroid_belt') continue;
+    const beltPos = positions[code];
+    const beltR = beltPos?.belt_radius ? beltPos.belt_radius * ringSpacing : (maxRing * ringSpacing + edgeR) * 0.52;
+    const beltColor = beltPos?.belt_color === 'grey' ? 'rgba(120,130,145,0.35)' : MC.ring;
+    const isSel = selectedNode === code;
+    ctx.beginPath(); ctx.arc(cx, cy, beltR, 0, Math.PI*2);
+    ctx.strokeStyle = isSel ? MC.selected : beltColor; ctx.lineWidth = size*0.018; ctx.stroke();
+    ctx.font = `500 ${s(size*0.013)}px 'Share Tech Mono'`; ctx.fillStyle = isSel ? MC.selected : beltColor;
+    ctx.textAlign = 'center'; ctx.fillText(loc.display_name + (!beltPos ? ' (unplaced)' : ''), cx, cy - beltR - 4);
+    if (isSel) { ctx.font = `500 ${s(size*0.009)}px 'Share Tech Mono'`; ctx.fillStyle = MC.text; ctx.fillText(`belt r=${(beltPos?.belt_radius||'auto').toString()}`, cx, cy - beltR + 14); }
+    editorHitAreas.push({x: cx, y: cy - beltR, r: 14, code, draggable: 'belt'});
+  }
+
+  // Rings near parent planets
+  for (const [code, loc] of Object.entries(locations)) {
+    if (loc.system !== mapSys || loc.type !== 'ring' || !loc.parent) continue;
+    const parentPos = positions[loc.parent];
+    if (!parentPos?.ring) continue;
+    const pp = toXY(parentPos.angle, parentPos.ring * ringSpacing);
+    ctx.beginPath(); ctx.arc(pp.x, pp.y, s(size*0.03), 0, Math.PI*2);
+    ctx.strokeStyle = MC.ring; ctx.lineWidth = 2; ctx.stroke();
+    ctx.font = `500 ${s(size*0.009)}px 'Share Tech Mono'`; ctx.fillStyle = MC.ring;
+    ctx.textAlign = 'center'; ctx.fillText(loc.display_name, pp.x, pp.y + s(size*0.03) + 10);
+  }
+
+  // Draw each positioned node + its children
+  for (const [code, pos] of Object.entries(positions)) {
+    if (code === '_config') continue; // system config, not a node
+    if (pos.belt_radius) continue; // belts drawn separately above
+    let x, y;
+    if (pos.edge) { ({x,y} = toXY(pos.angle, edgeR)); }
+    else { ({x,y} = toXY(pos.angle, pos.ring * ringSpacing)); }
+
+    const isSel = selectedNode === code;
+    const loc = locations[code];
+    const planet = planets[code];
+    const isRef = loc?.has_refinery;
+    const label = planet?.name || loc?.display_name || code;
+
+    let nodeR;
+    if (pos.station) {
+      nodeR = s(size*0.008);
+      ctx.fillStyle = isRef ? MC.refinery : MC.lagrange;
+      ctx.fillRect(x-nodeR, y-nodeR, nodeR*2, nodeR*2);
+    } else if (pos.edge) {
+      nodeR = s(size*0.008);
+      ctx.beginPath(); ctx.arc(x, y, nodeR, 0, Math.PI*2);
+      ctx.strokeStyle = MC.gate; ctx.lineWidth = 2; ctx.stroke();
+      ctx.beginPath(); ctx.arc(x, y, nodeR*0.4, 0, Math.PI*2); ctx.fillStyle = MC.gate; ctx.fill();
+    } else if (planet) {
+      nodeR = s(size*0.018);
+      ctx.beginPath(); ctx.arc(x, y, nodeR, 0, Math.PI*2); ctx.fillStyle = MC.planet; ctx.fill();
+
+      // Draw moons inside planet
+      const moons = Object.entries(locations).filter(([,l]) => l.parent === code && l.type === 'moon');
+      const moonR = s(size*0.003);
+      moons.forEach(([,], i) => {
+        const ma = (i / Math.max(moons.length,1)) * Math.PI * 2;
+        const md = nodeR * 0.55;
+        ctx.beginPath(); ctx.arc(x + Math.cos(ma)*md, y + Math.sin(ma)*md, moonR, 0, Math.PI*2);
+        ctx.fillStyle = MC.moon; ctx.fill();
+      });
+      if (moons.length > 0) {
+        ctx.font = `500 ${s(size*0.01)}px 'Share Tech Mono'`; ctx.fillStyle = MC.text;
+        ctx.textAlign = 'center'; ctx.fillText(`${moons.length}m`, x, y + nodeR + 10);
+      }
+    } else {
+      nodeR = s(size*0.01);
+      ctx.beginPath(); ctx.arc(x, y, nodeR, 0, Math.PI*2);
+      ctx.fillStyle = MC.text; ctx.fill();
+    }
+
+    // Selection ring
+    if (isSel) {
+      ctx.beginPath(); ctx.arc(x, y, nodeR+5, 0, Math.PI*2);
+      ctx.strokeStyle = MC.selected; ctx.lineWidth = 2; ctx.stroke();
+    }
+
+    // Label
+    ctx.font = `600 ${s(size*0.013)}px Rajdhani`;
+    ctx.fillStyle = isSel ? MC.selected : MC.textBright;
+    ctx.textAlign = 'center'; ctx.fillText(label, x, y - nodeR - 4);
+
+    // Debug info for selected
+    if (isSel) {
+      ctx.font = `500 ${s(size*0.009)}px 'Share Tech Mono'`; ctx.fillStyle = MC.text;
+      ctx.fillText(`${pos.edge ? 'edge' : 'r'+pos.ring} @ ${pos.angle}\u00B0`, x, y + nodeR + (planet ? 20 : 12));
+    }
+
+    editorHitAreas.push({x, y, r: nodeR+4, code, draggable: true});
+
+    // L-points for planets
+    if (planet && !pos.edge) {
+      const lpoints = Object.entries(locations).filter(([,l]) => l.parent === code && l.type === 'lagrange');
+      const lpR = s(size*0.005);
+      lpoints.forEach(([lcode, lloc]) => {
+        const lp = lloc.lpoint; if (!lp) return;
+        const r = pos.ring * ringSpacing;
+        let la, lr;
+        if (lp===1){la=pos.angle;lr=r-ringSpacing*0.3}
+        else if(lp===2){la=pos.angle;lr=r+ringSpacing*0.3}
+        else if(lp===3){la=pos.angle+180;lr=r}
+        else if(lp===4){la=pos.angle+60;lr=r}
+        else if(lp===5){la=pos.angle-60;lr=r}
+        else return;
+        const lpos = toXY(la, lr);
+        const lIsRef = lloc.has_refinery;
+        const lIsSel = selectedNode === lcode;
+        ctx.save(); ctx.translate(lpos.x, lpos.y); ctx.rotate(Math.PI/4);
+        ctx.fillStyle = lIsRef ? MC.refinery : MC.lagrange;
+        ctx.fillRect(-lpR,-lpR,lpR*2,lpR*2); ctx.restore();
+        if (lIsSel) {
+          ctx.beginPath(); ctx.arc(lpos.x, lpos.y, lpR+5, 0, Math.PI*2);
+          ctx.strokeStyle = MC.selected; ctx.lineWidth = 2; ctx.stroke();
+        }
+        ctx.font = `600 ${s(size*0.01)}px 'Share Tech Mono'`;
+        ctx.fillStyle = lIsRef ? MC.refinery : MC.text;
+        ctx.textAlign = 'center'; ctx.fillText(lloc.display_name, lpos.x, lpos.y - lpR - 3);
+        editorHitAreas.push({x: lpos.x, y: lpos.y, r: lpR+6, code: lcode, draggable: false});
+      });
+    }
+  }
+
+  // Jump gates
+  const gateR = s(size*0.008);
+  for (const [gkey, gate] of Object.entries(gates)) {
+    if (gate.system !== mapSys) continue;
+    let posKey = null;
+    for (const [pk, pv] of Object.entries(positions)) { if (pv.edge && pk.toLowerCase().includes(gate.destination.toLowerCase())) { posKey = pk; break; } }
+    if (!posKey) continue;
+    const gp = toXY(positions[posKey].angle, edgeR);
+    // Only draw gate label (circle already drawn by the edge node above if it's in positions)
+    ctx.font = `600 ${s(size*0.012)}px Rajdhani`; ctx.fillStyle = MC.gate;
+    ctx.textAlign = 'center'; ctx.fillText(`${gate.destination} GW`, gp.x, gp.y - gateR - 4);
+  }
+
+  renderNodeProps();
+}
+
+// ============================================================
+// NODE PROPERTIES
+// ============================================================
+function renderNodeProps() {
+  const panel = document.getElementById('node-props');
+  const content = document.getElementById('node-props-content');
+  if (!selectedNode || !D) { panel.style.display = 'none'; return; }
+  panel.style.display = 'block';
+
+  const code = selectedNode;
+  const loc = D.locations[code] || {};
+  const planet = D.planets[code];
+  const sysKey = mapSys.toLowerCase();
+  const pos = D.map_positions[sysKey]?.[code];
+  const isBelt = pos?.belt_radius != null;
+
+  // Parent dropdown: all planets in this system
+  const parentOpts = ['<option value="">None</option>'];
+  for (const [pcode, pl] of Object.entries(D.planets)) {
+    if (pl.system === mapSys) parentOpts.push(`<option value="${pcode}"${loc.parent===pcode?' selected':''}>${pl.name} (${pcode})</option>`);
+  }
+  // Also add stations as possible parents
+  for (const [scode, sloc] of Object.entries(D.locations)) {
+    if (sloc.system === mapSys && sloc.type === 'station' && !D.planets[scode]) {
+      parentOpts.push(`<option value="${scode}"${loc.parent===scode?' selected':''}>${sloc.display_name} (${scode})</option>`);
+    }
+  }
+
+  let html = `<div class="prop-row"><span class="prop-label">Code</span><span class="mono">${code}</span></div>`;
+  html += `<div class="prop-row"><span class="prop-label">Name</span><input value="${loc.display_name||planet?.name||code}" onchange="updateProp('${code}','display_name',this.value)"></div>`;
+  html += `<div class="prop-row"><span class="prop-label">Type</span><select onchange="updateProp('${code}','type',this.value)">
+    ${['planet','moon','lagrange','asteroid_belt','ring','cluster','mining_base','station','gate','unknown'].map(t=>`<option${loc.type===t?' selected':''}>${t}</option>`).join('')}
+  </select></div>`;
+  html += `<div class="prop-row"><span class="prop-label">Parent</span><select onchange="updateProp('${code}','parent',this.value||null)">${parentOpts.join('')}</select></div>`;
+
+  if (pos && isBelt) {
+    // Belt controls
+    html += `<div class="prop-row"><span class="prop-label">Radius</span><input type="number" value="${pos.belt_radius}" min="0.5" max="20" step="0.1" onchange="updatePos('${code}','belt_radius',+this.value)"><span class="mono" style="color:var(--text-dim);margin-left:4px">rings</span></div>`;
+    html += `<div class="prop-row"><span class="prop-label">Color</span><select onchange="updatePos('${code}','belt_color',this.value)">
+      <option value="grey"${pos.belt_color==='grey'?' selected':''}>Grey (asteroid)</option>
+      <option value="orange"${pos.belt_color!=='grey'?' selected':''}>Orange (ring)</option>
+    </select></div>`;
+  } else if (pos) {
+    // Normal node controls
+    if (!pos.edge) {
+      html += `<div class="prop-row"><span class="prop-label">Angle</span><input type="number" value="${pos.angle||0}" min="0" max="360" onchange="updatePos('${code}','angle',+this.value)"><span class="mono" style="color:var(--text-dim);margin-left:4px">\u00B0</span></div>`;
+      html += `<div class="prop-row"><span class="prop-label">Ring</span><input type="number" value="${pos.ring||1}" min="1" max="20" onchange="updatePos('${code}','ring',+this.value)"></div>`;
+    } else {
+      html += `<div class="prop-row"><span class="prop-label">Angle</span><input type="number" value="${pos.angle||0}" min="0" max="360" onchange="updatePos('${code}','angle',+this.value)"><span class="mono" style="color:var(--text-dim);margin-left:4px">\u00B0 edge</span></div>`;
+    }
+    html += `<div class="prop-row"><span class="prop-label">Station</span><input type="checkbox" ${pos.station?'checked':''} onchange="updatePos('${code}','station',this.checked||undefined)"></div>`;
+    html += `<div class="prop-row"><span class="prop-label">Edge</span><input type="checkbox" ${pos.edge?'checked':''} onchange="toggleEdge('${code}',this.checked)"></div>`;
+  }
+
+  if (loc.type === 'lagrange') {
+    html += `<div class="prop-row"><span class="prop-label">L-Point</span><select onchange="updateProp('${code}','lpoint',this.value?+this.value:null)">
+      <option value="">-</option>${[1,2,3,4,5].map(n=>`<option value="${n}"${loc.lpoint===n?' selected':''}>L${n}</option>`).join('')}
+    </select></div>`;
+  }
+  html += `<div class="prop-row"><span class="prop-label">Refinery</span><input type="checkbox" ${loc.has_refinery?'checked':''} onchange="updateProp('${code}','has_refinery',this.checked)"></div>`;
+  html += `<div class="prop-row"><span class="prop-label">Notes</span><input value="${loc.notes||''}" onchange="updateProp('${code}','notes',this.value)"></div>`;
+
+  // Action buttons
+  html += `<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">`;
+  if (!pos && loc.type === 'asteroid_belt') {
+    html += `<button class="btn" onclick="placeBelt('${code}')">Place as Belt</button>`;
+  } else if (!pos) {
+    html += `<button class="btn" onclick="placeNode('${code}')">Place on Map</button>`;
+    if (!loc.parent) html += `<button class="chip" onclick="attachToParent('${code}')" title="Set parent without placing on map">Attach to Parent (hidden)</button>`;
+  }
+  if (pos) html += `<button class="btn red" onclick="removeNode('${code}')">Remove from Map</button>`;
+  html += `</div>`;
+  content.innerHTML = html;
+}
+
+function updateProp(code, field, value) {
+  if (!D.locations[code]) D.locations[code] = {};
+  D.locations[code][field] = value;
+  renderMapEditor();
+}
+function updateSysConfig() {
+  const sysKey = mapSys.toLowerCase();
+  if (!D.map_positions[sysKey]._config) D.map_positions[sysKey]._config = {};
+  D.map_positions[sysKey]._config.ring_scale = +document.getElementById('ring-scale').value;
+  D.map_positions[sysKey]._config.edge_scale = +document.getElementById('edge-scale').value;
+  renderMapEditor();
+}
+function updatePos(code, field, value) {
+  const sysKey = mapSys.toLowerCase();
+  const pos = D.map_positions[sysKey]?.[code];
+  if (!pos) return;
+  if (value === undefined || value === false) delete pos[field]; else pos[field] = value;
+  renderMapEditor();
+}
+function toggleEdge(code, isEdge) {
+  const sysKey = mapSys.toLowerCase();
+  const pos = D.map_positions[sysKey][code]; if (!pos) return;
+  if (isEdge) { pos.edge = true; delete pos.ring; } else { delete pos.edge; pos.ring = 1; }
+  renderMapEditor();
+}
+function placeNode(code) {
+  const sysKey = mapSys.toLowerCase();
+  if (!D.map_positions[sysKey]) D.map_positions[sysKey] = {};
+  D.map_positions[sysKey][code] = {angle: 0, ring: 1};
+  renderMapEditor(); renderUnplaced();
+}
+function removeNode(code) {
+  delete D.map_positions[mapSys.toLowerCase()][code];
+  selectedNode = null; renderMapEditor(); renderUnplaced();
+}
+function addRing() {
+  if (!D) return;
+  const sysKey = mapSys.toLowerCase();
+  let maxRing = 0;
+  for (const pos of Object.values(D.map_positions[sysKey]||{})) { if (pos.ring && pos.ring > maxRing) maxRing = pos.ring; }
+  alert(`Current max ring: ${maxRing}. Place a node on ring ${maxRing+1} to extend.`);
+}
+function placeBelt(code) {
+  const sysKey = mapSys.toLowerCase();
+  if (!D.map_positions[sysKey]) D.map_positions[sysKey] = {};
+  // Default belt_radius: between ring 2 and 3
+  let maxRing = 1;
+  for (const pos of Object.values(D.map_positions[sysKey]||{})) { if (pos.ring && pos.ring > maxRing) maxRing = pos.ring; }
+  D.map_positions[sysKey][code] = {belt_radius: Math.round(maxRing * 0.5 * 10)/10, belt_color: 'grey'};
+  renderMapEditor(); renderUnplaced();
+}
+function attachToParent(code) {
+  // Quick-assign parent from a dropdown
+  const planets = Object.entries(D.planets).filter(([,p]) => p.system === mapSys);
+  if (planets.length === 0) { alert('No planets in this system'); return; }
+  const choice = prompt('Enter parent code:\n' + planets.map(([c,p]) => `  ${c} = ${p.name}`).join('\n'));
+  if (!choice) return;
+  if (!D.locations[code]) D.locations[code] = {};
+  D.locations[code].parent = choice.trim();
+  renderUnplaced(); renderNodeProps();
+}
+function addNewNode() {
+  if (!D) return;
+  const code = prompt('Location code (e.g. NEW_STATION):');
+  if (!code) return;
+  if (!D.locations[code]) D.locations[code] = {display_name:code,system:mapSys,parent:null,type:'station',region:'',has_refinery:false,lpoint:null,notes:''};
+  placeNode(code); selectedNode = code; renderMapEditor();
+}
+
+// ============================================================
+// UNPLACED LIST — only truly unplaced items
+// ============================================================
+function renderUnplaced() {
+  if (!D) return;
+  const el = document.getElementById('unplaced-list');
+  const search = (document.getElementById('unplaced-search')?.value||'').toLowerCase();
+  const typeFilter = document.getElementById('unplaced-type-filter')?.value||'all';
+  const sysKey = mapSys.toLowerCase();
+  const placed = new Set(Object.keys(D.map_positions[sysKey]||{}));
+
+  // Derived locations: moons, rings, L-points with a parent that IS placed → they show on map already
+  for (const [code, loc] of Object.entries(D.locations)) {
+    if (loc.system !== mapSys) continue;
+    if (loc.parent && placed.has(loc.parent)) {
+      if (['moon','ring','lagrange'].includes(loc.type)) placed.add(code);
+    }
+  }
+
+  const unplaced = Object.entries(D.locations).filter(([code, loc]) => {
+    if (loc.system !== mapSys) return false;
+    if (placed.has(code)) return false;
+    if (search && !code.toLowerCase().includes(search) && !(loc.display_name||'').toLowerCase().includes(search)) return false;
+    if (typeFilter !== 'all' && loc.type !== typeFilter) return false;
+    return true;
+  }).sort((a,b) => a[0].localeCompare(b[0]));
+
+  document.getElementById('unplaced-count').textContent = `(${unplaced.length})`;
+
+  let html = '';
+  unplaced.slice(0,60).forEach(([code, loc]) => {
+    const hasData = D.ore_locations[code] || D.roc_hand_mining[code] || D.rock_type_locations[code];
+    html += `<div class="unplaced-item" onclick="selectedNode='${code}';renderNodeProps()">
+      <span>${loc.display_name||code} ${hasData?'<span style="color:var(--green)">\u25CF</span>':''}</span>
+      <span><span class="type">${loc.type}</span> <span class="code">${code}</span></span>
+    </div>`;
+  });
+  if (unplaced.length > 60) html += `<div style="padding:4px;color:var(--text-dim);font-size:10px">${unplaced.length-60} more</div>`;
+  if (unplaced.length === 0) html = '<div style="padding:8px;color:var(--green);font-size:11px">All locations placed or derived from parents!</div>';
+  el.innerHTML = html;
+}
+
+// ============================================================
+// CANVAS INTERACTION — click to select, drag = angle only
+// ============================================================
+(function() {
+  const canvas = document.getElementById('editor-canvas');
+
+  canvas.addEventListener('mousedown', e => {
+    if (!D) return;
+    const rect = canvas.getBoundingClientRect();
+    const mx = (e.clientX-rect.left)*(canvas.width/rect.width);
+    const my = (e.clientY-rect.top)*(canvas.height/rect.height);
+    let hit = null;
+    for (const area of editorHitAreas) {
+      const dx = mx-area.x, dy = my-area.y;
+      if (dx*dx+dy*dy <= (area.r+4)*(area.r+4)) { hit = area; break; }
+    }
+    if (hit) {
+      selectedNode = hit.code;
+      if (hit.draggable) dragging = {code: hit.code, type: hit.draggable};
+      renderMapEditor();
+    } else {
+      selectedNode = null; dragging = null; renderMapEditor();
+    }
+  });
+
+  canvas.addEventListener('mousemove', e => {
+    if (!dragging || !D) return;
+    const sysKey = mapSys.toLowerCase();
+    const pos = D.map_positions[sysKey]?.[dragging.code];
+    if (!pos) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const mx = (e.clientX-rect.left)*(canvas.width/rect.width);
+    const my = (e.clientY-rect.top)*(canvas.height/rect.height);
+    const size = canvas.width;
+    const cxc = size/2, cyc = size/2;
+    const dx = mx - cxc, dy = my - cyc;
+
+    if (dragging.type === 'belt') {
+      // Belt drag: change radius based on distance from center
+      let maxRing = 1;
+      for (const p of Object.values(D.map_positions[sysKey]||{})) { if (p.ring && p.ring > maxRing) maxRing = p.ring; }
+      const ringSpacing = (size * 0.36) / (maxRing + 0.5);
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      pos.belt_radius = Math.max(0.5, Math.round((dist / ringSpacing) * 10) / 10);
+    } else {
+      // Normal node: angle only
+      let angle = Math.atan2(dy, dx)*180/Math.PI + 90;
+      if (angle < 0) angle += 360;
+      pos.angle = Math.round(angle);
+    }
+    renderMapEditor();
+  });
+
+  canvas.addEventListener('mouseup', () => { dragging = null; });
+  canvas.addEventListener('mouseleave', () => { dragging = null; });
+})();
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { selectedNode = null; renderMapEditor(); }
+  if (e.key === 'Delete' && selectedNode && D?.map_positions[mapSys.toLowerCase()]?.[selectedNode]) {
+    if (confirm(`Remove ${selectedNode} from map?`)) removeNode(selectedNode);
+  }
+});
+</script>
+</body>
+</html>
