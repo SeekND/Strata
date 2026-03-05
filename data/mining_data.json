@@ -1691,7 +1691,7 @@
     "RUIN": {
       "display_name": "Ruin Station",
       "system": "Pyro",
-      "parent": "PY5",
+      "parent": "TER",
       "type": "station",
       "region": "pyro_v",
       "has_refinery": true,
