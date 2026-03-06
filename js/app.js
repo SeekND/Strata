@@ -270,7 +270,8 @@ function computeLocXY(locCode) {
   });
 
   const lpointXY = (parentPos, lp) => {
-    const r = parentPos.ring * ringSpacing;
+    const rm = parentPos.ring_mult || 1.0;
+    const r = parentPos.ring * rm * ringSpacing;
     let a, lr;
     if (lp === 1) { a = parentPos.angle; lr = r - ringSpacing * 0.3; }
     else if (lp === 2) { a = parentPos.angle; lr = r + ringSpacing * 0.3; }
@@ -285,7 +286,7 @@ function computeLocXY(locCode) {
   if (positions[locCode]) {
     const p = positions[locCode];
     if (p.edge) return toXY(p.angle, edgeR);
-    if (p.ring) return toXY(p.angle, p.ring * ringSpacing);
+    if (p.ring) return toXY(p.angle, p.ring * (p.ring_mult || 1.0) * ringSpacing);
   }
 
   // L-point: use parent position + lpoint offset
@@ -296,7 +297,7 @@ function computeLocXY(locCode) {
   // Moon/child: use parent position
   if (loc.parent && positions[loc.parent]) {
     const pp = positions[loc.parent];
-    return toXY(pp.angle, pp.ring * ringSpacing);
+    return toXY(pp.angle, pp.ring * (pp.ring_mult || 1.0) * ringSpacing);
   }
 
   // Asteroid belt: use map_positions belt_radius if available
@@ -857,7 +858,8 @@ function drawSystemMap(canvas, system, opts = {}) {
 
   // Helper: compute L-point XY from parent planet position
   function lpointXY(parentPos, lp) {
-    const radius = parentPos.ring * ringSpacing;
+    const rm = parentPos.ring_mult || 1.0;
+    const radius = parentPos.ring * rm * ringSpacing;
     let lAngle, lRadius;
     if (lp === 1) { lAngle = parentPos.angle; lRadius = radius - ringSpacing * 0.3; }
     else if (lp === 2) { lAngle = parentPos.angle; lRadius = radius + ringSpacing * 0.3; }
@@ -913,7 +915,7 @@ function drawSystemMap(canvas, system, opts = {}) {
     if (loc.type === 'ring' && loc.parent) {
       const parentPos = positions[loc.parent];
       if (parentPos?.ring) {
-        const pp = toXY(parentPos.angle, parentPos.ring * ringSpacing);
+        const pp = toXY(parentPos.angle, parentPos.ring * (parentPos.ring_mult || 1.0) * ringSpacing);
         ctx.beginPath(); ctx.arc(pp.x, pp.y, s(size * 0.03), 0, Math.PI * 2);
         ctx.strokeStyle = MAP_COLORS.ring; ctx.lineWidth = 2; ctx.stroke();
         posMap[code] = pp;
@@ -927,12 +929,29 @@ function drawSystemMap(canvas, system, opts = {}) {
     if (pos.edge) continue;
     if (pos.belt_radius) continue; // belts drawn separately
     if (!pos.ring) continue; // safety: skip malformed entries
-    const radius = pos.ring * ringSpacing;
+    const ringMult = pos.ring_mult || 1.0;
+    const radius = pos.ring * ringMult * ringSpacing;
     const {x, y} = toXY(pos.angle, radius);
+
+    const loc = locations[code];
+    const isGate = loc?.type === 'gate' || code.includes('GATE');
+
+    if (isGate) {
+      // Gate on non-edge ring — still render as gate
+      const gR = s(size * 0.008);
+      ctx.beginPath(); ctx.arc(x, y, gR, 0, Math.PI * 2);
+      ctx.strokeStyle = MAP_COLORS.gate; ctx.lineWidth = 2; ctx.stroke();
+      ctx.beginPath(); ctx.arc(x, y, gR * 0.4, 0, Math.PI * 2);
+      ctx.fillStyle = MAP_COLORS.gate; ctx.fill();
+      drawLabel(loc?.display_name || code, x, y - gR - 4, `600 ${s(size * 0.013)}px Rajdhani`, MAP_COLORS.gate);
+      posMap[code] = {x, y};
+      hitAreas.push({x, y, r: gR + 3, code, type: 'gate', data: {
+        name: loc?.display_name || code, destination: ''}});
+      continue;
+    }
 
     if (pos.station) {
       const stR = s(size * 0.008);
-      const loc = locations[code];
       const isRef = loc?.has_refinery;
       ctx.fillStyle = isRef ? MAP_COLORS.station : MAP_COLORS.lagrange;
       ctx.fillRect(x - stR, y - stR, stR * 2, stR * 2);
@@ -1157,12 +1176,15 @@ function toggleInlineMap(locCode, selectedOres, clickedRow) {
     routes.push({fromCode: locCode, toCode: refs.best.code, color: MAP_COLORS.routeBest, dashed: false,
       label: fmtRefLabel(refs.best.name, refs.best.yield)});
   } else if (refs.nearest && refs.nearest.code !== locCode) {
-    if (refs.best && refs.nearest.name !== refs.best.name && refs.nearest.yield != null && refs.best.yield != null) {
+    const yieldDelta = (refs.best?.yield ?? 0) - (refs.nearest?.yield ?? 0);
+    if (refs.best && refs.nearest.name !== refs.best.name && yieldDelta > 2) {
+      // Meaningful difference — show both routes
       routes.push({fromCode: locCode, toCode: refs.nearest.code, color: MAP_COLORS.routeNearest, dashed: true,
         label: fmtRefLabel(refs.nearest.name, refs.nearest.yield)});
       routes.push({fromCode: locCode, toCode: refs.best.code, color: MAP_COLORS.routeBest, dashed: false,
         label: fmtRefLabel(refs.best.name, refs.best.yield)});
     } else {
+      // Nearest is good enough — single route
       const c = (refs.nearest.yield != null) ? MAP_COLORS.routeBest : MAP_COLORS.routeNearest;
       routes.push({fromCode: locCode, toCode: refs.nearest.code, color: c, dashed: refs.nearest.yield == null,
         label: fmtRefLabel(refs.nearest.name, refs.nearest.yield)});
@@ -1204,7 +1226,7 @@ function toggleInlineMap(locCode, selectedOres, clickedRow) {
       if (refs.nearest.yield != null) {
         info += `<div style="margin-bottom:2px"><span style="color:var(--green)">\u25CF</span> <strong>${nShort}</strong> ${fmtYield(refs.nearest.yield)} <span class="tag tag-best" style="font-size:8px">NEAREST+BEST</span></div>`;
       } else {
-        info += `<div style="margin-bottom:2px"><span style="color:var(--text-dim)">\u25CF</span> <strong>${nShort}</strong> <span class="mono v-na">nearest (no yield data)</span></div>`;
+        info += `<div style="margin-bottom:2px"><span style="color:var(--text-dim)">\u25CF</span> <strong>${nShort}</strong> <span class="mono" style="font-size:10px;color:var(--text-dim)">nearest (no bonus data)</span></div>`;
       }
     } else {
       info += `<div style="margin-bottom:2px"><span style="color:var(--text-dim)">\u25CF</span> <strong>${refs.nearest.name.split(' - ')[1] || refs.nearest.name}</strong> ${fmtYield(refs.nearest.yield)} <span style="font-size:10px;color:var(--text-dim)">nearest</span></div>`;
@@ -1295,31 +1317,27 @@ function initMapEvents() {
         const d = hit.data;
         html = `<div class="tt-title">${d.name}</div>`;
         if (d.note) html += `<div class="tt-sub">${d.note}</div>`;
-        // Planet's own ores (surface mining at the planet itself)
+        // Planet's own ores
         const planetOres = getOreAt(hit.code).slice(0, 5);
         if (planetOres.length) {
-          const conf = scanConf(d.scans);
           html += `<div class="tt-row">${d.scans} scans</div>`;
-          html += `<div style="margin:3px 0">${planetOres.map(o => `<span class="tt-ore" style="border-color:${conf === 'conf-high' ? 'var(--green)' : conf === 'conf-med' ? 'var(--yellow)' : 'var(--red)'}">${oreName(o.code)} ${(o.prob*100).toFixed(0)}%</span>`).join('')}</div>`;
+          html += `<div class="also-list" style="margin:3px 0">${planetOres.map(o => confChip(`${oreName(o.code)} ${(o.prob*100).toFixed(0)}%`, d.scans)).join('')}</div>`;
         } else if (d.scans) {
           html += `<div class="tt-row">Surface scans: ${d.scans}</div>`;
         }
         if (d.moons.length) {
           html += `<div class="tt-row" style="margin-top:4px;color:var(--accent)">Moons:</div>`;
           d.moons.forEach(m => {
-            const conf = scanConf(m.scans);
             const ores = getOreAt(m.code).slice(0, 3);
             html += `<div class="tt-row">${m.name} <span style="color:var(--text-dim)">${m.scans}sc</span></div>`;
-            if (ores.length) html += `<div>${ores.map(o => `<span class="tt-ore" style="border-color:${conf === 'conf-high' ? 'var(--green)' : conf === 'conf-med' ? 'var(--yellow)' : 'var(--red)'}">${oreName(o.code)} ${(o.prob*100).toFixed(0)}%</span>`).join('')}</div>`;
-            // Moon's child rings (e.g., Yela Belt under Yela)
+            if (ores.length) html += `<div class="also-list">${ores.map(o => confChip(`${oreName(o.code)} ${(o.prob*100).toFixed(0)}%`, m.scans)).join('')}</div>`;
             const moonRings = Object.entries(D.locations).filter(([, l]) => l.parent === m.code && l.type === 'ring');
             moonRings.forEach(([rc, rl]) => {
               const rScans = D.ore_locations[rc]?.scans || 0;
               if (!rScans) return;
-              const rConf = scanConf(rScans);
               const rOres = getOreAt(rc).slice(0, 3);
               html += `<div class="tt-row" style="padding-left:8px;color:var(--accent-bright)">\u2022 ${rl.display_name} <span style="color:var(--text-dim)">${rScans}sc</span></div>`;
-              if (rOres.length) html += `<div style="padding-left:8px">${rOres.map(o => `<span class="tt-ore" style="border-color:${rConf === 'conf-high' ? 'var(--green)' : rConf === 'conf-med' ? 'var(--yellow)' : 'var(--red)'}">${oreName(o.code)} ${(o.prob*100).toFixed(0)}%</span>`).join('')}</div>`;
+              if (rOres.length) html += `<div class="also-list" style="padding-left:8px">${rOres.map(o => confChip(`${oreName(o.code)} ${(o.prob*100).toFixed(0)}%`, rScans)).join('')}</div>`;
             });
           });
         }
@@ -1327,10 +1345,9 @@ function initMapEvents() {
           html += `<div class="tt-row" style="margin-top:4px;color:var(--accent)">Rings:</div>`;
           d.rings.forEach(r => {
             if (!r.scans) return;
-            const conf = scanConf(r.scans);
             const ores = getOreAt(r.code).slice(0, 3);
             html += `<div class="tt-row" style="margin-top:3px">${r.name} <span style="color:var(--text-dim)">${r.scans}sc</span></div>`;
-            if (ores.length) html += `<div>${ores.map(o => `<span class="tt-ore" style="border-color:${conf === 'conf-high' ? 'var(--green)' : conf === 'conf-med' ? 'var(--yellow)' : 'var(--red)'}">${oreName(o.code)} ${(o.prob*100).toFixed(0)}%</span>`).join('')}</div>`;
+            if (ores.length) html += `<div class="also-list">${ores.map(o => confChip(`${oreName(o.code)} ${(o.prob*100).toFixed(0)}%`, r.scans)).join('')}</div>`;
           });
         }
         if (d.lpoints.length) {
@@ -1345,16 +1362,13 @@ function initMapEvents() {
         if (hit.data.refinery) html += `<div class="tt-row" style="color:#3dd68c">Refinery</div>`;
         if (hit.data.scans) html += `<div class="tt-row">Scans: ${hit.data.scans}</div>`;
         const ores = getOreAt(hit.code).slice(0, 5);
-        if (ores.length) {
-          const conf = scanConf(hit.data.scans);
-          html += `<div style="margin-top:4px">${ores.map(o => `<span class="tt-ore" style="border-color:${conf === 'conf-high' ? 'var(--green)' : conf === 'conf-med' ? 'var(--yellow)' : 'var(--red)'}">${oreName(o.code)} ${(o.prob*100).toFixed(0)}%</span>`).join('')}</div>`;
-        }
+        if (ores.length) html += `<div class="also-list" style="margin-top:4px">${ores.map(o => confChip(`${oreName(o.code)} ${(o.prob*100).toFixed(0)}%`, hit.data.scans)).join('')}</div>`;
       } else if (hit.type === 'gate') {
         html = `<div class="tt-title">${hit.data.name}</div><div class="tt-row">Jump to ${hit.data.destination}</div>`;
-      } else if (hit.type === 'belt') {
+      } else if (hit.type === 'belt' || hit.type === 'node') {
         html = `<div class="tt-title">${hit.data.name}</div><div class="tt-row">Scans: ${hit.data.scans}</div>`;
         const ores = getOreAt(hit.code).slice(0, 5);
-        if (ores.length) html += `<div style="margin-top:4px">${ores.map(o => `<span class="tt-ore" style="border-color:var(--accent)">${oreName(o.code)} ${(o.prob*100).toFixed(0)}%</span>`).join('')}</div>`;
+        if (ores.length) html += `<div class="also-list" style="margin-top:4px">${ores.map(o => confChip(`${oreName(o.code)} ${(o.prob*100).toFixed(0)}%`, hit.data.scans)).join('')}</div>`;
       }
 
       tooltip.innerHTML = html;
