@@ -426,7 +426,7 @@ function renderMapEditor() {
     if (loc.system !== mapSys || loc.type !== 'ring' || !loc.parent) continue;
     const parentPos = positions[loc.parent];
     if (!parentPos?.ring) continue;
-    const pp = toXY(parentPos.angle, parentPos.ring * ringSpacing);
+    const pp = toXY(parentPos.angle, parentPos.ring * (parentPos.ring_mult || 1.0) * ringSpacing);
     ctx.beginPath(); ctx.arc(pp.x, pp.y, s(size*0.03), 0, Math.PI*2);
     ctx.strokeStyle = MC.ring; ctx.lineWidth = 2; ctx.stroke();
     ctx.font = `500 ${s(size*0.009)}px 'Share Tech Mono'`; ctx.fillStyle = MC.ring;
@@ -439,24 +439,25 @@ function renderMapEditor() {
     if (pos.belt_radius) continue; // belts drawn separately above
     let x, y;
     if (pos.edge) { ({x,y} = toXY(pos.angle, edgeR)); }
-    else { ({x,y} = toXY(pos.angle, pos.ring * ringSpacing)); }
+    else { ({x,y} = toXY(pos.angle, pos.ring * (pos.ring_mult || 1.0) * ringSpacing)); }
 
     const isSel = selectedNode === code;
     const loc = locations[code];
     const planet = planets[code];
     const isRef = loc?.has_refinery;
+    const isGate = loc?.type === 'gate' || code.includes('GATE');
     const label = planet?.name || loc?.display_name || code;
 
     let nodeR;
-    if (pos.station) {
-      nodeR = s(size*0.008);
-      ctx.fillStyle = isRef ? MC.refinery : MC.lagrange;
-      ctx.fillRect(x-nodeR, y-nodeR, nodeR*2, nodeR*2);
-    } else if (pos.edge) {
+    if (isGate && !pos.station) {
       nodeR = s(size*0.008);
       ctx.beginPath(); ctx.arc(x, y, nodeR, 0, Math.PI*2);
       ctx.strokeStyle = MC.gate; ctx.lineWidth = 2; ctx.stroke();
       ctx.beginPath(); ctx.arc(x, y, nodeR*0.4, 0, Math.PI*2); ctx.fillStyle = MC.gate; ctx.fill();
+    } else if (pos.station) {
+      nodeR = s(size*0.008);
+      ctx.fillStyle = isRef ? MC.refinery : MC.lagrange;
+      ctx.fillRect(x-nodeR, y-nodeR, nodeR*2, nodeR*2);
     } else if (planet) {
       nodeR = s(size*0.018);
       ctx.beginPath(); ctx.arc(x, y, nodeR, 0, Math.PI*2); ctx.fillStyle = MC.planet; ctx.fill();
@@ -505,7 +506,7 @@ function renderMapEditor() {
       const lpR = s(size*0.005);
       lpoints.forEach(([lcode, lloc]) => {
         const lp = lloc.lpoint; if (!lp) return;
-        const r = pos.ring * ringSpacing;
+        const r = pos.ring * (pos.ring_mult || 1.0) * ringSpacing;
         let la, lr;
         if (lp===1){la=pos.angle;lr=r-ringSpacing*0.3}
         else if(lp===2){la=pos.angle;lr=r+ringSpacing*0.3}
@@ -594,6 +595,7 @@ function renderNodeProps() {
     if (!pos.edge) {
       html += `<div class="prop-row"><span class="prop-label">Angle</span><input type="number" value="${pos.angle||0}" min="0" max="360" onchange="updatePos('${code}','angle',+this.value)"><span class="mono" style="color:var(--text-dim);margin-left:4px">\u00B0</span></div>`;
       html += `<div class="prop-row"><span class="prop-label">Ring</span><input type="number" value="${pos.ring||1}" min="1" max="20" onchange="updatePos('${code}','ring',+this.value)"></div>`;
+      html += `<div class="prop-row"><span class="prop-label">Dist</span><input type="number" value="${pos.ring_mult||1.0}" min="0.3" max="3.0" step="0.05" onchange="updatePos('${code}','ring_mult',+this.value||undefined)"><span class="mono" style="color:var(--text-dim);margin-left:4px;font-size:10px">\u00D7 (1.0=normal)</span></div>`;
     } else {
       html += `<div class="prop-row"><span class="prop-label">Angle</span><input type="number" value="${pos.angle||0}" min="0" max="360" onchange="updatePos('${code}','angle',+this.value)"><span class="mono" style="color:var(--text-dim);margin-left:4px">\u00B0 edge</span></div>`;
     }
