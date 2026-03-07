@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SC Hub Mining — Admin</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 :root {
   --bg-deep:#080a0e;--bg-panel:#0d1117;--bg-card:#151b24;--bg-input:#1a2030;--bg-hover:#1e2738;
@@ -91,6 +92,7 @@ td input:focus,td select:focus{outline:1px solid var(--accent)}
     <button class="nav-btn active" data-tab="map">Map Editor</button>
     <button class="nav-btn" data-tab="locations">Locations</button>
     <button class="nav-btn" data-tab="ores">Ores</button>
+    <button class="nav-btn" data-tab="equipment">Equipment</button>
     <button class="nav-btn" data-tab="settings">Settings</button>
     <button class="nav-btn" data-tab="io">Import / Export</button>
   </div>
@@ -162,6 +164,20 @@ td input:focus,td select:focus{outline:1px solid var(--accent)}
     <div class="tbl-wrap" id="ore-table"></div>
   </div>
 
+  <!-- EQUIPMENT -->
+  <div id="panel-equipment" class="panel">
+    <div class="section-title">// Mining Lasers (<span id="eq-laser-count">0</span>)</div>
+    <div style="font-size:11px;color:var(--text-dim);margin-bottom:8px">Power and range values are server-side — edit here when patch changes them. Modifier % values are auto-extracted from game XMLs.</div>
+    <div class="tbl-wrap" id="eq-laser-table" style="max-height:400px"></div>
+
+    <div class="section-title" style="margin-top:16px">// Mining Modules (<span id="eq-module-count">0</span>)</div>
+    <div style="font-size:11px;color:var(--text-dim);margin-bottom:8px">Power Mod and Extract Power Mod are server-side values shown in-game shop terminals.</div>
+    <div class="tbl-wrap" id="eq-module-table" style="max-height:400px"></div>
+
+    <div class="section-title" style="margin-top:16px">// Mining Gadgets (<span id="eq-gadget-count">0</span>)</div>
+    <div class="tbl-wrap" id="eq-gadget-table" style="max-height:300px"></div>
+  </div>
+
   <!-- SETTINGS -->
   <div id="panel-settings" class="panel">
     <div class="section-title">// Meta Settings</div>
@@ -214,7 +230,8 @@ fetch('../data/mining_data.json')
 
 function onDataLoaded() {
   if (!D.map_positions) D.map_positions = {stanton:{},pyro:{},nyx:{}};
-  document.getElementById('status').textContent = `${Object.keys(D.locations||{}).length} locations, ${Object.keys(D.ores||{}).length} ores`;
+  const eqCount = D.equipment ? Object.keys(D.equipment.lasers||{}).length + Object.keys(D.equipment.modules||{}).length + Object.keys(D.equipment.gadgets||{}).length : 0;
+  document.getElementById('status').textContent = `${Object.keys(D.locations||{}).length} locations, ${Object.keys(D.ores||{}).length} ores${eqCount ? ', ' + eqCount + ' equipment' : ''}`;
   document.getElementById('status').className = 'header-status loaded';
   initAll();
 }
@@ -223,6 +240,7 @@ function initAll() {
   renderSettings();
   renderLocTable();
   renderOreTable();
+  renderEquipmentTables();
   renderMapEditor();
   renderUnplaced();
   const types = new Set(Object.values(D.locations).map(l => l.type));
@@ -337,6 +355,91 @@ function renderOreTable() {
 }
 
 // ============================================================
+// EQUIPMENT TABLES
+// ============================================================
+function renderEquipmentTables() {
+  if (!D || !D.equipment) {
+    document.getElementById('eq-laser-table').innerHTML = '<div style="color:var(--text-dim)">No equipment data. Run extraction with game files to populate.</div>';
+    document.getElementById('eq-module-table').innerHTML = '';
+    document.getElementById('eq-gadget-table').innerHTML = '';
+    return;
+  }
+  const eq = D.equipment;
+
+  // --- Lasers ---
+  const lasers = Object.entries(eq.lasers || {}).sort((a,b) => a[1].name.localeCompare(b[1].name));
+  document.getElementById('eq-laser-count').textContent = lasers.length;
+  let lh = '<table><thead><tr><th>Key</th><th>Name</th><th>S</th><th>Slots</th><th>Max Power</th><th>Min Power</th><th>Min Pwr%</th><th>Extract Pwr</th><th>Opt Range</th><th>Max Range</th><th>Resist%</th><th>Instab%</th><th>Window%</th><th>Filter%</th><th>Notes</th></tr></thead><tbody>';
+  lasers.forEach(([key, l]) => {
+    const ek = key.replace(/'/g, "\\'");
+    lh += `<tr>
+      <td class="mono" style="font-size:9px">${key}</td>
+      <td><input value="${l.name||''}" onchange="D.equipment.lasers['${ek}'].name=this.value" style="width:120px"></td>
+      <td class="mono" style="text-align:center">${l.size}</td>
+      <td class="mono" style="text-align:center">${l.module_slots}</td>
+      <td><input type="number" value="${l.max_power||0}" onchange="D.equipment.lasers['${ek}'].max_power=+this.value" style="width:60px"></td>
+      <td><input type="number" value="${l.min_power||0}" onchange="D.equipment.lasers['${ek}'].min_power=+this.value" style="width:60px"></td>
+      <td><input type="number" value="${l.min_power_pct||0}" onchange="D.equipment.lasers['${ek}'].min_power_pct=+this.value" style="width:40px"></td>
+      <td><input type="number" value="${l.extract_power||0}" onchange="D.equipment.lasers['${ek}'].extract_power=+this.value" style="width:60px"></td>
+      <td><input type="number" value="${l.optimum_range||0}" onchange="D.equipment.lasers['${ek}'].optimum_range=+this.value" style="width:40px"></td>
+      <td><input type="number" value="${l.max_range||0}" onchange="D.equipment.lasers['${ek}'].max_range=+this.value" style="width:40px"></td>
+      <td class="mono" style="color:${l.resistance<0?'var(--green)':l.resistance>0?'var(--red)':'var(--text-dim)'}">${l.resistance||0}%</td>
+      <td class="mono" style="color:${l.instability<0?'var(--green)':l.instability>0?'var(--red)':'var(--text-dim)'}">${l.instability||0}%</td>
+      <td class="mono">${l.optimal_window_size||0}%</td>
+      <td class="mono">${l.filter||0}%</td>
+      <td><input value="${l.notes||''}" onchange="D.equipment.lasers['${ek}'].notes=this.value" style="width:80px"></td>
+    </tr>`;
+  });
+  document.getElementById('eq-laser-table').innerHTML = lh + '</tbody></table>';
+
+  // --- Modules ---
+  const modules = Object.entries(eq.modules || {}).sort((a,b) => {
+    const typeOrder = {active:0, passive:1, vehicle:2};
+    const ta = typeOrder[a[1].type]??3, tb = typeOrder[b[1].type]??3;
+    return ta !== tb ? ta - tb : a[1].name.localeCompare(b[1].name);
+  });
+  document.getElementById('eq-module-count').textContent = modules.length;
+  let mh = '<table><thead><tr><th>Key</th><th>Name</th><th>Type</th><th>Power Mod%</th><th>Extract Pwr Mod%</th><th>Resist%</th><th>Instab%</th><th>Window%</th><th>Filter%</th><th>Lifetime</th><th>Notes</th></tr></thead><tbody>';
+  modules.forEach(([key, m]) => {
+    const ek = key.replace(/'/g, "\\'");
+    const typeColor = m.type==='active'?'var(--orange)':m.type==='vehicle'?'var(--cyan)':'var(--text-secondary)';
+    mh += `<tr>
+      <td class="mono" style="font-size:9px">${key}</td>
+      <td><input value="${m.name||''}" onchange="D.equipment.modules['${ek}'].name=this.value" style="width:100px"></td>
+      <td class="mono" style="color:${typeColor};font-size:10px">${m.type}</td>
+      <td><input type="number" value="${m.power_mod||0}" onchange="D.equipment.modules['${ek}'].power_mod=+this.value" style="width:50px"></td>
+      <td><input type="number" value="${m.extract_power_mod||0}" onchange="D.equipment.modules['${ek}'].extract_power_mod=+this.value" style="width:50px"></td>
+      <td class="mono" style="color:${m.resistance<0?'var(--green)':m.resistance>0?'var(--red)':'var(--text-dim)'}">${m.resistance||0}%</td>
+      <td class="mono" style="color:${m.instability<0?'var(--green)':m.instability>0?'var(--red)':'var(--text-dim)'}">${m.instability||0}%</td>
+      <td class="mono">${m.optimal_window_size||0}%</td>
+      <td class="mono">${m.filter||0}%</td>
+      <td class="mono" style="color:var(--text-dim)">${m.lifetime?m.lifetime+'s':''}</td>
+      <td><input value="${m.notes||''}" onchange="D.equipment.modules['${ek}'].notes=this.value" style="width:80px"></td>
+    </tr>`;
+  });
+  document.getElementById('eq-module-table').innerHTML = mh + '</tbody></table>';
+
+  // --- Gadgets ---
+  const gadgets = Object.entries(eq.gadgets || {}).sort((a,b) => a[1].name.localeCompare(b[1].name));
+  document.getElementById('eq-gadget-count').textContent = gadgets.length;
+  let gh = '<table><thead><tr><th>Key</th><th>Name</th><th>Resist%</th><th>Instab%</th><th>Window%</th><th>Window Rate%</th><th>Cluster%</th><th>Notes</th></tr></thead><tbody>';
+  gadgets.forEach(([key, g]) => {
+    const ek = key.replace(/'/g, "\\'");
+    gh += `<tr>
+      <td class="mono" style="font-size:9px">${key}</td>
+      <td><input value="${g.name||''}" onchange="D.equipment.gadgets['${ek}'].name=this.value" style="width:100px"></td>
+      <td class="mono" style="color:${g.resistance<0?'var(--green)':g.resistance>0?'var(--red)':'var(--text-dim)'}">${g.resistance||0}%</td>
+      <td class="mono" style="color:${g.instability<0?'var(--green)':g.instability>0?'var(--red)':'var(--text-dim)'}">${g.instability||0}%</td>
+      <td class="mono">${g.optimal_window_size||0}%</td>
+      <td class="mono">${g.optimal_window_rate||0}%</td>
+      <td class="mono" style="color:${g.cluster>0?'var(--green)':g.cluster<0?'var(--red)':'var(--text-dim)'}">${g.cluster||0}%</td>
+      <td><input value="${g.notes||''}" onchange="D.equipment.gadgets['${ek}'].notes=this.value" style="width:100px"></td>
+    </tr>`;
+  });
+  document.getElementById('eq-gadget-table').innerHTML = gh + '</tbody></table>';
+}
+
+// ============================================================
 // MAP EDITOR
 // ============================================================
 let editorHitAreas = []; // {x, y, r, code, draggable}
@@ -385,12 +488,20 @@ function renderMapEditor() {
     y: cy + Math.sin((angle-90)*Math.PI/180) * radius,
   });
 
+  // Per-ring multipliers
+  const ringMults = {};
+  for (const pos of Object.values(positions)) {
+    if (pos.ring && pos.ring_mult && pos.ring_mult !== 1.0) ringMults[pos.ring] = pos.ring_mult;
+  }
+  const getRingR = (r) => r * (ringMults[r] || 1.0) * ringSpacing;
+
   // Orbit rings with labels
   for (let r = 1; r <= maxRing; r++) {
-    ctx.beginPath(); ctx.arc(cx, cy, r*ringSpacing, 0, Math.PI*2);
+    const rr = getRingR(r);
+    ctx.beginPath(); ctx.arc(cx, cy, rr, 0, Math.PI*2);
     ctx.strokeStyle = MC.orbitLine; ctx.lineWidth = 1; ctx.stroke();
     ctx.font = `500 ${s(size*0.01)}px 'Share Tech Mono'`; ctx.fillStyle = 'rgba(77,201,246,0.15)';
-    ctx.textAlign = 'left'; ctx.fillText(`r${r}`, cx + r*ringSpacing + 3, cy - 2);
+    ctx.textAlign = 'left'; ctx.fillText(`r${r}`, cx + rr + 3, cy - 2);
   }
 
   // Edge ring
@@ -426,7 +537,7 @@ function renderMapEditor() {
     if (loc.system !== mapSys || loc.type !== 'ring' || !loc.parent) continue;
     const parentPos = positions[loc.parent];
     if (!parentPos?.ring) continue;
-    const pp = toXY(parentPos.angle, parentPos.ring * (parentPos.ring_mult || 1.0) * ringSpacing);
+    const pp = toXY(parentPos.angle, getRingR(parentPos.ring));
     ctx.beginPath(); ctx.arc(pp.x, pp.y, s(size*0.03), 0, Math.PI*2);
     ctx.strokeStyle = MC.ring; ctx.lineWidth = 2; ctx.stroke();
     ctx.font = `500 ${s(size*0.009)}px 'Share Tech Mono'`; ctx.fillStyle = MC.ring;
@@ -439,7 +550,7 @@ function renderMapEditor() {
     if (pos.belt_radius) continue; // belts drawn separately above
     let x, y;
     if (pos.edge) { ({x,y} = toXY(pos.angle, edgeR)); }
-    else { ({x,y} = toXY(pos.angle, pos.ring * (pos.ring_mult || 1.0) * ringSpacing)); }
+    else { ({x,y} = toXY(pos.angle, getRingR(pos.ring))); }
 
     const isSel = selectedNode === code;
     const loc = locations[code];
@@ -506,13 +617,13 @@ function renderMapEditor() {
       const lpR = s(size*0.005);
       lpoints.forEach(([lcode, lloc]) => {
         const lp = lloc.lpoint; if (!lp) return;
-        const r = pos.ring * (pos.ring_mult || 1.0) * ringSpacing;
+        const r = getRingR(pos.ring);
         let la, lr;
         if (lp===1){la=pos.angle;lr=r-ringSpacing*0.3}
         else if(lp===2){la=pos.angle;lr=r+ringSpacing*0.3}
         else if(lp===3){la=pos.angle+180;lr=r}
-        else if(lp===4){la=pos.angle+60;lr=r}
-        else if(lp===5){la=pos.angle-60;lr=r}
+        else if(lp===4){la=pos.angle-60;lr=r}
+        else if(lp===5){la=pos.angle+60;lr=r}
         else return;
         const lpos = toXY(la, lr);
         const lIsRef = lloc.has_refinery;

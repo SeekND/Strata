@@ -264,20 +264,26 @@ function computeLocXY(locCode) {
   const ringSpacing = (size * (cfgC.ring_scale || 36) / 100) / (maxRing + 0.5);
   const edgeR = size * (cfgC.edge_scale || 46) / 100;
 
+  // Build per-ring multipliers (same as drawSystemMap)
+  const ringMults = {};
+  for (const pos of Object.values(positions)) {
+    if (pos.ring && pos.ring_mult && pos.ring_mult !== 1.0) ringMults[pos.ring] = pos.ring_mult;
+  }
+  const getRingR = (r) => r * (ringMults[r] || 1.0) * ringSpacing;
+
   const toXY = (angle, radius) => ({
     x: cx + Math.cos((angle - 90) * Math.PI / 180) * radius,
     y: cy + Math.sin((angle - 90) * Math.PI / 180) * radius,
   });
 
   const lpointXY = (parentPos, lp) => {
-    const rm = parentPos.ring_mult || 1.0;
-    const r = parentPos.ring * rm * ringSpacing;
+    const r = getRingR(parentPos.ring);
     let a, lr;
     if (lp === 1) { a = parentPos.angle; lr = r - ringSpacing * 0.3; }
     else if (lp === 2) { a = parentPos.angle; lr = r + ringSpacing * 0.3; }
     else if (lp === 3) { a = parentPos.angle + 180; lr = r; }
-    else if (lp === 4) { a = parentPos.angle + 60; lr = r; }
-    else if (lp === 5) { a = parentPos.angle - 60; lr = r; }
+    else if (lp === 4) { a = parentPos.angle - 60; lr = r; }
+    else if (lp === 5) { a = parentPos.angle + 60; lr = r; }
     else return null;
     return toXY(a, lr);
   };
@@ -286,7 +292,7 @@ function computeLocXY(locCode) {
   if (positions[locCode]) {
     const p = positions[locCode];
     if (p.edge) return toXY(p.angle, edgeR);
-    if (p.ring) return toXY(p.angle, p.ring * (p.ring_mult || 1.0) * ringSpacing);
+    if (p.ring) return toXY(p.angle, getRingR(p.ring));
   }
 
   // L-point: use parent position + lpoint offset
@@ -297,7 +303,7 @@ function computeLocXY(locCode) {
   // Moon/child: use parent position
   if (loc.parent && positions[loc.parent]) {
     const pp = positions[loc.parent];
-    return toXY(pp.angle, pp.ring * (pp.ring_mult || 1.0) * ringSpacing);
+    return toXY(pp.angle, getRingR(pp.ring));
   }
 
   // Asteroid belt: use map_positions belt_radius if available
@@ -327,20 +333,22 @@ function computeLocXY(locCode) {
 
 /**
  * Find nearest + best refineries for an ore at a location, using map distance.
- * Returns {nearest, best, isBelt}
- * - If ore has no yield data at any station, nearest is by distance only (yield=null)
- * - For asteroid belts (Aaron Halo, Glaciem Ring): nearest=null, only best returned
- * - For belts with no yield data: best is nearest across all same-system stations
+ * Returns {nearest, best, selfYield, isBelt}
+ * - nearest: closest refinery that is NOT the location itself
+ * - best: highest yield refinery (prefers nearest when yields tie)
+ * - selfYield: if location IS a refinery, its yield for this ore (or null)
+ * - For belts: nearest=null, only best
  */
 function findRefineries(locCode, oreCode) {
   const loc = D.locations[locCode];
-  if (!loc) return {nearest: null, best: null, isBelt: false};
+  if (!loc) return {nearest: null, best: null, selfYield: null, isBelt: false};
   const sys = loc.system;
   const locXY = computeLocXY(locCode);
   const isBelt = loc.type === 'asteroid_belt';
 
   // Collect all same-system refineries with distance
   const allRefs = [];
+  let selfYield = null;
   for (const [sname, sdata] of Object.entries(D.refineries.stations)) {
     if (sdata.system !== sys) continue;
     const refCode = refStationToLocCode(sname);
@@ -349,22 +357,31 @@ function findRefineries(locCode, oreCode) {
       ? Math.sqrt((locXY.x - refXY.x) ** 2 + (locXY.y - refXY.y) ** 2)
       : 9999;
     const y = sdata.yields[oreCode]?.value ?? null;
+
+    // If this station IS our location, record selfYield but don't add to candidates
+    if (refCode === locCode) {
+      selfYield = y;
+      continue;
+    }
     allRefs.push({name: sname, yield: y, code: refCode, dist});
   }
 
-  if (allRefs.length === 0) return {nearest: null, best: null, isBelt};
+  if (allRefs.length === 0) return {nearest: null, best: null, selfYield, isBelt};
 
-  // Nearest by distance (skip for belts)
+  // Nearest by distance (skip for belts) — always from other stations
   let nearest = null;
   if (!isBelt) {
     nearest = allRefs.reduce((a, b) => a.dist < b.dist ? a : b);
   }
 
-  // Best by yield (only among those with yield data)
+  // Best by yield — prefer nearest when yields are equal
   const withYield = allRefs.filter(r => r.yield != null);
   let best = null;
   if (withYield.length > 0) {
-    best = withYield.reduce((a, b) => a.yield > b.yield ? a : b);
+    best = withYield.reduce((a, b) => {
+      if (a.yield === b.yield) return a.dist < b.dist ? a : b; // tie-break by distance
+      return a.yield > b.yield ? a : b;
+    });
   }
 
   // Belt fallback: if no yield data, pick closest as "best"
@@ -372,7 +389,7 @@ function findRefineries(locCode, oreCode) {
     best = allRefs.reduce((a, b) => a.dist < b.dist ? a : b);
   }
 
-  return {nearest, best, isBelt};
+  return {nearest, best, selfYield, isBelt};
 }
 
 // ============================================================
@@ -597,27 +614,29 @@ function renderFinderResults() {
     const refs = findRefineries(row.code, primaryOre);
     let locCell = `<div><span class="loc-map-btn" data-loc="${row.code}">\u{1F5FA}\uFE0F</span> ${locDisplayName(row.code)} ${signalIcon(row.code, selectedOres)}</div>`;
     if (refs.isBelt && refs.best) {
-      // Asteroid belt — no nearest, just best
       const bShort = refs.best.name.split(' - ')[1] || refs.best.name;
-      if (refs.best.yield != null) {
-        locCell += `<div class="delta-box" style="border-color:var(--green)"><span style="color:var(--green)">${bShort}</span> ${fmtYield(refs.best.yield)} <span class="tag tag-best" style="font-size:8px">BEST</span></div>`;
+      locCell += `<div class="delta-box" style="border-color:var(--green)"><span style="color:var(--green)">${bShort}</span> ${refs.best.yield != null ? fmtYield(refs.best.yield) : ''} <span class="tag tag-best" style="font-size:8px">BEST</span></div>`;
+    } else if (refs.selfYield != null && refs.best) {
+      // Location IS a refinery — show self yield + best if meaningfully better
+      const bestDelta = refs.best.yield - refs.selfYield;
+      if (bestDelta > 2) {
+        const bShort = refs.best.name.split(' - ')[1] || refs.best.name;
+        locCell += `<div class="delta-box"><span style="color:var(--text-dim)">Here</span> ${fmtYield(refs.selfYield)} <span class="delta-arrow">\u2192</span> <span style="color:var(--green)">${bShort}</span> ${fmtYield(refs.best.yield)} <span class="delta-gain">(+${bestDelta}%)</span></div>`;
       } else {
-        locCell += `<div class="delta-box"><span style="color:var(--text-secondary)">${bShort}</span> <span class="mono v-na">closest</span></div>`;
+        locCell += `<div class="delta-box" style="border-color:var(--green)"><span style="color:var(--green)">Refine here</span> ${fmtYield(refs.selfYield)}</div>`;
       }
     } else if (refs.nearest && refs.best && refs.best.name !== refs.nearest.name && refs.nearest.yield != null && refs.best.yield != null && refs.best.yield - refs.nearest.yield > 2) {
-      // Different stations, meaningful yield delta
       const delta = refs.best.yield - refs.nearest.yield;
       const nShort = refs.nearest.name.split(' - ')[1] || refs.nearest.name;
       const bShort = refs.best.name.split(' - ')[1] || refs.best.name;
       locCell += `<div class="delta-box"><span style="color:var(--text-dim)">${nShort}</span> ${fmtYield(refs.nearest.yield)} <span class="delta-arrow">\u2192</span> <span style="color:var(--green)">${bShort}</span> ${fmtYield(refs.best.yield)} <span class="delta-gain">(+${delta}%)</span></div>`;
     } else if (refs.nearest) {
-      // Nearest only (same as best, or no yield data, or delta too small)
       const nShort = refs.nearest.name.split(' - ')[1] || refs.nearest.name;
       if (refs.nearest.yield != null) {
         const isSameAsBest = !refs.best || refs.nearest.name === refs.best.name;
         locCell += `<div class="delta-box" style="border-color:var(--green)"><span style="color:var(--green)">${nShort}</span> ${fmtYield(refs.nearest.yield)}${isSameAsBest ? ' <span class="tag tag-best" style="font-size:8px">NEAREST+BEST</span>' : ''}</div>`;
       } else {
-        locCell += `<div class="delta-box"><span style="color:var(--text-secondary)">${nShort}</span> <span class="mono" style="font-size:10px;color:var(--text-dim)">nearest</span></div>`;
+        locCell += `<div class="delta-box"><span style="color:var(--text-secondary)">${nShort}</span> <span style="font-size:10px;color:var(--text-dim)">nearest refinery</span></div>`;
       }
     }
     html += `<td>${locCell}</td>`;
@@ -858,14 +877,13 @@ function drawSystemMap(canvas, system, opts = {}) {
 
   // Helper: compute L-point XY from parent planet position
   function lpointXY(parentPos, lp) {
-    const rm = parentPos.ring_mult || 1.0;
-    const radius = parentPos.ring * rm * ringSpacing;
+    const radius = getRingR(parentPos.ring);
     let lAngle, lRadius;
     if (lp === 1) { lAngle = parentPos.angle; lRadius = radius - ringSpacing * 0.3; }
     else if (lp === 2) { lAngle = parentPos.angle; lRadius = radius + ringSpacing * 0.3; }
     else if (lp === 3) { lAngle = parentPos.angle + 180; lRadius = radius; }
-    else if (lp === 4) { lAngle = parentPos.angle + 60; lRadius = radius; }
-    else if (lp === 5) { lAngle = parentPos.angle - 60; lRadius = radius; }
+    else if (lp === 4) { lAngle = parentPos.angle - 60; lRadius = radius; }
+    else if (lp === 5) { lAngle = parentPos.angle + 60; lRadius = radius; }
     else return null;
     return toXY(lAngle, lRadius);
   }
@@ -882,9 +900,18 @@ function drawSystemMap(canvas, system, opts = {}) {
     ctx.fillText(text, x, y);
   };
 
-  // Orbit rings
+  // Build per-ring multipliers from positioned nodes
+  const ringMults = {};
+  for (const pos of Object.values(positions)) {
+    if (pos.ring && pos.ring_mult && pos.ring_mult !== 1.0) {
+      ringMults[pos.ring] = pos.ring_mult;
+    }
+  }
+  const getRingR = (r) => r * (ringMults[r] || 1.0) * ringSpacing;
+
+  // Orbit rings (using per-ring multipliers)
   for (let r = 1; r <= maxRing; r++) {
-    ctx.beginPath(); ctx.arc(cx, cy, r * ringSpacing, 0, Math.PI * 2);
+    ctx.beginPath(); ctx.arc(cx, cy, getRingR(r), 0, Math.PI * 2);
     ctx.strokeStyle = MAP_COLORS.orbitLine; ctx.lineWidth = 1; ctx.stroke();
   }
 
@@ -915,7 +942,7 @@ function drawSystemMap(canvas, system, opts = {}) {
     if (loc.type === 'ring' && loc.parent) {
       const parentPos = positions[loc.parent];
       if (parentPos?.ring) {
-        const pp = toXY(parentPos.angle, parentPos.ring * (parentPos.ring_mult || 1.0) * ringSpacing);
+        const pp = toXY(parentPos.angle, getRingR(parentPos.ring));
         ctx.beginPath(); ctx.arc(pp.x, pp.y, s(size * 0.03), 0, Math.PI * 2);
         ctx.strokeStyle = MAP_COLORS.ring; ctx.lineWidth = 2; ctx.stroke();
         posMap[code] = pp;
@@ -929,24 +956,23 @@ function drawSystemMap(canvas, system, opts = {}) {
     if (pos.edge) continue;
     if (pos.belt_radius) continue; // belts drawn separately
     if (!pos.ring) continue; // safety: skip malformed entries
-    const ringMult = pos.ring_mult || 1.0;
-    const radius = pos.ring * ringMult * ringSpacing;
+    const radius = getRingR(pos.ring);
     const {x, y} = toXY(pos.angle, radius);
 
     const loc = locations[code];
     const isGate = loc?.type === 'gate' || code.includes('GATE');
 
     if (isGate) {
-      // Gate on non-edge ring — still render as gate
       const gR = s(size * 0.008);
+      const gateHasRef = loc?.has_refinery || Object.keys(D.refineries.stations).some(sn => sn.includes(loc?.display_name || code));
       ctx.beginPath(); ctx.arc(x, y, gR, 0, Math.PI * 2);
-      ctx.strokeStyle = MAP_COLORS.gate; ctx.lineWidth = 2; ctx.stroke();
+      ctx.strokeStyle = gateHasRef ? MAP_COLORS.refinery : MAP_COLORS.gate; ctx.lineWidth = 2; ctx.stroke();
       ctx.beginPath(); ctx.arc(x, y, gR * 0.4, 0, Math.PI * 2);
-      ctx.fillStyle = MAP_COLORS.gate; ctx.fill();
-      drawLabel(loc?.display_name || code, x, y - gR - 4, `600 ${s(size * 0.013)}px Rajdhani`, MAP_COLORS.gate);
+      ctx.fillStyle = gateHasRef ? MAP_COLORS.refinery : MAP_COLORS.gate; ctx.fill();
+      drawLabel(loc?.display_name || code, x, y - gR - 4, `600 ${s(size * 0.013)}px Rajdhani`, gateHasRef ? MAP_COLORS.refinery : MAP_COLORS.gate);
       posMap[code] = {x, y};
       hitAreas.push({x, y, r: gR + 3, code, type: 'gate', data: {
-        name: loc?.display_name || code, destination: ''}});
+        name: loc?.display_name || code, destination: '', refinery: gateHasRef, scans: D.ore_locations[code]?.scans || 0}});
       continue;
     }
 
@@ -1031,22 +1057,27 @@ function drawSystemMap(canvas, system, opts = {}) {
     }
     if (!posKey) continue;
     const gp = toXY(positions[posKey].angle, edgeR);
+    // Check if this gateway has a refinery
+    const gwRefinery = Object.keys(D.refineries.stations).some(sn =>
+      sn.toLowerCase().includes(gate.name.toLowerCase()) ||
+      sn.toLowerCase().includes(gate.destination.toLowerCase() + ' gateway'));
+    const gwColor = gwRefinery ? MAP_COLORS.refinery : MAP_COLORS.gate;
     ctx.beginPath(); ctx.arc(gp.x, gp.y, gateR, 0, Math.PI * 2);
-    ctx.strokeStyle = MAP_COLORS.gate; ctx.lineWidth = 2; ctx.stroke();
+    ctx.strokeStyle = gwColor; ctx.lineWidth = 2; ctx.stroke();
     ctx.beginPath(); ctx.arc(gp.x, gp.y, gateR * 0.4, 0, Math.PI * 2);
-    ctx.fillStyle = MAP_COLORS.gate; ctx.fill();
-    drawLabel(`${gate.destination} GW`, gp.x, gp.y - gateR - 4, `600 ${s(size * 0.013)}px Rajdhani`, MAP_COLORS.gate);
+    ctx.fillStyle = gwColor; ctx.fill();
+    drawLabel(`${gate.destination} GW`, gp.x, gp.y - gateR - 4, `600 ${s(size * 0.013)}px Rajdhani`, gwColor);
     // Map gate location codes too (gateway names in locations)
     const gwLocCode = Object.keys(locations).find(k => {
       const l = locations[k];
       return l.system === system && l.type === 'gate' && l.display_name?.toLowerCase().includes(gate.destination.toLowerCase());
     });
     if (gwLocCode) posMap[gwLocCode] = gp;
-    // Also try matching by the refinery station name pattern
     const gwKey = `${gate.destination.toUpperCase()}_GATE`;
     posMap[gwKey] = gp;
-    hitAreas.push({x: gp.x, y: gp.y, r: gateR + 3, code: gkey, type: 'gate', data: {
-      name: gate.name, destination: gate.destination}});
+    const gwScans = D.ore_locations[gwKey]?.scans || D.ore_locations[gwLocCode]?.scans || 0;
+    hitAreas.push({x: gp.x, y: gp.y, r: gateR + 3, code: gwKey || gkey, type: 'gate', data: {
+      name: gate.name, destination: gate.destination, refinery: gwRefinery, scans: gwScans}});
   }
 
   // ---- Resolve missing positions via parent chain ----
@@ -1166,25 +1197,31 @@ function toggleInlineMap(locCode, selectedOres, clickedRow) {
   const primaryOre = selectedOres[0];
   const refs = findRefineries(locCode, primaryOre);
 
-  // Build routes
+  // Build routes + info panel
   const routes = [];
   const fmtRefLabel = (name, y) => {
     const short = name.split(' - ')[1] || name;
     return y != null ? `${short} ${y > 0 ? '+' : ''}${y}%` : short;
   };
+
   if (refs.isBelt && refs.best) {
     routes.push({fromCode: locCode, toCode: refs.best.code, color: MAP_COLORS.routeBest, dashed: false,
       label: fmtRefLabel(refs.best.name, refs.best.yield)});
-  } else if (refs.nearest && refs.nearest.code !== locCode) {
+  } else if (refs.selfYield != null) {
+    // Location IS a refinery — only route to best if meaningfully better
+    if (refs.best && refs.best.yield - refs.selfYield > 2) {
+      routes.push({fromCode: locCode, toCode: refs.best.code, color: MAP_COLORS.routeBest, dashed: false,
+        label: fmtRefLabel(refs.best.name, refs.best.yield)});
+    }
+  } else if (refs.nearest) {
+    // Normal location
     const yieldDelta = (refs.best?.yield ?? 0) - (refs.nearest?.yield ?? 0);
     if (refs.best && refs.nearest.name !== refs.best.name && yieldDelta > 2) {
-      // Meaningful difference — show both routes
       routes.push({fromCode: locCode, toCode: refs.nearest.code, color: MAP_COLORS.routeNearest, dashed: true,
         label: fmtRefLabel(refs.nearest.name, refs.nearest.yield)});
       routes.push({fromCode: locCode, toCode: refs.best.code, color: MAP_COLORS.routeBest, dashed: false,
         label: fmtRefLabel(refs.best.name, refs.best.yield)});
     } else {
-      // Nearest is good enough — single route
       const c = (refs.nearest.yield != null) ? MAP_COLORS.routeBest : MAP_COLORS.routeNearest;
       routes.push({fromCode: locCode, toCode: refs.nearest.code, color: c, dashed: refs.nearest.yield == null,
         label: fmtRefLabel(refs.nearest.name, refs.nearest.yield)});
@@ -1214,22 +1251,22 @@ function toggleInlineMap(locCode, selectedOres, clickedRow) {
   if (refs.isBelt && refs.best) {
     info += '<div class="sig-tt-title" style="font-size:9px;margin-top:6px">Refinery</div>';
     const bShort = refs.best.name.split(' - ')[1] || refs.best.name;
-    if (refs.best.yield != null) {
-      info += `<div style="margin-bottom:2px"><span style="color:var(--green)">\u25CF</span> <strong>${bShort}</strong> ${fmtYield(refs.best.yield)} <span class="tag tag-best" style="font-size:8px">BEST</span></div>`;
-    } else {
-      info += `<div style="margin-bottom:2px"><span style="color:var(--text-secondary)">\u25CF</span> <strong>${bShort}</strong> <span class="mono" style="font-size:10px;color:var(--text-dim)">closest</span></div>`;
+    info += `<div style="margin-bottom:2px"><span style="color:var(--green)">\u25CF</span> <strong>${bShort}</strong> ${refs.best.yield != null ? fmtYield(refs.best.yield) : ''} <span class="tag tag-best" style="font-size:8px">BEST</span></div>`;
+  } else if (refs.selfYield != null) {
+    info += '<div class="sig-tt-title" style="font-size:9px;margin-top:6px">Refinery</div>';
+    info += `<div style="margin-bottom:2px"><span style="color:var(--green)">\u25CF</span> <strong>Refine here</strong> ${fmtYield(refs.selfYield)}</div>`;
+    if (refs.best && refs.best.yield - refs.selfYield > 2) {
+      const delta = refs.best.yield - refs.selfYield;
+      info += `<div style="margin-bottom:2px"><span style="color:var(--green)">\u25CF</span> <strong>${refs.best.name.split(' - ')[1] || refs.best.name}</strong> ${fmtYield(refs.best.yield)} <span style="font-size:10px;color:var(--green)">best</span> <span class="delta-gain" style="font-size:11px">(+${delta}% more)</span></div>`;
     }
   } else if (refs.nearest) {
     info += '<div class="sig-tt-title" style="font-size:9px;margin-top:6px">Refinery Route</div>';
-    if (refs.nearest.name === refs.best?.name || !refs.best) {
-      const nShort = refs.nearest.name.split(' - ')[1] || refs.nearest.name;
-      if (refs.nearest.yield != null) {
-        info += `<div style="margin-bottom:2px"><span style="color:var(--green)">\u25CF</span> <strong>${nShort}</strong> ${fmtYield(refs.nearest.yield)} <span class="tag tag-best" style="font-size:8px">NEAREST+BEST</span></div>`;
-      } else {
-        info += `<div style="margin-bottom:2px"><span style="color:var(--text-dim)">\u25CF</span> <strong>${nShort}</strong> <span class="mono" style="font-size:10px;color:var(--text-dim)">nearest (no bonus data)</span></div>`;
-      }
+    const nShort = refs.nearest.name.split(' - ')[1] || refs.nearest.name;
+    const isSameAsBest = !refs.best || refs.nearest.name === refs.best.name;
+    if (isSameAsBest) {
+      info += `<div style="margin-bottom:2px"><span style="color:var(--green)">\u25CF</span> <strong>${nShort}</strong> ${refs.nearest.yield != null ? fmtYield(refs.nearest.yield) : ''} <span class="tag tag-best" style="font-size:8px">NEAREST+BEST</span></div>`;
     } else {
-      info += `<div style="margin-bottom:2px"><span style="color:var(--text-dim)">\u25CF</span> <strong>${refs.nearest.name.split(' - ')[1] || refs.nearest.name}</strong> ${fmtYield(refs.nearest.yield)} <span style="font-size:10px;color:var(--text-dim)">nearest</span></div>`;
+      info += `<div style="margin-bottom:2px"><span style="color:var(--text-dim)">\u25CF</span> <strong>${nShort}</strong> ${refs.nearest.yield != null ? fmtYield(refs.nearest.yield) : ''} <span style="font-size:10px;color:var(--text-dim)">nearest</span></div>`;
       if (refs.best) {
         const delta = (refs.nearest.yield != null && refs.best.yield != null) ? refs.best.yield - refs.nearest.yield : 0;
         info += `<div style="margin-bottom:2px"><span style="color:var(--green)">\u25CF</span> <strong>${refs.best.name.split(' - ')[1] || refs.best.name}</strong> ${fmtYield(refs.best.yield)} <span style="font-size:10px;color:var(--green)">best</span>`;
@@ -1237,8 +1274,8 @@ function toggleInlineMap(locCode, selectedOres, clickedRow) {
         info += '</div>';
       }
     }
-    info += `<div style="margin-top:6px;font-size:10px;color:var(--text-dim)"><span style="color:var(--text-dim)">---</span> nearest &nbsp; <span style="color:var(--green)">\u2582</span> best yield</div>`;
   }
+  if (routes.length) info += `<div style="margin-top:6px;font-size:10px;color:var(--text-dim)"><span style="color:var(--text-dim)">---</span> nearest \u00a0 <span style="color:var(--green)">\u2582</span> best yield</div>`;
 
   // Create the inline row
   const tr = document.createElement('tr');
@@ -1364,7 +1401,12 @@ function initMapEvents() {
         const ores = getOreAt(hit.code).slice(0, 5);
         if (ores.length) html += `<div class="also-list" style="margin-top:4px">${ores.map(o => confChip(`${oreName(o.code)} ${(o.prob*100).toFixed(0)}%`, hit.data.scans)).join('')}</div>`;
       } else if (hit.type === 'gate') {
-        html = `<div class="tt-title">${hit.data.name}</div><div class="tt-row">Jump to ${hit.data.destination}</div>`;
+        html = `<div class="tt-title">${hit.data.name}</div>`;
+        if (hit.data.destination) html += `<div class="tt-row">Jump to ${hit.data.destination}</div>`;
+        if (hit.data.refinery) html += `<div class="tt-row" style="color:#3dd68c">Refinery</div>`;
+        if (hit.data.scans) html += `<div class="tt-row">Scans: ${hit.data.scans}</div>`;
+        const gateOres = getOreAt(hit.code).slice(0, 5);
+        if (gateOres.length) html += `<div class="also-list" style="margin-top:4px">${gateOres.map(o => confChip(`${oreName(o.code)} ${(o.prob*100).toFixed(0)}%`, hit.data.scans)).join('')}</div>`;
       } else if (hit.type === 'belt' || hit.type === 'node') {
         html = `<div class="tt-title">${hit.data.name}</div><div class="tt-row">Scans: ${hit.data.scans}</div>`;
         const ores = getOreAt(hit.code).slice(0, 5);
@@ -1838,8 +1880,83 @@ function switchTab(tab) {
 }
 
 function initWelcome() {
-  // Populate dummy miner ore select — all ores including ground
+  // ---- Populate Ship select ----
+  const shipSel = document.getElementById('dm-ship');
+  if (shipSel) {
+    shipSel.innerHTML = '';
+    const grpGround = document.createElement('optgroup');
+    grpGround.label = 'Ground Mining';
+    [['fps', 'FPS / Hand Mining'], ['roc', 'ROC / Vehicle']].forEach(([v, t]) => {
+      const o = document.createElement('option'); o.value = v; o.textContent = t;
+      grpGround.appendChild(o);
+    });
+    shipSel.appendChild(grpGround);
+    const grpShip = document.createElement('optgroup');
+    grpShip.label = 'Ship Mining';
+    [['prospector', 'Prospector (solo S1)'], ['mole', 'MOLE (S2, 1-3 crew)'], ['golem', 'Golem (bespoke)']].forEach(([v, t]) => {
+      const o = document.createElement('option'); o.value = v; o.textContent = t;
+      if (v === 'prospector') o.selected = true;
+      grpShip.appendChild(o);
+    });
+    shipSel.appendChild(grpShip);
+  }
+
+  // ---- Populate Difficulty select ----
+  const diffSel = document.getElementById('dm-diff');
+  if (diffSel) {
+    diffSel.innerHTML = '';
+    [['easy', 'Easy (passive modules)'], ['medium', 'Medium (optimized)'], ['hard', 'Hard (active + gadgets)']].forEach(([v, t]) => {
+      const o = document.createElement('option'); o.value = v; o.textContent = t;
+      if (v === 'easy') o.selected = true;
+      diffSel.appendChild(o);
+    });
+  }
+
+  // ---- Populate Crew select (MOLE only, hidden by default) ----
+  const crewSel = document.getElementById('dm-crew');
+  if (crewSel) {
+    crewSel.innerHTML = '';
+    [['1', '1 (solo)'], ['2', '2 crew'], ['3', '3 crew']].forEach(([v, t]) => {
+      const o = document.createElement('option'); o.value = v; o.textContent = t;
+      crewSel.appendChild(o);
+    });
+  }
+
+  // ---- Populate Ore select ----
+  dmPopulateOres();
+
+  // ---- Sync visibility ----
+  dmSyncUI();
+
+  // Welcome stats
+  const m = D.meta;
+  let eqStats = '';
+  if (D.equipment) {
+    const eq = D.equipment;
+    eqStats = `<br>Equipment: <strong>${Object.keys(eq.lasers||{}).length} lasers, ${Object.keys(eq.modules||{}).length} modules, ${Object.keys(eq.gadgets||{}).length} gadgets</strong>`;
+  }
+  document.getElementById('welcome-stats').innerHTML = `
+    <div class="map-info-title">// Current Data</div>
+    <div style="font-size:12px;color:var(--text-secondary);line-height:1.8">
+      Patch: <strong>${m.current_patch}</strong><br>
+      Updated: <strong>${m.data_updated}</strong><br>
+      Locations: <strong>${m.total_mining_locations}</strong><br>
+      Ores: <strong>${m.total_ores}</strong><br>
+      Refineries: <strong>${m.total_refineries}</strong><br>
+      Regolith data: <strong>${m.regolith_export_date}</strong>${eqStats}
+    </div>`;
+}
+
+/** Populate the ore dropdown based on current ship selection */
+function dmPopulateOres() {
   const sel = document.getElementById('dm-ore');
+  const ship = document.getElementById('dm-ship')?.value || 'prospector';
+  const prevOre = sel?.value || '';
+  if (!sel) return;
+  sel.innerHTML = '';
+
+  const isGround = ship === 'fps' || ship === 'roc';
+
   const shipOres = [];
   const surfaceOres = [];
   Object.entries(D.ores)
@@ -1850,54 +1967,565 @@ function initWelcome() {
       else shipOres.push([code, o]);
     });
 
-  const grp1 = document.createElement('optgroup');
-  grp1.label = 'Ship Mining';
-  shipOres.forEach(([code, o]) => {
-    const opt = document.createElement('option');
-    opt.value = code; opt.textContent = o.display_name;
-    grp1.appendChild(opt);
-  });
-  sel.appendChild(grp1);
-
-  if (surfaceOres.length) {
-    const grp2 = document.createElement('optgroup');
-    grp2.label = 'FPS / Vehicle Mining';
-    surfaceOres.forEach(([code, o]) => {
+  if (!isGround) {
+    // Ship mining — show ship ores only
+    const grp = document.createElement('optgroup');
+    grp.label = 'Ship Mining';
+    shipOres.forEach(([code, o]) => {
       const opt = document.createElement('option');
-      opt.value = code; opt.textContent = `${o.display_name} (${o.mining_method === 'fps' ? 'FPS' : o.mining_method === 'vehicle' ? 'Vehicle' : 'FPS/Veh'})`;
-      grp2.appendChild(opt);
+      opt.value = code; opt.textContent = o.display_name;
+      grp.appendChild(opt);
     });
-    sel.appendChild(grp2);
+    sel.appendChild(grp);
+  } else {
+    // Ground mining — filter by FPS vs Vehicle
+    const filtered = surfaceOres.filter(([, o]) => {
+      if (ship === 'fps') return o.mining_method === 'fps' || o.mining_method === 'fps_vehicle';
+      if (ship === 'roc') return o.mining_method === 'vehicle' || o.mining_method === 'fps_vehicle';
+      return true;
+    });
+    if (filtered.length) {
+      const grp = document.createElement('optgroup');
+      grp.label = ship === 'fps' ? 'FPS Mining' : 'Vehicle Mining';
+      filtered.forEach(([code, o]) => {
+        const opt = document.createElement('option');
+        opt.value = code;
+        const tag = o.mining_method === 'fps' ? 'FPS' : o.mining_method === 'vehicle' ? 'Vehicle' : 'FPS/Veh';
+        opt.textContent = `${o.display_name} (${tag})`;
+        grp.appendChild(opt);
+      });
+      sel.appendChild(grp);
+    }
   }
 
-  // Welcome stats
-  const m = D.meta;
-  document.getElementById('welcome-stats').innerHTML = `
-    <div class="map-info-title">// Current Data</div>
-    <div style="font-size:12px;color:var(--text-secondary);line-height:1.8">
-      Patch: <strong>${m.current_patch}</strong><br>
-      Updated: <strong>${m.data_updated}</strong><br>
-      Locations: <strong>${m.total_mining_locations}</strong><br>
-      Ores: <strong>${m.total_ores}</strong><br>
-      Refineries: <strong>${m.total_refineries}</strong><br>
-      Regolith data: <strong>${m.regolith_export_date}</strong>
-    </div>`;
+  // Restore previous selection if still valid
+  if (prevOre && sel.querySelector(`option[value="${prevOre}"]`)) {
+    sel.value = prevOre;
+  }
+}
+
+/** Sync UI visibility: crew selector shown only for MOLE, difficulty/ship visibility */
+function dmSyncUI() {
+  const ship = document.getElementById('dm-ship')?.value || 'prospector';
+  const crewWrap = document.getElementById('dm-crew-wrap');
+  const diffWrap = document.getElementById('dm-diff-wrap');
+  const isGround = ship === 'fps' || ship === 'roc';
+
+  if (crewWrap) crewWrap.style.display = ship === 'mole' ? '' : 'none';
+  // Hide difficulty for ground mining OR optimized mode (auto-determines)
+  const mode = document.getElementById('dm-mode')?.value || 'community';
+  if (diffWrap) diffWrap.style.display = (isGround || mode === 'optimized') ? 'none' : '';
+  // Hide mode toggle for ground mining
+  const modeWrap = document.getElementById('dm-mode-wrap');
+  if (modeWrap) modeWrap.style.display = isGround ? 'none' : '';
+}
+
+/** Called when ship changes — update ore list + UI sync */
+function dmShipChanged() {
+  dmPopulateOres();
+  dmSyncUI();
+  runDummyMiner();
+}
+
+/** Called when mode changes */
+function dmModeChanged() {
+  dmSyncUI();
+  runDummyMiner();
+}
+
+// ============================================================
+// MATHEMATICAL LOADOUT ENGINE
+// ============================================================
+
+/**
+ * Compute an optimized loadout for a specific ore + ship + location.
+ * Selects laser + modules based on actual rock difficulty data.
+ *
+ * Returns: { turrets: [{laser, modules, gadgets, effective_power, role, label}], total_power, notes }
+ */
+function dmComputeOptimalLoadout(ship, ore, system, crew) {
+  const eq = D.equipment;
+  if (!eq) return null;
+
+  const profile = dmOreDifficulty(ore, system);
+  if (!profile || !profile.rocks.length) return null;
+
+  const shipInfo = eq.ships?.[ship === 'mole' ? 'mole' : ship];
+  if (!shipInfo) return null;
+  const laserSize = shipInfo.laser_size;
+  const numCrew = ship === 'mole' ? Math.min(parseInt(crew) || 1, 3) : 1;
+  const isBespoke = shipInfo.bespoke_laser;
+
+  // Target: crack the heaviest common rock type for this ore (prob >= 15%)
+  const commonRocks = profile.rocks.filter(r => r.prob >= 0.15);
+  const targetRocks = commonRocks.length ? commonRocks : profile.rocks;
+  const heaviestMed = Math.max(...targetRocks.map(r => r.massMed));
+  const lightestMed = Math.min(...targetRocks.map(r => r.massMed));
+  const avgRes = profile.avgRes;
+  const avgInst = profile.avgInst;
+
+  // Fragment mass after cracking a big rock: roughly 1/4 to 1/3 of parent
+  const fragmentMass = Math.max(2000, Math.round(heaviestMed * 0.3));
+
+  // Available lasers for this ship size
+  const availableLasers = Object.entries(eq.lasers)
+    .filter(([k, v]) => v.size === laserSize && v.max_power > 0 && !k.includes('test'))
+    .sort((a, b) => b[1].max_power - a[1].max_power);
+
+  // Available passive power modules
+  const powerModules = Object.entries(eq.modules)
+    .filter(([k, v]) => v.type === 'passive' && (v.power_mod || 0) > 0)
+    .sort((a, b) => (b[1].power_mod || 0) - (a[1].power_mod || 0));
+
+  // Available utility modules
+  const utilityModules = Object.entries(eq.modules)
+    .filter(([k, v]) => v.type === 'passive' && (v.filter || 0) > 0)
+    .sort((a, b) => (b[1].filter || 0) - (a[1].filter || 0));
+
+  // Active power modules (for burst)
+  const activeModules = Object.entries(eq.modules)
+    .filter(([k, v]) => v.type === 'active' && (v.power_mod || 0) > 0)
+    .sort((a, b) => (b[1].power_mod || 0) - (a[1].power_mod || 0));
+
+  // Window modules (for stability)
+  const windowModules = Object.entries(eq.modules)
+    .filter(([k, v]) => v.type === 'passive' && (v.optimal_window_size || 0) > 0)
+    .sort((a, b) => (b[1].optimal_window_size || 0) - (a[1].optimal_window_size || 0));
+
+  /**
+   * Select best laser + modules for a given target mass and role.
+   * role: 'primary' (crack big rocks) or 'fragment' (crack small pieces)
+   */
+  function buildTurret(targetMass, role) {
+    let bestLaser, bestLaserKey;
+
+    if (isBespoke) {
+      bestLaserKey = shipInfo.stock_laser;
+      bestLaser = eq.lasers[bestLaserKey];
+    } else if (role === 'fragment') {
+      // For fragments: pick softest laser with good resistance reduction
+      const soft = availableLasers.filter(([, v]) => v.resistance < 0);
+      if (soft.length) {
+        // Pick lowest power with negative resistance — Hofstede is ideal
+        [bestLaserKey, bestLaser] = soft[soft.length - 1];
+      } else {
+        [bestLaserKey, bestLaser] = availableLasers[availableLasers.length - 1];
+      }
+    } else {
+      // For primary: pick highest power laser with good resistance
+      // Prefer Helix (high power, -30% resist, neutral instab)
+      const preferred = availableLasers.find(([, v]) => v.resistance <= 0 && v.instability <= 0);
+      if (preferred) {
+        [bestLaserKey, bestLaser] = preferred;
+      } else {
+        // Just pick highest power with negative resistance
+        const negRes = availableLasers.filter(([, v]) => v.resistance <= 0);
+        [bestLaserKey, bestLaser] = negRes.length ? negRes[0] : availableLasers[0];
+      }
+    }
+
+    if (!bestLaser) return null;
+
+    const slots = bestLaser.module_slots;
+    const basePower = bestLaser.max_power;
+    const modules = [];
+    let totalPowerMod = 0;
+
+    // Fill slots based on need
+    const currentPower = () => Math.round(basePower * (100 + totalPowerMod) / 100);
+    const needMorePower = () => currentPower() < targetMass * 0.35; // heuristic: power ~35% of mass
+
+    if (role === 'primary') {
+      // Fill with power modules until we have enough
+      for (let i = 0; i < slots; i++) {
+        if (needMorePower()) {
+          // Add strongest available passive power module (no duplicates of same active)
+          const next = powerModules.find(([k]) => !modules.includes(k) || eq.modules[k].type === 'passive');
+          if (next) { modules.push(next[0]); totalPowerMod += next[1].power_mod || 0; continue; }
+        }
+        // Have enough power — add utility
+        if (avgInst >= 40 && windowModules.length) {
+          const wm = windowModules.find(([k]) => !modules.includes(k));
+          if (wm) { modules.push(wm[0]); totalPowerMod += wm[1].power_mod || 0; continue; }
+        }
+        // Default: add filter
+        const filt = utilityModules.find(([k]) => !modules.includes(k));
+        if (filt) { modules.push(filt[0]); totalPowerMod += filt[1].power_mod || 0; continue; }
+        // Last resort: more power
+        const pm = powerModules.find(([k]) => !modules.includes(k));
+        if (pm) { modules.push(pm[0]); totalPowerMod += pm[1].power_mod || 0; }
+      }
+    } else {
+      // Fragment turret: prioritize window size + stability, less power
+      for (let i = 0; i < slots; i++) {
+        if (currentPower() < fragmentMass * 0.3) {
+          const pm = powerModules.find(([k]) => !modules.includes(k));
+          if (pm) { modules.push(pm[0]); totalPowerMod += pm[1].power_mod || 0; continue; }
+        }
+        const wm = windowModules.find(([k]) => !modules.includes(k));
+        if (wm) { modules.push(wm[0]); totalPowerMod += wm[1].power_mod || 0; continue; }
+        const filt = utilityModules.find(([k]) => !modules.includes(k));
+        if (filt) { modules.push(filt[0]); totalPowerMod += filt[1].power_mod || 0; }
+      }
+    }
+
+    // Gadget recommendation
+    const gadgets = [];
+    if (role === 'primary') {
+      if (avgRes >= 0.20 || (isBespoke && avgRes >= 0.10)) {
+        gadgets.push('shin_sabir'); // -50% resist on rock
+      } else if (avgInst >= 60) {
+        gadgets.push('thcn_boremax'); // -70% instab on rock
+      }
+    }
+
+    const effPower = currentPower();
+    const laserName = bestLaser.name || bestLaserKey;
+    const modNames = modules.map(k => eq.modules[k]?.name || k).join(' + ');
+    const label = role === 'fragment'
+      ? `Fragment: ${laserName} + ${modNames || 'no modules'}`
+      : `${laserName} + ${modNames || 'no modules'}`;
+
+    return {
+      laser: bestLaserKey, modules, gadgets,
+      effective_power: effPower,
+      role, label,
+      max_mass: Math.round(effPower / 0.35), // inverse of heuristic
+    };
+  }
+
+  // Build turret configs based on ship + crew
+  const turrets = [];
+  const notes = [];
+
+  if (ship === 'mole') {
+    // Primary turret(s) for cracking big rocks
+    const primary = buildTurret(heaviestMed, 'primary');
+    if (!primary) return null;
+
+    if (numCrew === 1) {
+      turrets.push({...primary, role: 'primary', assignment: 'Center turret'});
+      // Fragment turret (solo uses one at a time, but suggest the setup)
+      const frag = buildTurret(fragmentMass, 'fragment');
+      if (frag) turrets.push({...frag, assignment: 'Right turret (small rocks)'});
+      notes.push('Solo MOLE: use one turret at a time. Switch to right turret for fragments after cracking.');
+    } else if (numCrew === 2) {
+      turrets.push({...primary, assignment: 'Turret 1 (primary)'});
+      turrets.push({...primary, assignment: 'Turret 2 (primary)'});
+      const frag = buildTurret(fragmentMass, 'fragment');
+      if (frag) turrets.push({...frag, assignment: 'Turret 3 (fragments, when 3rd joins)'});
+      notes.push('2 primary turrets fire at same rock — combined power stacks.');
+    } else {
+      turrets.push({...primary, assignment: 'Turret 1 (primary)'});
+      turrets.push({...primary, assignment: 'Turret 2 (primary)'});
+      const frag = buildTurret(fragmentMass, 'fragment');
+      if (frag) turrets.push({...frag, assignment: 'Turret 3 (fragments)'});
+      notes.push('2 primary + 1 fragment turret. Fragment turret handles smaller pieces after crack.');
+    }
+  } else {
+    // Single turret ships (Prospector, Golem)
+    const primary = buildTurret(heaviestMed, 'primary');
+    if (!primary) return null;
+    turrets.push(primary);
+  }
+
+  // Calculate total effective power (primary turrets stacking)
+  const primaryTurrets = turrets.filter(t => t.role === 'primary');
+  const totalPower = primaryTurrets.reduce((s, t) => s + t.effective_power, 0);
+
+  // Overkill warning
+  if (totalPower > heaviestMed * 2 && lightestMed < heaviestMed * 0.5) {
+    notes.push(`High power (${totalPower.toLocaleString()}) may make small rocks harder to control. Use gentle throttle on lighter rocks.`);
+  }
+
+  return { turrets, total_power: totalPower, notes, target_mass: heaviestMed, fragment_mass: fragmentMass };
+}
+
+/** Format optimized loadout for display */
+function dmFormatOptimalLoadout(result) {
+  const eq = D.equipment;
+  if (!eq || !result) return '';
+  let html = '';
+
+  result.turrets.forEach(t => {
+    const laser = eq.lasers?.[t.laser];
+    const laserName = laser?.name || t.laser;
+    const mods = [];
+    if (laser?.resistance) mods.push(`<span class="${laser.resistance < 0 ? 'v-pos' : 'v-neg'}">${laser.resistance > 0 ? '+' : ''}${laser.resistance}% resist</span>`);
+    if (laser?.instability) mods.push(`<span class="${laser.instability < 0 ? 'v-pos' : 'v-neg'}">${laser.instability > 0 ? '+' : ''}${laser.instability}% instab</span>`);
+
+    const roleColor = t.role === 'fragment' ? 'var(--cyan)' : 'var(--accent)';
+    const assignment = t.assignment ? `<span style="color:${roleColor};font-size:10px;font-family:'Share Tech Mono',monospace;letter-spacing:1px;text-transform:uppercase">${t.assignment}</span> ` : '';
+
+    html += `<div style="margin-bottom:6px;padding:4px 0;${result.turrets.length > 1 ? 'border-bottom:1px solid var(--border)' : ''}">`;
+    html += `${assignment}<strong>${laserName}</strong> <span style="color:var(--text-dim)">(S${laser?.size||'?'}, ${laser?.module_slots||0} slots)</span>${mods.length ? ' — ' + mods.join(', ') : ''}<br>`;
+
+    if (t.modules.length) {
+      const modNames = t.modules.map(k => {
+        const m = eq.modules?.[k]; if (!m) return k;
+        const badge = m.type === 'active' ? ` <span class="tag" style="background:rgba(232,117,26,0.15);color:var(--orange);border:1px solid rgba(232,117,26,0.3);font-size:10px">ACT ${m.lifetime}s</span>` : '';
+        let powerTag = '';
+        if (m.power_mod) powerTag = ` <span style="color:${m.power_mod > 0 ? 'var(--green)' : 'var(--red)'}"><strong>${m.power_mod > 0 ? '+' : ''}${m.power_mod}% power</strong></span>`;
+        return `${m.name}${badge}${powerTag}`;
+      });
+      html += `Modules: ${modNames.join(' + ')}<br>`;
+    }
+    if (t.gadgets?.length) {
+      // Gadgets tracked but shown once below, not per-turret
+    }
+    html += `<span class="mono" style="font-size:11px;color:var(--text-dim)">Power: ${t.effective_power.toLocaleString()}</span>`;
+    html += `</div>`;
+  });
+
+  // Collect all gadgets from all turrets, deduplicate
+  const allGadgets = [...new Set(result.turrets.flatMap(t => t.gadgets || []))];
+  if (allGadgets.length) {
+    const gNames = allGadgets.map(k => {
+      const g = eq.gadgets?.[k]; if (!g) return k;
+      const effect = [];
+      if (g.resistance) effect.push(`${g.resistance > 0 ? '+' : ''}${g.resistance}% resist on rock`);
+      if (g.instability) effect.push(`${g.instability > 0 ? '+' : ''}${g.instability}% instab on rock`);
+      const effectStr = effect.length ? ` <span style="color:var(--text-dim)">(${effect.join(', ')})</span>` : '';
+      return `${g.name} <span class="tag" style="background:rgba(77,201,246,0.15);color:var(--cyan);border:1px solid rgba(77,201,246,0.3);font-size:10px">GADGET</span>${effectStr}`;
+    });
+    html += `<div style="margin-top:4px">Gadget: ${gNames.join(', ')} <span style="color:var(--text-dim);font-size:11px">(1 per rock)</span></div>`;
+  }
+
+  if (result.notes?.length) {
+    html += `<div style="font-size:11px;color:var(--text-secondary);margin-top:4px">${result.notes.join('<br>')}</div>`;
+  }
+  return html;
+}
+
+/** Resolve the equipment loadout key for a ship + crew combo */
+function dmLoadoutKey(ship, crew) {
+  if (ship === 'mole') {
+    const c = parseInt(crew) || 1;
+    if (c >= 3) return 'mole_3crew';
+    if (c >= 2) return 'mole_2crew';
+    return 'mole_solo';
+  }
+  return ship;
+}
+
+/** Get loadout for ship+difficulty+crew from equipment data */
+function dmGetLoadout(ship, difficulty, crew) {
+  const eq = D.equipment;
+  if (!eq || !eq.loadouts) return null;
+  const key = dmLoadoutKey(ship, crew);
+  const shipLoadouts = eq.loadouts[key];
+  if (!shipLoadouts) return null;
+  return shipLoadouts[difficulty] || shipLoadouts['easy'] || null;
+}
+
+/** Render a single turret's laser + modules line */
+function dmFormatTurretLine(turretData) {
+  const eq = D.equipment;
+  if (!eq) return '';
+  const laserKey = turretData.laser;
+  const modules = turretData.modules || [];
+  const laser = eq.lasers?.[laserKey];
+  let html = '';
+
+  if (laser) {
+    const mods = [];
+    if (laser.resistance) mods.push(`<span class="${laser.resistance < 0 ? 'v-pos' : 'v-neg'}">${laser.resistance > 0 ? '+' : ''}${laser.resistance}% resist</span>`);
+    if (laser.instability) mods.push(`<span class="${laser.instability < 0 ? 'v-pos' : 'v-neg'}">${laser.instability > 0 ? '+' : ''}${laser.instability}% instab</span>`);
+    if (laser.filter) mods.push(`<span class="v-pos">${laser.filter}% filter</span>`);
+    html += `<strong>${laser.name}</strong> <span style="color:var(--text-dim)">(S${laser.size}, ${laser.module_slots} slots)</span>${mods.length ? ' \u2014 ' + mods.join(', ') : ''}`;
+  }
+  if (modules.length) {
+    const modNames = modules.map(k => {
+      const m = eq.modules?.[k];
+      if (!m) return k;
+      const badge = m.type === 'active' ? ` <span class="tag" style="background:rgba(232,117,26,0.15);color:var(--orange);border:1px solid rgba(232,117,26,0.3);font-size:10px">ACT ${m.lifetime}s</span>` : '';
+      let powerTag = '';
+      if (m.power_mod) powerTag = ` <span style="color:${m.power_mod > 0 ? 'var(--green)' : 'var(--red)'}"><strong>${m.power_mod > 0 ? '+' : ''}${m.power_mod}% power</strong></span>`;
+      const effect = [];
+      if (m.resistance) effect.push(`${m.resistance > 0 ? '+' : ''}${m.resistance}% res`);
+      if (m.instability) effect.push(`${m.instability > 0 ? '+' : ''}${m.instability}% inst`);
+      if (m.optimal_window_size) effect.push(`${m.optimal_window_size > 0 ? '+' : ''}${m.optimal_window_size}% window`);
+      if (m.extract_power_mod) effect.push(`${m.extract_power_mod > 0 ? '+' : ''}${m.extract_power_mod}% extract`);
+      if (m.filter) effect.push(`${m.filter}% filter`);
+      const effectStr = effect.length ? ` <span style="color:var(--text-dim)">(${effect.join(', ')})</span>` : '';
+      return `${m.name}${badge}${powerTag}${effectStr}`;
+    });
+    html += '<br>Modules: ' + modNames.join(' + ');
+  }
+  return html;
+}
+
+/** Format a loadout for display — handles both single-turret and multi-turret formats */
+function dmFormatLoadout(loadout) {
+  const eq = D.equipment;
+  if (!eq || !loadout) return '';
+
+  // New per-turret format (MOLE)
+  if (loadout.turrets && Array.isArray(loadout.turrets)) {
+    let html = '';
+    loadout.turrets.forEach((t, i) => {
+      const roleColor = t.role?.toLowerCase().includes('extract') || t.role?.toLowerCase().includes('small') || t.role?.toLowerCase().includes('fragment')
+        ? 'var(--cyan)' : 'var(--accent)';
+      html += `<div style="margin-bottom:6px;padding:6px 0;${i < loadout.turrets.length - 1 ? 'border-bottom:1px solid var(--border)' : ''}">`;
+      if (t.role) html += `<span style="color:${roleColor};font-size:10px;font-family:'Share Tech Mono',monospace;letter-spacing:1px;text-transform:uppercase">${t.role}</span><br>`;
+      html += dmFormatTurretLine(t);
+      html += `</div>`;
+    });
+    // Gadgets (shown once, not per-turret)
+    if (loadout.gadgets?.length) {
+      const gadNames = loadout.gadgets.map(k => {
+        const g = eq.gadgets?.[k]; if (!g) return k;
+        const effect = [];
+        if (g.resistance) effect.push(`${g.resistance > 0 ? '+' : ''}${g.resistance}% resist on rock`);
+        if (g.instability) effect.push(`${g.instability > 0 ? '+' : ''}${g.instability}% instab on rock`);
+        if (g.cluster) effect.push(`${g.cluster > 0 ? '+' : ''}${g.cluster}% cluster`);
+        const effectStr = effect.length ? ` <span style="color:var(--text-dim)">(${effect.join(', ')})</span>` : '';
+        return `${g.name} <span class="tag" style="background:rgba(77,201,246,0.15);color:var(--cyan);border:1px solid rgba(77,201,246,0.3);font-size:10px">GADGET</span>${effectStr}`;
+      });
+      html += `<div style="margin-top:4px">Gadget: ${gadNames.join(', ')} <span style="color:var(--text-dim);font-size:11px">(1 per rock)</span></div>`;
+    }
+    return html;
+  }
+
+  // Legacy single-turret format (Prospector, Golem)
+  const parts = [];
+  parts.push(dmFormatTurretLine({laser: loadout.laser, modules: loadout.modules}));
+  if (loadout.gadgets?.length) {
+    const gadNames = loadout.gadgets.map(k => {
+      const g = eq.gadgets?.[k]; if (!g) return k;
+      const effect = [];
+      if (g.resistance) effect.push(`${g.resistance > 0 ? '+' : ''}${g.resistance}% resist on rock`);
+      if (g.instability) effect.push(`${g.instability > 0 ? '+' : ''}${g.instability}% instab on rock`);
+      if (g.cluster) effect.push(`${g.cluster > 0 ? '+' : ''}${g.cluster}% cluster`);
+      const effectStr = effect.length ? ` <span style="color:var(--text-dim)">(${effect.join(', ')})</span>` : '';
+      return `${g.name} <span class="tag" style="background:rgba(77,201,246,0.15);color:var(--cyan);border:1px solid rgba(77,201,246,0.3);font-size:10px">GADGET</span>${effectStr}`;
+    });
+    parts.push('Gadget: ' + gadNames.join(', '));
+  }
+  return parts.join('<br>');
+}
+
+/** Compute ore mining difficulty profile for a given ore + system */
+function dmOreDifficulty(ore, systemFilter) {
+  const rocks = [];
+  for (const [sys, types] of Object.entries(D.rock_types || {})) {
+    if (systemFilter && systemFilter !== 'all' && sys !== systemFilter.toUpperCase()) continue;
+    for (const [rtype, rdata] of Object.entries(types)) {
+      if (!rdata?.ores) continue;
+      const oreInRock = rdata.ores[ore];
+      if (oreInRock && oreInRock.prob >= 0.10) {
+        rocks.push({
+          system: sys, type: rtype, prob: oreInRock.prob,
+          massMed: rdata.mass?.med || 0, massMax: rdata.mass?.max || 0,
+          res: rdata.res?.med || 0, inst: rdata.inst?.med || 0,
+          scans: rdata.scans || 0,
+        });
+      }
+    }
+  }
+  if (!rocks.length) return null;
+  const avgRes = rocks.reduce((s, r) => s + r.res, 0) / rocks.length;
+  const avgInst = rocks.reduce((s, r) => s + r.inst, 0) / rocks.length;
+  const avgMass = rocks.reduce((s, r) => s + r.massMed, 0) / rocks.length;
+  const scored = rocks.map(r => ({...r, diffScore: r.massMed * (1 + r.res)}));
+  scored.sort((a, b) => a.diffScore - b.diffScore);
+  return {
+    rocks: scored, avgRes, avgInst, avgMass,
+    easiest: scored[0], hardest: scored[scored.length - 1],
+    minMassMed: Math.min(...rocks.map(r => r.massMed)),
+    maxMassMed: Math.max(...rocks.map(r => r.massMed)),
+    maxMassMax: Math.max(...rocks.map(r => r.massMax)),
+  };
+}
+
+/** Generate dynamic gear recommendations based on ore difficulty */
+function dmGearRecommendation(ore, profile, ship, diff) {
+  const eq = D.equipment;
+  if (!eq || !profile) return '';
+  const tips = [];
+
+  // --- Module recs based on ore resistance ---
+  if (profile.avgRes >= 0.25) {
+    tips.push(`<span style="color:var(--orange)">High resistance ore</span> — use <strong>Surge</strong> (${eq.modules?.active_surge?.resistance || -15.5}% res, ${eq.modules?.active_surge?.lifetime || 15}s) or <strong>Rime</strong> (${eq.modules?.active_rime?.resistance || -24.8}% res, ${eq.modules?.active_rime?.lifetime || 20}s) to cut through`);
+  }
+
+  // --- Instability handling ---
+  if (profile.avgInst >= 40) {
+    tips.push(`<span style="color:var(--orange)">Unstable rocks</span> — equip <strong>Optimum</strong> (-80% catastrophic rate) or <strong>Torpid</strong> (+60% window rate, -60% catastrophic). Throttle carefully near the green zone`);
+  }
+  if (profile.avgInst >= 80) {
+    tips.push(`<span style="color:var(--red)">Extreme instability</span> — throw <strong>BoreMax</strong> gadget at rock first (${eq.gadgets?.thcn_boremax?.instability || -70}% instability on rock). Reusable, no cost`);
+  }
+
+  // --- Gadget recs based on difficulty ---
+  if (diff === 'hard' && profile.avgRes >= 0.15) {
+    tips.push(`Throw <strong>Sabir</strong> gadget at rock for <strong>${eq.gadgets?.shin_sabir?.resistance || -50}% resistance</strong> before firing. Reusable. Best gadget for tough rocks`);
+  } else if (diff === 'medium' && profile.avgRes >= 0.25) {
+    tips.push(`Consider throwing <strong>Sabir</strong> gadget (<strong>${eq.gadgets?.shin_sabir?.resistance || -50}% resist</strong> on rock) — makes medium setups handle hard rocks`);
+  }
+
+  if (diff === 'hard' && profile.avgRes < 0.15 && profile.maxMassMed > 8000) {
+    tips.push(`Low resistance but heavy — <strong>OptiMax</strong> gadget (+60% cluster, -25% resist) boosts yield on big rocks`);
+  }
+
+  // --- Ship-specific ---
+  if (ship === 'golem') {
+    tips.push(`Golem's bespoke laser has <strong>+25% resistance</strong> — gadgets are essential. Always throw <strong>Sabir</strong> before cracking anything substantial`);
+  }
+  if (ship === 'prospector' && profile.maxMassMed > 15000) {
+    tips.push(`Some rocks with this ore exceed Prospector limits. Use <strong>Surge + Stampede</strong> active modules for burst power, or bring a <strong>MOLE</strong>`);
+  }
+
+  // --- Filter tip for easy mode ---
+  if (diff === 'easy') {
+    tips.push(`Tip: <strong>FLTR</strong> passive module (up to 24% less inert material) improves cargo value — worth a slot if you're not struggling to crack`);
+  }
+
+  return tips.length
+    ? `<div class="insight" style="margin-top:8px;border-color:var(--accent)"><div class="insight-title" style="color:var(--accent)">Gear Recommendations</div><div style="font-size:12px;line-height:1.8">${tips.map(t => '• ' + t).join('<br>')}</div></div>`
+    : '';
+}
+
+/** Generate material-specific mining insight text */
+function dmMaterialInsight(ore, profile) {
+  if (!profile) return '';
+  const tips = [];
+
+  if (profile.avgRes >= 0.30) tips.push(`<strong>Very hard rock</strong> — high resistance (avg ${(profile.avgRes*100).toFixed(0)}%). Needs strong resistance modifiers or gadgets.`);
+  else if (profile.avgRes >= 0.20) tips.push(`Moderate resistance (avg ${(profile.avgRes*100).toFixed(0)}%). Most optimized setups handle this.`);
+  else if (profile.avgRes <= 0.10) tips.push(`<strong>Low resistance</strong> (avg ${(profile.avgRes*100).toFixed(0)}%) — easy to crack even with stock lasers.`);
+
+  if (profile.avgInst >= 80) tips.push(`<span style="color:var(--red)">Extreme instability (avg ${profile.avgInst.toFixed(0)})</span> — BoreMax gadget and stability modules essential.`);
+  else if (profile.avgInst >= 40) tips.push(`High instability (avg ${profile.avgInst.toFixed(0)}) — consider Optimum or Torpid modules.`);
+
+  if (profile.maxMassMax > profile.maxMassMed * 3) {
+    tips.push(`Rock sizes vary widely — median ${profile.minMassMed.toLocaleString()} to ${profile.maxMassMed.toLocaleString()}, but outliers up to <strong>${profile.maxMassMax.toLocaleString()}</strong>. Skip the giants or bring a bigger ship.`);
+  }
+
+  if (profile.rocks.length === 1) {
+    tips.push(`Found in only <strong>1 rock type</strong> (${profile.rocks[0].type}) — limited spawn variety.`);
+  }
+
+  return tips.length ? tips.join('<br>') : '';
 }
 
 function runDummyMiner() {
   const ore = document.getElementById('dm-ore').value;
   const sys = document.getElementById('dm-system').value;
+  const ship = document.getElementById('dm-ship')?.value || 'prospector';
+  const diff = document.getElementById('dm-diff')?.value || 'easy';
+  const crew = document.getElementById('dm-crew')?.value || '1';
   const el = document.getElementById('dm-result');
   if (!ore) { el.innerHTML = ''; return; }
 
   const oreInfo = D.ores[ore];
-  const isGround = oreInfo?.form === 'gem';
+  const isGround = ship === 'fps' || ship === 'roc';
+  const eq = D.equipment;
 
-  // Find best location — check ship mining data OR roc_hand_mining
+  // ---- Find best location ----
   let bestLoc = null, bestScore = 0, bestScans = 0, bestProb = 0;
 
   if (isGround) {
-    // Search roc_hand_mining
     for (const [code, data] of Object.entries(D.roc_hand_mining || {})) {
       const loc = D.locations[code];
       if (!loc) continue;
@@ -1910,7 +2538,6 @@ function runDummyMiner() {
       if (score > bestScore) { bestLoc = code; bestScore = score; bestScans = scans; bestProb = oreData.prob; }
     }
   } else {
-    // Search ore_locations (ship mining)
     for (const [code, data] of Object.entries(D.ore_locations)) {
       const loc = D.locations[code];
       if (!loc) continue;
@@ -1925,7 +2552,6 @@ function runDummyMiner() {
   }
 
   if (!bestLoc) {
-    // Check if ore has notes (mission-only ores)
     if (oreInfo?.notes) {
       el.innerHTML = `<div class="insight"><div class="insight-title">Special Ore</div>${oreInfo.notes}</div>`;
     } else {
@@ -1935,14 +2561,15 @@ function runDummyMiner() {
   }
 
   const loc = D.locations[bestLoc];
+  let html = '';
 
-  let html = `<div class="dm-row">`;
+  // ---- Top row: Location + Refineries ----
+  html += `<div class="dm-row">`;
   html += `<div class="dm-box"><div class="dm-box-title">Go ${isGround ? 'Surface Mine' : 'Mine'} Here</div>
     <div class="dm-box-value">${locDisplayName(bestLoc)}</div>
     <div class="dm-box-sub">${systemTag(loc.system)} ${(bestProb*100).toFixed(0)}% chance | ${bestScans} ${isGround ? 'finds' : 'scans'} | ${confidence(bestScans)}</div></div>`;
 
   if (!isGround) {
-    // Refinery recommendations for ship mining only
     const refs = findRefineries(bestLoc, ore);
     let globalBest = null;
     if (sys === 'all') {
@@ -1953,7 +2580,6 @@ function runDummyMiner() {
         }
       }
     }
-
     if (refs.nearest) {
       const nYield = refs.nearest.yield != null ? `${fmtYield(refs.nearest.yield)} yield` : '<span class="mono" style="color:var(--text-dim)">nearest</span>';
       html += `<div class="dm-box"><div class="dm-box-title">Nearest Refinery</div>
@@ -1972,44 +2598,163 @@ function runDummyMiner() {
   }
   html += '</div>';
 
-  // Also found at this location
+  // ---- Ship mining sections ----
   if (!isGround) {
+    const mode = document.getElementById('dm-mode')?.value || 'community';
+    const profile = dmOreDifficulty(ore, loc.system);
+    let maxMass = 999999;
+    const loadout = eq ? dmGetLoadout(ship, diff, crew) : null;
+
+    if (mode === 'optimized' && eq) {
+      // ---- OPTIMIZED MODE ----
+      const optResult = dmComputeOptimalLoadout(ship, ore, loc.system, crew);
+      if (optResult) {
+        const optHtml = dmFormatOptimalLoadout(optResult);
+        const shipInfo = eq.ships?.[ship];
+        const shipLabel = shipInfo ? shipInfo.name : ship;
+        const crewLabel = ship === 'mole' ? ` (${crew} crew)` : '';
+        maxMass = optResult.target_mass || 999999;
+        const primaryTurrets = optResult.turrets.filter(t => t.role === 'primary');
+        const totalPower = primaryTurrets.reduce((s, t) => s + t.effective_power, 0);
+
+        html += `<div class="insight" style="margin-top:8px;border-color:var(--green)">
+          <div class="insight-title" style="color:var(--green)">Optimized for ${oreName(ore)} — ${shipLabel}${crewLabel} <span style="color:var(--text-dim);font-weight:normal">(${totalPower.toLocaleString()} power → targets mass ~${maxMass.toLocaleString()})</span></div>
+          <div style="font-size:10px;color:var(--text-dim);margin-bottom:4px;font-family:\'Share Tech Mono\',monospace;letter-spacing:1px">COMPUTED FROM ORE DIFFICULTY DATA</div>
+          <div style="font-size:12px;line-height:1.8">${optHtml}</div>
+        </div>`;
+      }
+    } else if (loadout && eq) {
+      // ---- COMMUNITY MODE ----
+      maxMass = loadout.max_mass || 999999;
+      const loadoutHtml = dmFormatLoadout(loadout);
+      const shipInfo = eq.ships?.[ship];
+      const shipLabel = shipInfo ? shipInfo.name : ship;
+      const crewLabel = ship === 'mole' ? ` (${crew} crew)` : '';
+      const diffLabels = {easy: 'Easy', medium: 'Medium', hard: 'Hard'};
+
+      let crackSummary = '';
+      if (profile) {
+        const crackableRocks = profile.rocks.filter(r => r.massMed <= maxMass);
+        if (crackableRocks.length) {
+          const biggest = crackableRocks.reduce((a, b) => a.massMed > b.massMed ? a : b);
+          const pctCovered = Math.round(crackableRocks.length / profile.rocks.length * 100);
+          const risky = crackableRocks.filter(r => r.massMax > maxMass);
+          const allClean = risky.length === 0;
+
+          if (pctCovered === 100 && allClean) {
+            crackSummary = `Can crack <strong>all</strong> ${oreName(ore)} rocks — biggest type: <strong>${biggest.type}</strong> (mass ~${biggest.massMed.toLocaleString()}, max ${biggest.massMax.toLocaleString()})`;
+          } else if (pctCovered === 100 && !allClean) {
+            crackSummary = `Can crack <strong>typical</strong> ${oreName(ore)} rocks in all ${crackableRocks.length} rock types — biggest type: <strong>${biggest.type}</strong> (mass ~${biggest.massMed.toLocaleString()})`;
+            crackSummary += `<br><span style="color:var(--yellow)">Outliers in ${risky.map(r=>r.type).join(', ')} can exceed your limit (up to ${Math.max(...risky.map(r=>r.massMax)).toLocaleString()}) — skip the biggest rocks</span>`;
+          } else {
+            crackSummary = `Can crack <strong>${pctCovered}%</strong> of rock types with ${oreName(ore)} — biggest crackable: <strong>${biggest.type}</strong> (mass ~${biggest.massMed.toLocaleString()})`;
+            if (risky.length) {
+              crackSummary += `<br><span style="color:var(--yellow)">Some ${risky.map(r=>r.type).join(', ')} outliers above your limit — skip the biggest</span>`;
+            }
+          }
+          // Show what next difficulty unlocks
+          const nextDiff = diff === 'easy' ? 'medium' : diff === 'medium' ? 'hard' : null;
+          if (nextDiff) {
+            const nextLoadout = dmGetLoadout(ship, nextDiff, crew);
+            if (nextLoadout && nextLoadout.max_mass > maxMass) {
+              const nextCrackable = profile.rocks.filter(r => r.massMed <= nextLoadout.max_mass);
+              const unlocked = nextCrackable.length - crackableRocks.length;
+              if (unlocked > 0) {
+                crackSummary += `<br><span style="color:var(--cyan)">↑ ${nextDiff} unlocks <strong>${unlocked} more</strong> rock type${unlocked>1?'s':''} (up to mass ~${nextLoadout.max_mass.toLocaleString()})</span>`;
+              }
+            }
+          }
+        } else {
+          crackSummary = `<span style="color:var(--red)">No rock types with ${oreName(ore)} in your cracking range.</span>`;
+          const nextDiff = diff === 'easy' ? 'medium' : diff === 'medium' ? 'hard' : null;
+          if (nextDiff) {
+            const nextLoadout = dmGetLoadout(ship, nextDiff, crew);
+            if (nextLoadout && nextLoadout.max_mass > maxMass) {
+              const nc = profile.rocks.filter(r => r.massMed <= nextLoadout.max_mass);
+              if (nc.length) crackSummary += ` <span style="color:var(--cyan)">Try <strong>${nextDiff}</strong> to unlock ${nc.length} rock type${nc.length>1?'s':''}.</span>`;
+            }
+          }
+        }
+      }
+
+        const effPower = loadout.effective_power || 0;
+        const powerStr = effPower ? ` | ${effPower.toLocaleString()} power` : '';
+
+      html += `<div class="insight" style="margin-top:8px;border-color:var(--orange)">
+        <div class="insight-title" style="color:var(--orange)">Setup — ${shipLabel}${crewLabel} / ${diffLabels[diff] || diff}  <span style="color:var(--text-dim);font-weight:normal">(max mass ~${maxMass.toLocaleString()}${powerStr})</span></div>
+        <div style="font-size:10px;color:var(--text-dim);margin-bottom:4px;font-family:'Share Tech Mono',monospace;letter-spacing:1px">COMMUNITY RECOMMENDED LOADOUT</div>
+        <div style="font-size:12px;line-height:1.8">${loadoutHtml}</div>
+        ${loadout.notes ? `<div style="margin-top:4px;font-size:11px;color:var(--text-secondary)">${loadout.notes}</div>` : ''}
+        ${crackSummary ? `<div style="margin-top:6px;font-size:12px;line-height:1.6;padding-top:6px;border-top:1px solid var(--border)">${crackSummary}</div>` : ''}
+      </div>`;
+    }
+
+    // ---- Dynamic Gear Recommendations ----
+    if (profile && eq) {
+      html += dmGearRecommendation(ore, profile, ship, diff);
+    }
+
+    // ---- Rock Types ----
+    if (profile && profile.rocks.length) {
+      const sysKey = loc.system.toUpperCase();
+      const rtlData = D.rock_type_locations?.[bestLoc];
+      const localRockTypes = rtlData?.rockTypes ? new Set(Object.keys(rtlData.rockTypes)) : null;
+
+      html += `<div class="insight" style="margin-top:8px"><div class="insight-title">Rock Types with ${oreName(ore)} at ${locDisplayName(bestLoc)}</div>`;
+
+      const displayRocks = localRockTypes
+        ? profile.rocks.filter(r => r.system === sysKey && localRockTypes.has(r.type))
+        : profile.rocks.filter(r => r.system === sysKey);
+
+      if (displayRocks.length) {
+        displayRocks.sort((a, b) => b.prob - a.prob);
+        displayRocks.forEach(r => {
+          const crackable = r.massMed <= maxMass;
+          const allCrackable = r.massMax <= maxMass;
+          const icon = crackable ? '<span style="color:var(--green)">&#9654;</span>' : '<span style="color:var(--red)">&#9650;</span>';
+          const massColor = crackable ? (allCrackable ? 'var(--green)' : 'var(--yellow)') : 'var(--red)';
+          const label = crackable ? (allCrackable ? '' : `<span style="color:var(--yellow)">some outliers</span>`) : `<span style="color:var(--red)">too heavy</span>`;
+          const spawnProb = rtlData?.rockTypes?.[r.type]?.prob;
+          const spawnStr = spawnProb != null ? `spawn ${(spawnProb*100).toFixed(0)}%` : '';
+
+          html += `<div style="margin:3px 0;font-size:12px">
+            ${icon} <strong>${r.type}</strong>
+            <span class="mono">${(r.prob*100).toFixed(0)}% ore</span>
+            <span class="mono" style="color:var(--text-dim)">${spawnStr}</span>
+            <span class="mono" style="font-size:11px;color:${massColor}">mass ~${r.massMed.toLocaleString()}</span>
+            <span class="mono" style="font-size:11px;color:var(--text-dim)">res ${(r.res*100).toFixed(0)}%</span>
+            ${label}
+          </div>`;
+        });
+      } else {
+        html += `<div style="font-size:12px;color:var(--text-dim)">No rock type spawn data at this location.</div>`;
+      }
+      html += `<br><span style="color:var(--text-dim);font-size:11px"><a href="#" onclick="showSignalGuide();return false" style="color:var(--cyan)">Signal Guide</a> for details</span></div>`;
+    }
+
+    // ---- Material Insight ----
+    if (profile) {
+      const insight = dmMaterialInsight(ore, profile);
+      if (insight) {
+        html += `<div class="insight" style="margin-top:8px;border-color:var(--cyan)">
+          <div class="insight-title" style="color:var(--cyan)">Material Insight — ${oreName(ore)}</div>
+          <div style="font-size:12px;line-height:1.7">${insight}</div>
+        </div>`;
+      }
+    }
+
+    // Also found here
     const alsoOres = getOreAt(bestLoc).filter(o => o.code !== ore && o.code !== 'INERTMATERIAL' && o.prob >= 0.10).slice(0, 5);
     if (alsoOres.length) {
       html += `<div style="margin-top:6px;font-size:12px;color:var(--text-secondary)">Also at ${loc.display_name}: `;
       html += alsoOres.map(o => confChip(`${oreName(o.code)} ${(o.prob*100).toFixed(0)}%`, bestScans)).join(' ');
       html += '</div>';
     }
-
-    // Signal tip — what rock type to look for
-    const sysKey = loc.system.toUpperCase();
-    const rockTypes = D.rock_types[sysKey] || D.rock_types[loc.system] || {};
-    const matchingTypes = [];
-    for (const [rtype, rdata] of Object.entries(rockTypes)) {
-      if (!rdata || !rdata.ores) continue;
-      const oreInRock = rdata.ores[ore];
-      if (oreInRock && oreInRock.prob >= 0.15) {
-        matchingTypes.push({type: rtype, prob: oreInRock.prob, mass: rdata.mass?.med || 0, inst: rdata.inst?.med || 0});
-      }
-    }
-    if (matchingTypes.length) {
-      matchingTypes.sort((a, b) => b.prob - a.prob);
-      html += `<div class="insight" style="margin-top:8px"><div class="insight-title">Scanner Tip</div>`;
-      html += `Look for these rock types: `;
-      html += matchingTypes.slice(0, 3).map(t =>
-        `<strong>${t.type}</strong> (${(t.prob*100).toFixed(0)}% chance, signal ~${t.mass.toLocaleString()})`
-      ).join(', ');
-      html += `<br><span style="color:var(--text-dim)">Open <a href="#" onclick="showSignalGuide();return false" style="color:var(--cyan)">Signal Guide</a> for full rock type details</span>`;
-      html += `</div>`;
-    }
   } else {
-    // Ground mining — show what else is at this location
+    // Ground mining
     const locData = D.roc_hand_mining[bestLoc];
     if (locData?.ores) {
-      const others = Object.entries(locData.ores)
-        .filter(([k]) => k !== ore)
-        .sort((a, b) => b[1].prob - a[1].prob)
-        .slice(0, 4);
+      const others = Object.entries(locData.ores).filter(([k]) => k !== ore).sort((a, b) => b[1].prob - a[1].prob).slice(0, 4);
       if (others.length) {
         html += `<div style="margin-top:6px;font-size:12px;color:var(--text-secondary)">Also at ${loc.display_name}: `;
         html += others.map(([code, s]) => confChip(`${oreName(code)} ${(s.prob*100).toFixed(0)}%`, s.finds || 0)).join(' ');

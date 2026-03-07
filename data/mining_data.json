@@ -3,12 +3,13 @@
     "source": "Regolith Survey Corps + UEX Corp API",
     "regolith_export_date": "2026-03-04",
     "uex_fetch_date": "2026-03-04T18:42:11.479854Z",
-    "current_patch": "4.6",
-    "data_updated": "2026-03-05",
+    "current_patch": "4.7",
+    "data_updated": "2026-03-07",
     "news_reel": "",
     "total_mining_locations": 190,
     "total_ores": 34,
-    "total_refineries": 20
+    "total_refineries": 20,
+    "has_equipment": true
   },
   "ores": {
     "AGRICIUM": {
@@ -821,7 +822,7 @@
     "PYR2L4": {
       "display_name": "Pyro II L4",
       "system": "Pyro",
-      "parent": null,
+      "parent": "PY2",
       "type": "lagrange",
       "region": "pyro_inner",
       "has_refinery": false,
@@ -1691,7 +1692,7 @@
     "RUIN": {
       "display_name": "Ruin Station",
       "system": "Pyro",
-      "parent": "TER",
+      "parent": "PY5",
       "type": "station",
       "region": "pyro_v",
       "has_refinery": true,
@@ -2267,48 +2268,6 @@
       "has_refinery": false,
       "lpoint": null,
       "notes": ""
-    },
-    "CRU-L2": {
-      "display_name": "CRU-L2",
-      "system": "Stanton",
-      "parent": "CRU",
-      "type": "lagrange",
-      "region": "",
-      "has_refinery": false,
-      "lpoint": 2,
-      "notes": ""
-    },
-    "CRU-L3": {
-      "display_name": "CRU-L3",
-      "system": "Stanton",
-      "parent": "CRU",
-      "type": "lagrange",
-      "region": "",
-      "has_refinery": false,
-      "lpoint": 3,
-      "notes": ""
-    },
-    "CRU-L5": {
-      "display_name": "CRU-L5",
-      "system": "Stanton",
-      "parent": "CRU",
-      "type": "lagrange",
-      "region": "",
-      "has_refinery": false,
-      "lpoint": 5,
-      "notes": ""
-    },
-    "PYRO_GATE": {
-      "type": "gate"
-    },
-    "TERRA_GATE": {
-      "type": "gate"
-    },
-    "NYX_GATE": {
-      "type": "gate"
-    },
-    "STANTON_GATE": {
-      "type": "gate"
     }
   },
   "ore_locations": {
@@ -55739,6 +55698,1453 @@
         "value": 8,
         "system": "Nyx"
       }
+    }
+  },
+  "equipment": {
+    "lasers": {
+      "drak_golem_s1": {
+        "name": "Pitman Mining Laser",
+        "size": 1,
+        "manufacturer": "Drake Interplanetary",
+        "module_slots": 2,
+        "instability": 35.0,
+        "resistance": 25.0,
+        "optimal_window_size": 40.0,
+        "optimal_window_rate": -40.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 40.0,
+        "max_power": 3150,
+        "min_power": 630,
+        "min_power_pct": 20,
+        "extract_power": 1295,
+        "optimum_range": 40,
+        "max_range": 45,
+        "notes": "",
+        "bespoke": true
+      },
+      "grin_arbor_s0": {
+        "name": "Arbor MHV Mining Laser",
+        "size": 0,
+        "manufacturer": "Greycat Industrial",
+        "module_slots": 0,
+        "instability": -40.0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "max_power": 0,
+        "min_power": 0,
+        "min_power_pct": 0,
+        "extract_power": 0,
+        "optimum_range": 15,
+        "max_range": 20,
+        "notes": ""
+      },
+      "grin_arbor_s1": {
+        "name": "Arbor MH1 Mining Laser",
+        "size": 1,
+        "manufacturer": "Greycat Industrial",
+        "module_slots": 1,
+        "instability": -35.0,
+        "resistance": 25.0,
+        "optimal_window_size": 40.0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 30.0,
+        "max_power": 1890,
+        "min_power": 189,
+        "min_power_pct": 10,
+        "extract_power": 1850,
+        "optimum_range": 60,
+        "max_range": 180,
+        "notes": ""
+      },
+      "grin_arbor_s2": {
+        "name": "Arbor MH2 Mining Laser",
+        "size": 2,
+        "manufacturer": "Greycat Industrial",
+        "module_slots": 2,
+        "instability": -35.0,
+        "resistance": 25.0,
+        "optimal_window_size": 40.0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 40.0,
+        "max_power": 2400,
+        "min_power": 480,
+        "min_power_pct": 20,
+        "extract_power": 2590,
+        "optimum_range": 90,
+        "max_range": 270,
+        "notes": ""
+      },
+      "grin_lancet_s1": {
+        "name": "Lancet MH1 Mining Laser",
+        "size": 1,
+        "manufacturer": "Greycat Industrial",
+        "module_slots": 1,
+        "instability": -10.0,
+        "resistance": 0,
+        "optimal_window_size": -60.0,
+        "optimal_window_rate": 40.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 30.0,
+        "max_power": 2520,
+        "min_power": 504,
+        "min_power_pct": 20,
+        "extract_power": 1850,
+        "optimum_range": 30,
+        "max_range": 90,
+        "notes": ""
+      },
+      "grin_lancet_s2": {
+        "name": "Lancet MH2 Mining Laser",
+        "size": 2,
+        "manufacturer": "Greycat Industrial",
+        "module_slots": 2,
+        "instability": -10.0,
+        "resistance": 0,
+        "optimal_window_size": -60.0,
+        "optimal_window_rate": 40.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 40.0,
+        "max_power": 3600,
+        "min_power": 900,
+        "min_power_pct": 25,
+        "extract_power": 2590,
+        "optimum_range": 45,
+        "max_range": 135,
+        "notes": ""
+      },
+      "shin_hofstede_s0": {
+        "name": "S00 Hofstede",
+        "size": 0,
+        "manufacturer": "Shubin Interstellar",
+        "module_slots": 0,
+        "instability": 30.0,
+        "resistance": -40.0,
+        "optimal_window_size": 40.0,
+        "optimal_window_rate": 20.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "max_power": 0,
+        "min_power": 0,
+        "min_power_pct": 0,
+        "extract_power": 0,
+        "optimum_range": 30,
+        "max_range": 30,
+        "notes": ""
+      },
+      "shin_hofstede_s1": {
+        "name": "Hofstede-S1 Mining Laser",
+        "size": 1,
+        "manufacturer": "Shubin Interstellar",
+        "module_slots": 1,
+        "instability": 10.0,
+        "resistance": -30.0,
+        "optimal_window_size": 60.0,
+        "optimal_window_rate": 20.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 30.0,
+        "max_power": 2100,
+        "min_power": 105,
+        "min_power_pct": 5,
+        "extract_power": 1295,
+        "optimum_range": 45,
+        "max_range": 135,
+        "notes": ""
+      },
+      "shin_hofstede_s2": {
+        "name": "Hofstede-S2 Mining Laser",
+        "size": 2,
+        "manufacturer": "Shubin Interstellar",
+        "module_slots": 2,
+        "instability": 10.0,
+        "resistance": -30.0,
+        "optimal_window_size": 60.0,
+        "optimal_window_rate": 20.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 40.0,
+        "max_power": 3360,
+        "min_power": 336,
+        "min_power_pct": 10,
+        "extract_power": 1295,
+        "optimum_range": 60,
+        "max_range": 180,
+        "notes": ""
+      },
+      "shin_klein_s0": {
+        "name": "Lawson Mining Laser",
+        "size": 0,
+        "manufacturer": "Shubin Interstellar",
+        "module_slots": 0,
+        "instability": 30.0,
+        "resistance": -40.0,
+        "optimal_window_size": 40.0,
+        "optimal_window_rate": 0.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "max_power": 0,
+        "min_power": 0,
+        "min_power_pct": 0,
+        "extract_power": 0,
+        "optimum_range": 0,
+        "max_range": 0,
+        "notes": ""
+      },
+      "shin_klein_s1": {
+        "name": "Klein-S1 Mining Laser",
+        "size": 1,
+        "manufacturer": "Shubin Interstellar",
+        "module_slots": 0,
+        "instability": 35.0,
+        "resistance": -45.0,
+        "optimal_window_size": 20.0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 30.0,
+        "max_power": 2220,
+        "min_power": 378,
+        "min_power_pct": 17,
+        "extract_power": 2220,
+        "optimum_range": 45,
+        "max_range": 135,
+        "notes": ""
+      },
+      "shin_klein_s2": {
+        "name": "Klein-S2 Mining Laser",
+        "size": 2,
+        "manufacturer": "Shubin Interstellar",
+        "module_slots": 1,
+        "instability": 35.0,
+        "resistance": -45.0,
+        "optimal_window_size": 20.0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 40.0,
+        "max_power": 3600,
+        "min_power": 720,
+        "min_power_pct": 20,
+        "extract_power": 2775,
+        "optimum_range": 60,
+        "max_range": 180,
+        "notes": ""
+      },
+      "thcn_helix_s0": {
+        "name": "S0 Helix",
+        "size": 0,
+        "manufacturer": "Thermyte Concern",
+        "module_slots": 0,
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": -40.0,
+        "optimal_window_rate": 20.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "max_power": 0,
+        "min_power": 0,
+        "min_power_pct": 0,
+        "extract_power": 0,
+        "optimum_range": 30,
+        "max_range": 30,
+        "notes": ""
+      },
+      "thcn_helix_s1": {
+        "name": "Helix I Mining Laser",
+        "size": 1,
+        "manufacturer": "Thermyte Concern",
+        "module_slots": 2,
+        "instability": 0,
+        "resistance": -30.0,
+        "optimal_window_size": -40.0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 30.0,
+        "max_power": 3150,
+        "min_power": 630,
+        "min_power_pct": 20,
+        "extract_power": 1850,
+        "optimum_range": 15,
+        "max_range": 45,
+        "notes": ""
+      },
+      "thcn_helix_s2": {
+        "name": "Helix II Mining Laser",
+        "size": 2,
+        "manufacturer": "Thermyte Concern",
+        "module_slots": 3,
+        "instability": 0,
+        "resistance": -30.0,
+        "optimal_window_size": -40.0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 40.0,
+        "max_power": 4080,
+        "min_power": 1020,
+        "min_power_pct": 25,
+        "extract_power": 2590,
+        "optimum_range": 30,
+        "max_range": 90,
+        "notes": ""
+      },
+      "thcn_impact_s1": {
+        "name": "Impact I Mining Laser",
+        "size": 1,
+        "manufacturer": "Thermyte Concern",
+        "module_slots": 2,
+        "instability": -10.0,
+        "resistance": 10.0,
+        "optimal_window_size": 20.0,
+        "optimal_window_rate": -40.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 30.0,
+        "max_power": 2100,
+        "min_power": 420,
+        "min_power_pct": 20,
+        "extract_power": 2775,
+        "optimum_range": 45,
+        "max_range": 135,
+        "notes": ""
+      },
+      "thcn_impact_s2": {
+        "name": "Impact II Mining Laser",
+        "size": 2,
+        "manufacturer": "Thermyte Concern",
+        "module_slots": 3,
+        "instability": -10.0,
+        "resistance": 10.0,
+        "optimal_window_size": 20.0,
+        "optimal_window_rate": -40.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 40.0,
+        "max_power": 3360,
+        "min_power": 840,
+        "min_power_pct": 25,
+        "extract_power": 3145,
+        "optimum_range": 60,
+        "max_range": 180,
+        "notes": ""
+      }
+    },
+    "modules": {
+      "active_brandt": {
+        "name": "Brandt Module",
+        "type": "active",
+        "manufacturer": "Greycat Industrial",
+        "instability": 0,
+        "resistance": 15.5,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": -30.0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": 35,
+        "extract_power_mod": 0,
+        "lifetime": 60.0,
+        "notes": ""
+      },
+      "active_forel": {
+        "name": "Forel Module",
+        "type": "active",
+        "manufacturer": "Shubin Interstellar",
+        "instability": 0,
+        "resistance": 15.5,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": -60.0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": 0,
+        "extract_power_mod": 50,
+        "lifetime": 60.0,
+        "notes": ""
+      },
+      "active_lifeline": {
+        "name": "Lifeline Module",
+        "type": "active",
+        "manufacturer": "Greycat Industrial",
+        "instability": -20.0,
+        "resistance": -15.5,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 60.0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": 0,
+        "extract_power_mod": 0,
+        "lifetime": 15.0,
+        "notes": ""
+      },
+      "active_optimum": {
+        "name": "Optimum Module",
+        "type": "active",
+        "manufacturer": "Greycat Industrial",
+        "instability": -10.0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": -80.0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": -15,
+        "extract_power_mod": 0,
+        "lifetime": 60.0,
+        "notes": ""
+      },
+      "active_rime": {
+        "name": "Rime Module",
+        "type": "active",
+        "manufacturer": "Greycat Industrial",
+        "instability": 0,
+        "resistance": -24.8,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": -10.0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": -15,
+        "extract_power_mod": 0,
+        "lifetime": 20.0,
+        "notes": ""
+      },
+      "active_stampede": {
+        "name": "Stampede Module",
+        "type": "active",
+        "manufacturer": "Thermyte Concern",
+        "instability": -10.0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": -10.0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": 35,
+        "extract_power_mod": -15,
+        "lifetime": 30.0,
+        "notes": ""
+      },
+      "active_surge": {
+        "name": "Surge Module",
+        "type": "active",
+        "manufacturer": "Thermyte Concern",
+        "instability": 10.0,
+        "resistance": -15.5,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": 50,
+        "extract_power_mod": 0,
+        "lifetime": 15.0,
+        "notes": ""
+      },
+      "active_torpid": {
+        "name": "Torpid Module",
+        "type": "active",
+        "manufacturer": "Greycat Industrial",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 60.0,
+        "catastrophic_rate": -60.0,
+        "shatter_damage": 40.0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": 0,
+        "extract_power_mod": 0,
+        "lifetime": 60.0,
+        "notes": ""
+      },
+      "passive_fltr_mk1": {
+        "name": "FLTR Module",
+        "type": "passive",
+        "manufacturer": "Greycat Industrial",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 20.0,
+        "power_mod": 0,
+        "extract_power_mod": -15,
+        "lifetime": null,
+        "notes": ""
+      },
+      "passive_fltr_mk2": {
+        "name": "FLTR-L Module",
+        "type": "passive",
+        "manufacturer": "Greycat Industrial",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 23.0,
+        "power_mod": 0,
+        "extract_power_mod": -10,
+        "lifetime": null,
+        "notes": ""
+      },
+      "passive_fltr_mk3": {
+        "name": "FLTR-XL Module",
+        "type": "passive",
+        "manufacturer": "Greycat Industrial",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 24.0,
+        "power_mod": 0,
+        "extract_power_mod": -5,
+        "lifetime": null,
+        "notes": ""
+      },
+      "passive_focus_mk1": {
+        "name": "Focus Module",
+        "type": "passive",
+        "manufacturer": "Thermyte Concern",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 30.0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": -15,
+        "extract_power_mod": 0,
+        "lifetime": null,
+        "notes": ""
+      },
+      "passive_focus_mk2": {
+        "name": "Focus II Module",
+        "type": "passive",
+        "manufacturer": "Thermyte Concern",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 37.0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": -10,
+        "extract_power_mod": 0,
+        "lifetime": null,
+        "notes": ""
+      },
+      "passive_focus_mk3": {
+        "name": "Focus III Module",
+        "type": "passive",
+        "manufacturer": "Thermyte Concern",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 40.0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": -5,
+        "extract_power_mod": 0,
+        "lifetime": null,
+        "notes": ""
+      },
+      "passive_rieger_mk1": {
+        "name": "Rieger Module",
+        "type": "passive",
+        "manufacturer": "Shubin Interstellar",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": -10.0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": 15,
+        "extract_power_mod": 0,
+        "lifetime": null,
+        "notes": ""
+      },
+      "passive_rieger_mk2": {
+        "name": "Rieger-C2 Module",
+        "type": "passive",
+        "manufacturer": "Shubin Interstellar",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": -3.0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": 20,
+        "extract_power_mod": 0,
+        "lifetime": null,
+        "notes": ""
+      },
+      "passive_rieger_mk3": {
+        "name": "Rieger-C3 Module",
+        "type": "passive",
+        "manufacturer": "Shubin Interstellar",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": -1.0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": 25,
+        "extract_power_mod": 0,
+        "lifetime": null,
+        "notes": ""
+      },
+      "passive_torrent_mk1": {
+        "name": "Torrent Module",
+        "type": "passive",
+        "manufacturer": "Thermyte Concern",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": -10.0,
+        "optimal_window_rate": 30.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": 0,
+        "extract_power_mod": 0,
+        "lifetime": null,
+        "notes": ""
+      },
+      "passive_torrent_mk2": {
+        "name": "Torrent II Module",
+        "type": "passive",
+        "manufacturer": "Thermyte Concern",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": -3.0,
+        "optimal_window_rate": 35.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": 0,
+        "extract_power_mod": 0,
+        "lifetime": null,
+        "notes": ""
+      },
+      "passive_torrent_mk3": {
+        "name": "Torrent III Module",
+        "type": "passive",
+        "manufacturer": "Thermyte Concern",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": -1.0,
+        "optimal_window_rate": 45.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": 0,
+        "extract_power_mod": 0,
+        "lifetime": null,
+        "notes": ""
+      },
+      "passive_vaux_mk1": {
+        "name": "Vaux Module",
+        "type": "passive",
+        "manufacturer": "Shubin Interstellar",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": -20.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": 0,
+        "extract_power_mod": 15,
+        "lifetime": null,
+        "notes": ""
+      },
+      "passive_vaux_mk2": {
+        "name": "Vaux-C2 Module",
+        "type": "passive",
+        "manufacturer": "Shubin Interstellar",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": -15.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": 0,
+        "extract_power_mod": 20,
+        "lifetime": null,
+        "notes": ""
+      },
+      "passive_vaux_mk3": {
+        "name": "Vaux-C3 Module",
+        "type": "passive",
+        "manufacturer": "Shubin Interstellar",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": -5.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": 0,
+        "extract_power_mod": 25,
+        "lifetime": null,
+        "notes": ""
+      },
+      "passive_xtr_mk1": {
+        "name": "XTR Module",
+        "type": "passive",
+        "manufacturer": "Greycat Industrial",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 15.0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 5.0,
+        "power_mod": 0,
+        "extract_power_mod": -15,
+        "lifetime": null,
+        "notes": ""
+      },
+      "passive_xtr_mk2": {
+        "name": "XTR-L Module",
+        "type": "passive",
+        "manufacturer": "Greycat Industrial",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 22.0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 5.75,
+        "power_mod": 0,
+        "extract_power_mod": -10,
+        "lifetime": null,
+        "notes": ""
+      },
+      "passive_xtr_mk3": {
+        "name": "XTR-XL Module",
+        "type": "passive",
+        "manufacturer": "Greycat Industrial",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 25.0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 6.0,
+        "power_mod": 0,
+        "extract_power_mod": -5,
+        "lifetime": null,
+        "notes": ""
+      },
+      "vehiclemod_argogeo": {
+        "name": "ATLS GEO Module",
+        "type": "vehicle",
+        "manufacturer": "Thermyte Concern",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": 0,
+        "extract_power_mod": 0,
+        "lifetime": null,
+        "notes": ""
+      },
+      "vehiclemod_rocds": {
+        "name": "ROC Module",
+        "type": "vehicle",
+        "manufacturer": "Thermyte Concern",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 20.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "power_mod": 0,
+        "extract_power_mod": 0,
+        "lifetime": null,
+        "notes": ""
+      }
+    },
+    "gadgets": {
+      "grin_optimax": {
+        "name": "OptiMax",
+        "manufacturer": "Greycat Industrial",
+        "instability": 0,
+        "resistance": -25.0,
+        "optimal_window_size": -30.0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 60.0,
+        "charges": -1,
+        "notes": ""
+      },
+      "grin_waveshift": {
+        "name": "Waveshift",
+        "manufacturer": "Greycat Industrial",
+        "instability": -35.0,
+        "resistance": 0,
+        "optimal_window_size": 100.0,
+        "optimal_window_rate": -30.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "charges": -1,
+        "notes": ""
+      },
+      "shin_okunis": {
+        "name": "Okunis",
+        "manufacturer": "Shubin Interstellar",
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 50.0,
+        "optimal_window_rate": 100.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": -20.0,
+        "charges": -1,
+        "notes": ""
+      },
+      "shin_sabir": {
+        "name": "Sabir",
+        "manufacturer": "Shubin Interstellar",
+        "instability": 15.0,
+        "resistance": -50.0,
+        "optimal_window_size": 50.0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "charges": -1,
+        "notes": ""
+      },
+      "thcn_boremax": {
+        "name": "BoreMax",
+        "manufacturer": "Thermyte Concern",
+        "instability": -70.0,
+        "resistance": 10.0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 30.0,
+        "charges": -1,
+        "notes": ""
+      },
+      "thcn_stalwart": {
+        "name": "Stalwart",
+        "manufacturer": "Thermyte Concern",
+        "instability": -35.0,
+        "resistance": 0,
+        "optimal_window_size": -30.0,
+        "optimal_window_rate": 50.0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 30.0,
+        "charges": -1,
+        "notes": ""
+      }
+    },
+    "ships": {
+      "prospector": {
+        "name": "MISC Prospector",
+        "turrets": 1,
+        "laser_size": 1,
+        "cargo_scu": 32,
+        "stock_laser": "grin_arbor_s1",
+        "bespoke_laser": false,
+        "notes": "Entry mining ship. Single S1 laser, 1 operator."
+      },
+      "mole": {
+        "name": "Argo MOLE",
+        "turrets": 3,
+        "laser_size": 2,
+        "cargo_scu": 96,
+        "stock_laser": "grin_arbor_s2",
+        "bespoke_laser": false,
+        "notes": "Multi-crew mining. 3 S2 turrets. Modifiers stack across turrets firing same rock. Solo: use one turret at a time."
+      },
+      "golem": {
+        "name": "Drake Golem",
+        "turrets": 1,
+        "laser_size": 1,
+        "cargo_scu": 80,
+        "stock_laser": "drak_golem_s1",
+        "bespoke_laser": true,
+        "notes": "Solo mining. Bespoke laser (cannot be swapped), 2 module slots. Limited to smaller rocks."
+      },
+      "orion": {
+        "name": "RSI Orion",
+        "turrets": 1,
+        "laser_size": 2,
+        "cargo_scu": 384,
+        "stock_laser": "grin_arbor_s2",
+        "bespoke_laser": false,
+        "notes": "Large-scale mining. S2 laser. Details TBD."
+      }
+    },
+    "loadouts": {
+      "_note": "Community-recommended setups. Mass values = max rock mass the setup can crack.",
+      "prospector": {
+        "easy": {
+          "laser": "thcn_helix_s1",
+          "modules": [
+            "passive_rieger_mk3",
+            "passive_rieger_mk3"
+          ],
+          "gadgets": [],
+          "max_mass": 15000,
+          "label": "Helix I + 2x Rieger-C3",
+          "notes": "Newbie setup. Reliable for most rocks.",
+          "effective_power": 4725
+        },
+        "medium": {
+          "laser": "thcn_helix_s1",
+          "modules": [
+            "passive_rieger_mk3",
+            "passive_focus_mk3"
+          ],
+          "gadgets": [],
+          "max_mass": 15000,
+          "label": "Helix I + Rieger-C3 + Focus III",
+          "notes": "Safer window with power. Good balance.",
+          "effective_power": 3780
+        },
+        "hard": {
+          "laser": "thcn_helix_s1",
+          "modules": [
+            "passive_rieger_mk3",
+            "active_surge"
+          ],
+          "gadgets": [],
+          "max_mass": 20000,
+          "label": "Helix I + Rieger-C3 + Surge",
+          "notes": "Experienced. Surge for burst power on bigger rocks. Limited uses.",
+          "effective_power": 5512
+        }
+      },
+      "golem": {
+        "easy": {
+          "laser": "drak_golem_s1",
+          "modules": [],
+          "gadgets": [],
+          "max_mass": 8000,
+          "label": "Stock Golem laser",
+          "notes": "Very limited. Only small rocks.",
+          "effective_power": 3150
+        },
+        "medium": {
+          "laser": "drak_golem_s1",
+          "modules": [
+            "passive_rieger_mk3",
+            "passive_rieger_mk3"
+          ],
+          "gadgets": [],
+          "max_mass": 12000,
+          "label": "Golem + 2x Rieger-C3",
+          "notes": "Best passive setup. Still limited by bespoke laser.",
+          "effective_power": 4725
+        },
+        "hard": {
+          "laser": "drak_golem_s1",
+          "modules": [
+            "passive_rieger_mk3",
+            "passive_rieger_mk3"
+          ],
+          "gadgets": [
+            "shin_sabir"
+          ],
+          "max_mass": 18000,
+          "label": "Golem + 2x Rieger-C3 + Sabir gadget",
+          "notes": "Sabir -50% resistance compensates bespoke laser limitations.",
+          "effective_power": 4725
+        }
+      },
+      "mole_solo": {
+        "easy": {
+          "turrets": [
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "passive_rieger_mk3",
+                "passive_focus_mk3"
+              ],
+              "role": "Center — medium rocks",
+              "max_mass": 29000,
+              "effective_power": 5916
+            },
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "passive_rieger_mk3",
+                "passive_focus_mk3"
+              ],
+              "role": "Left — same setup, swap for variety",
+              "max_mass": 29000,
+              "effective_power": 5916
+            },
+            {
+              "laser": "shin_hofstede_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "passive_focus_mk3"
+              ],
+              "role": "Right — small rocks & extraction",
+              "max_mass": 12000,
+              "effective_power": 4032
+            }
+          ],
+          "stacking_turrets": 1,
+          "gadgets": [],
+          "max_mass": 29000,
+          "label": "Solo MOLE — passive modules, swap seats",
+          "notes": "Use one turret at a time. Center/Left for cracking, Right for small rocks and extraction.",
+          "effective_power": 5916
+        },
+        "medium": {
+          "turrets": [
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "passive_rieger_mk3",
+                "passive_focus_mk3"
+              ],
+              "role": "Center — medium rocks",
+              "max_mass": 29000,
+              "effective_power": 5916
+            },
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "active_stampede",
+                "active_surge"
+              ],
+              "role": "Left — hard rocks with actives",
+              "max_mass": 40000,
+              "effective_power": 8568
+            },
+            {
+              "laser": "shin_hofstede_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "passive_focus_mk3"
+              ],
+              "role": "Right — small rocks & extraction",
+              "max_mass": 12000,
+              "effective_power": 4032
+            }
+          ],
+          "stacking_turrets": 1,
+          "gadgets": [],
+          "max_mass": 40000,
+          "label": "Solo MOLE — center passive, left with actives",
+          "notes": "Center for most rocks, swap to Left and fire actives for harder ones. Right for fragments.",
+          "effective_power": 8568
+        },
+        "hard": {
+          "turrets": [
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "passive_rieger_mk3",
+                "passive_focus_mk3"
+              ],
+              "role": "Center — medium rocks",
+              "max_mass": 29000,
+              "effective_power": 5916
+            },
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "active_stampede",
+                "active_surge"
+              ],
+              "role": "Left — hard rocks with actives",
+              "max_mass": 40000,
+              "effective_power": 8568
+            },
+            {
+              "laser": "shin_hofstede_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "passive_focus_mk3"
+              ],
+              "role": "Right — small rocks & extraction",
+              "max_mass": 12000,
+              "effective_power": 4032
+            }
+          ],
+          "stacking_turrets": 1,
+          "gadgets": [
+            "shin_sabir"
+          ],
+          "max_mass": 50000,
+          "label": "Solo MOLE — actives + Sabir gadget",
+          "notes": "Throw Sabir at rock first, then swap to Left turret with actives. 1 gadget per rock when solo.",
+          "effective_power": 8568
+        }
+      },
+      "mole_2crew": {
+        "easy": {
+          "turrets": [
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "passive_rieger_mk3",
+                "passive_focus_mk3"
+              ],
+              "role": "Turret 1 — primary cracking",
+              "max_mass": 29000,
+              "effective_power": 5916
+            },
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "passive_rieger_mk3",
+                "passive_focus_mk3"
+              ],
+              "role": "Turret 2 — primary cracking (stacks)",
+              "max_mass": 29000,
+              "effective_power": 5916
+            },
+            {
+              "laser": "shin_hofstede_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "passive_focus_mk3"
+              ],
+              "role": "Turret 3 — fragments & extraction",
+              "max_mass": 12000,
+              "effective_power": 4032
+            }
+          ],
+          "stacking_turrets": 2,
+          "gadgets": [],
+          "max_mass": 50000,
+          "label": "2-crew MOLE — 2 primaries stacking",
+          "notes": "Both operators fire at same rock — power stacks. 3rd turret preset for fragments.",
+          "effective_power": 11832
+        },
+        "medium": {
+          "turrets": [
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "active_stampede",
+                "active_surge"
+              ],
+              "role": "Turret 1 — primary with actives",
+              "max_mass": 40000,
+              "effective_power": 8568
+            },
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "active_stampede",
+                "active_surge"
+              ],
+              "role": "Turret 2 — primary with actives (stacks)",
+              "max_mass": 40000,
+              "effective_power": 8568
+            },
+            {
+              "laser": "shin_hofstede_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "passive_focus_mk3"
+              ],
+              "role": "Turret 3 — fragments & extraction",
+              "max_mass": 12000,
+              "effective_power": 4032
+            }
+          ],
+          "stacking_turrets": 2,
+          "gadgets": [],
+          "max_mass": 65000,
+          "label": "2-crew MOLE — both with actives",
+          "notes": "Active modules from both turrets stack.",
+          "effective_power": 17136
+        },
+        "hard": {
+          "turrets": [
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "active_stampede",
+                "active_surge"
+              ],
+              "role": "Turret 1 — primary with actives",
+              "max_mass": 40000,
+              "effective_power": 8568
+            },
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "active_stampede",
+                "active_surge"
+              ],
+              "role": "Turret 2 — primary with actives (stacks)",
+              "max_mass": 40000,
+              "effective_power": 8568
+            },
+            {
+              "laser": "shin_hofstede_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "passive_focus_mk3"
+              ],
+              "role": "Turret 3 — fragments & extraction",
+              "max_mass": 12000,
+              "effective_power": 4032
+            }
+          ],
+          "stacking_turrets": 2,
+          "gadgets": [
+            "shin_sabir"
+          ],
+          "max_mass": 80000,
+          "label": "2-crew MOLE — actives + Sabir",
+          "notes": "One operator throws Sabir, both fire.",
+          "effective_power": 17136
+        }
+      },
+      "mole_3crew": {
+        "easy": {
+          "turrets": [
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "passive_rieger_mk3",
+                "passive_focus_mk3"
+              ],
+              "role": "Turret 1 — primary cracking",
+              "max_mass": 29000,
+              "effective_power": 5916
+            },
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "passive_rieger_mk3",
+                "passive_focus_mk3"
+              ],
+              "role": "Turret 2 — primary cracking (stacks)",
+              "max_mass": 29000,
+              "effective_power": 5916
+            },
+            {
+              "laser": "shin_hofstede_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "passive_focus_mk3"
+              ],
+              "role": "Turret 3 — fragments & extraction",
+              "max_mass": 12000,
+              "effective_power": 4032
+            }
+          ],
+          "stacking_turrets": 3,
+          "gadgets": [],
+          "max_mass": 70000,
+          "label": "3-crew MOLE — all 3 stacking",
+          "notes": "All 3 fire at same rock when needed. Turret 3 switches to fragments after crack.",
+          "effective_power": 15864
+        },
+        "medium": {
+          "turrets": [
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "active_stampede",
+                "active_surge"
+              ],
+              "role": "Turret 1 — primary with actives",
+              "max_mass": 40000,
+              "effective_power": 8568
+            },
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "active_stampede",
+                "active_surge"
+              ],
+              "role": "Turret 2 — primary with actives (stacks)",
+              "max_mass": 40000,
+              "effective_power": 8568
+            },
+            {
+              "laser": "shin_hofstede_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "passive_focus_mk3"
+              ],
+              "role": "Turret 3 — fragments & extraction",
+              "max_mass": 12000,
+              "effective_power": 4032
+            }
+          ],
+          "stacking_turrets": 3,
+          "gadgets": [],
+          "max_mass": 90000,
+          "label": "3-crew MOLE — all with actives",
+          "notes": "Active modules from all turrets stack.",
+          "effective_power": 21168
+        },
+        "hard": {
+          "turrets": [
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "active_stampede",
+                "active_surge"
+              ],
+              "role": "Turret 1 — primary with actives",
+              "max_mass": 40000,
+              "effective_power": 8568
+            },
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "active_stampede",
+                "active_surge"
+              ],
+              "role": "Turret 2 — primary with actives (stacks)",
+              "max_mass": 40000,
+              "effective_power": 8568
+            },
+            {
+              "laser": "shin_hofstede_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "passive_focus_mk3"
+              ],
+              "role": "Turret 3 — fragments & extraction",
+              "max_mass": 12000,
+              "effective_power": 4032
+            }
+          ],
+          "stacking_turrets": 3,
+          "gadgets": [
+            "shin_sabir"
+          ],
+          "max_mass": 120000,
+          "label": "3-crew MOLE — full loadout + Sabir",
+          "notes": "One operator throws Sabir, all 3 fire. Maximum MOLE.",
+          "effective_power": 21168
+        }
+      }
+    },
+    "gadget_rules": {
+      "universal": true,
+      "works_on": [
+        "ship_rocks",
+        "vehicle_rocks"
+      ],
+      "does_not_work_on": [
+        "fps_rocks"
+      ],
+      "reusable": true,
+      "max_per_rock": 1,
+      "notes": "Gadgets are thrown at rocks. Infinite uses, reusable. Only 1 gadget per rock at a time (unless multiple players throw simultaneously). Do not work on FPS hand-mining rocks."
+    },
+    "module_rules": {
+      "passive_always_active": true,
+      "active_has_timer": true,
+      "active_limited_uses": true,
+      "cannot_stack_same_active": true,
+      "cross_turret_stacking": true,
+      "notes": "Passive modules always active. Active modules have timer + limited uses. Cannot equip 2 of same active type. When multiple MOLE turrets fire at same rock, all modifiers stack."
     }
   },
   "map_positions": {

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SC Hub — Mining Operations</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -63,6 +64,25 @@
           <span style="color:var(--text-dim);font-size:12px;margin-left:8px">What do my scanner signals mean?</span>
         </div>
         <div class="card" id="dummy-miner">
+          <div class="filter-row" style="margin-bottom:6px">
+            <span class="filter-label">Ship:</span>
+            <select id="dm-ship" style="width:200px" onchange="dmShipChanged()"></select>
+            <span id="dm-crew-wrap" style="display:none">
+              <span class="filter-label" style="margin-left:12px">Crew:</span>
+              <select id="dm-crew" style="width:110px" onchange="runDummyMiner()"></select>
+            </span>
+            <span id="dm-diff-wrap">
+              <span class="filter-label" style="margin-left:12px">Difficulty:</span>
+              <select id="dm-diff" style="width:180px" onchange="runDummyMiner()"></select>
+            </span>
+            <span id="dm-mode-wrap" style="margin-left:auto">
+              <span class="filter-label">Mode:</span>
+              <select id="dm-mode" style="width:160px" onchange="dmModeChanged()">
+                <option value="community">Community Builds</option>
+                <option value="optimized">Optimized for Ore</option>
+              </select>
+            </span>
+          </div>
           <div class="filter-row">
             <span class="filter-label">Material:</span>
             <select id="dm-ore" style="width:200px" onchange="runDummyMiner()"><option value="">Pick one...</option></select>
