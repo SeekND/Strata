@@ -56744,49 +56744,7 @@
                 "passive_rieger_mk3",
                 "passive_focus_mk3"
               ],
-              "role": "Center — medium rocks",
-              "max_mass": 29000,
-              "effective_power": 5916
-            },
-            {
-              "laser": "thcn_helix_s2",
-              "modules": [
-                "passive_rieger_mk3",
-                "passive_rieger_mk3",
-                "passive_focus_mk3"
-              ],
-              "role": "Left — same setup, swap for variety",
-              "max_mass": 29000,
-              "effective_power": 5916
-            },
-            {
-              "laser": "shin_hofstede_s2",
-              "modules": [
-                "passive_rieger_mk3",
-                "passive_focus_mk3"
-              ],
-              "role": "Right — small rocks & extraction",
-              "max_mass": 12000,
-              "effective_power": 4032
-            }
-          ],
-          "stacking_turrets": 1,
-          "gadgets": [],
-          "max_mass": 29000,
-          "label": "Solo MOLE — passive modules, swap seats",
-          "notes": "Use one turret at a time. Center/Left for cracking, Right for small rocks and extraction.",
-          "effective_power": 5916
-        },
-        "medium": {
-          "turrets": [
-            {
-              "laser": "thcn_helix_s2",
-              "modules": [
-                "passive_rieger_mk3",
-                "passive_rieger_mk3",
-                "passive_focus_mk3"
-              ],
-              "role": "Center — medium rocks",
+              "role": "Center — passive, medium rocks (20k-29k)",
               "max_mass": 29000,
               "effective_power": 5916
             },
@@ -56797,7 +56755,7 @@
                 "active_stampede",
                 "active_surge"
               ],
-              "role": "Left — hard rocks with actives",
+              "role": "Left — actives for hard rocks (30k-40k)",
               "max_mass": 40000,
               "effective_power": 8568
             },
@@ -56807,7 +56765,49 @@
                 "passive_rieger_mk3",
                 "passive_focus_mk3"
               ],
-              "role": "Right — small rocks & extraction",
+              "role": "Right — small rocks & extraction (~12k)",
+              "max_mass": 12000,
+              "effective_power": 4032
+            }
+          ],
+          "stacking_turrets": 1,
+          "gadgets": [],
+          "max_mass": 29000,
+          "label": "Solo MOLE — use Center turret for most rocks",
+          "notes": "3 turrets pre-configured. Center for 20k-29k. Swap to Left (fire actives) for 30k-40k. Right for small rocks & extraction.",
+          "effective_power": 8568
+        },
+        "medium": {
+          "turrets": [
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "passive_rieger_mk3",
+                "passive_focus_mk3"
+              ],
+              "role": "Center — passive, medium rocks (20k-29k)",
+              "max_mass": 29000,
+              "effective_power": 5916
+            },
+            {
+              "laser": "thcn_helix_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "active_stampede",
+                "active_surge"
+              ],
+              "role": "Left — actives for hard rocks (30k-40k)",
+              "max_mass": 40000,
+              "effective_power": 8568
+            },
+            {
+              "laser": "shin_hofstede_s2",
+              "modules": [
+                "passive_rieger_mk3",
+                "passive_focus_mk3"
+              ],
+              "role": "Right — small rocks & extraction (~12k)",
               "max_mass": 12000,
               "effective_power": 4032
             }
@@ -56815,8 +56815,8 @@
           "stacking_turrets": 1,
           "gadgets": [],
           "max_mass": 40000,
-          "label": "Solo MOLE — center passive, left with actives",
-          "notes": "Center for most rocks, swap to Left and fire actives for harder ones. Right for fragments.",
+          "label": "Solo MOLE — swap to Left turret for harder rocks",
+          "notes": "Same 3 turrets. Use Left turret with Stampede+Surge for 30k-40k rocks. Center for easier ones. Right for fragments.",
           "effective_power": 8568
         },
         "hard": {
@@ -56828,7 +56828,7 @@
                 "passive_rieger_mk3",
                 "passive_focus_mk3"
               ],
-              "role": "Center — medium rocks",
+              "role": "Center — passive, medium rocks (20k-29k)",
               "max_mass": 29000,
               "effective_power": 5916
             },
@@ -56839,7 +56839,7 @@
                 "active_stampede",
                 "active_surge"
               ],
-              "role": "Left — hard rocks with actives",
+              "role": "Left — actives for hard rocks (30k-40k)",
               "max_mass": 40000,
               "effective_power": 8568
             },
@@ -56849,7 +56849,7 @@
                 "passive_rieger_mk3",
                 "passive_focus_mk3"
               ],
-              "role": "Right — small rocks & extraction",
+              "role": "Right — small rocks & extraction (~12k)",
               "max_mass": 12000,
               "effective_power": 4032
             }
@@ -56859,8 +56859,8 @@
             "shin_sabir"
           ],
           "max_mass": 50000,
-          "label": "Solo MOLE — actives + Sabir gadget",
-          "notes": "Throw Sabir at rock first, then swap to Left turret with actives. 1 gadget per rock when solo.",
+          "label": "Solo MOLE — Sabir gadget + Left turret actives",
+          "notes": "Throw Sabir at rock first (-50% resist), then swap to Left turret with actives. 1 gadget per rock when solo.",
           "effective_power": 8568
         }
       },
