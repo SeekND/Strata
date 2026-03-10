@@ -489,6 +489,26 @@
       "lpoint": 1,
       "notes": ""
     },
+    "CRU-L2": {
+      "display_name": "CRU-L2",
+      "system": "Stanton",
+      "parent": "CRU",
+      "type": "lagrange",
+      "region": "crusader",
+      "has_refinery": false,
+      "lpoint": 2,
+      "notes": ""
+    },    
+    "CRU-L3": {
+      "display_name": "CRU-L3",
+      "system": "Stanton",
+      "parent": "CRU",
+      "type": "lagrange",
+      "region": "crusader",
+      "has_refinery": false,
+      "lpoint": 3,
+      "notes": ""
+    },
     "CRU-L4": {
       "display_name": "CRU-L4",
       "system": "Stanton",
@@ -497,6 +517,16 @@
       "region": "crusader",
       "has_refinery": false,
       "lpoint": 4,
+      "notes": ""
+    },
+    "CRU-L5": {
+      "display_name": "CRU-L5",
+      "system": "Stanton",
+      "parent": "CRU",
+      "type": "lagrange",
+      "region": "crusader",
+      "has_refinery": false,
+      "lpoint": 5,
       "notes": ""
     },
     "DAY": {
