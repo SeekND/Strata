@@ -189,7 +189,7 @@ function showSigTooltip(locCode, anchorEl, selectedOres) {
     return `<div class="sig-tt-row"><strong>${s.type}</strong> <span class="mono ${spawnCls}">${spawnPct}%</span> <span class="sg-range">mass ~${s.massMed.toLocaleString()}</span></div><div style="padding-left:68px;margin-bottom:3px">${oreChips}</div>`;
   }).join('');
 
-  tt.innerHTML = `<div class="sig-tt-title">Scanner signals at ${locLabel}</div>${rows}<div class="sig-tt-hint">% = chance this rock type spawns here. Mass = scanner signal strength.</div>`;
+  tt.innerHTML = `<div class="sig-tt-title">Mass at ${locLabel}</div>${rows}<div class="sig-tt-hint">% = chance this rock type spawns here. Mass = average mass.</div>`;
 
   const rect = anchorEl.getBoundingClientRect();
   tt.style.display = 'block';
@@ -2729,7 +2729,7 @@ function runDummyMiner() {
       } else {
         html += `<div style="font-size:12px;color:var(--text-dim)">No rock type spawn data at this location.</div>`;
       }
-      html += `<br><span style="color:var(--text-dim);font-size:11px"><a href="#" onclick="showSignalGuide();return false" style="color:var(--cyan)">Signal Guide</a> for details</span></div>`;
+      html += `<br><span style="color:var(--text-dim);font-size:11px"><a href="#" onclick="showSignalGuide();return false" style="color:var(--cyan)">Mass Guide</a> for details</span></div>`;
     }
 
     // ---- Material Insight ----
@@ -2789,7 +2789,7 @@ function renderSignalTab() {
     return;
   }
 
-  let html = '<div class="tbl-wrap"><table class="sg-table"><thead><tr><th>Rock Type</th><th>Mass (Signal)</th><th>Instability</th><th>Resistance</th><th>Scans</th><th>Top Ores</th></tr></thead><tbody>';
+  let html = '<div class="tbl-wrap"><table class="sg-table"><thead><tr><th>Rock Type</th><th>Mass (average)</th><th>Instability</th><th>Resistance</th><th>Scans</th><th>Top Ores</th></tr></thead><tbody>';
 
   const sorted = Object.entries(rockTypes)
     .filter(([, d]) => d && d.mass)
@@ -2817,7 +2817,7 @@ function renderSignalTab() {
 
   html += '</tbody></table></div>';
   html += `<div style="margin-top:10px;font-size:11px;color:var(--text-dim)">
-    <strong>Mass</strong> = signal strength on scanner (higher = bigger rock, stronger ping return). 
+    <strong>Mass</strong> = average mass. 
     <strong>Instability</strong> = how volatile (harder to control laser). 
     <strong>Resistance</strong> = toughness to crack. 
     Match the mass range from your scanner to identify the rock type.
@@ -2838,7 +2838,7 @@ function renderSignalGuide(system, btn) {
     return;
   }
 
-  let html = '<table class="sg-table"><thead><tr><th>Rock Type</th><th>Mass (Signal)</th><th>Instability</th><th>Resistance</th><th>Top Ores</th></tr></thead><tbody>';
+  let html = '<table class="sg-table"><thead><tr><th>Rock Type</th><th>Mass (average)</th><th>Instability</th><th>Resistance</th><th>Top Ores</th></tr></thead><tbody>';
 
   const sorted = Object.entries(rockTypes)
     .filter(([, d]) => d && d.mass)
