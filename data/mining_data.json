@@ -5,7 +5,7 @@
     "regolith_enabled": false,
     "uex_fetch_date": "2026-03-23T20:07:22.482104+00:00",
     "current_patch": "4.7",
-    "data_updated": "2026-03-23",
+    "data_updated": "2026-03-26",
     "news_reel": "",
     "total_mining_locations": 83,
     "total_ores": 36,
@@ -761,20 +761,20 @@
       "parts": [
         {
           "ore": "LINDINIUM",
-          "min_pct": 0.06,
-          "max_pct": 1.81,
+          "min_pct": 2.82,
+          "max_pct": 6.82,
           "probability": 1.0
         },
         {
           "ore": "LINDINIUM",
-          "min_pct": 44.19,
-          "max_pct": 90.19,
+          "min_pct": 39.18,
+          "max_pct": 83.18,
           "probability": 1.0
         },
         {
           "ore": "TUNGSTEN",
-          "min_pct": 3.0,
-          "max_pct": 8.0,
+          "min_pct": 5.0,
+          "max_pct": 10.0,
           "probability": 1.0
         }
       ]
@@ -786,20 +786,20 @@
       "parts": [
         {
           "ore": "OURATITE",
-          "min_pct": 0.06,
-          "max_pct": 1.81,
+          "min_pct": 2.82,
+          "max_pct": 6.82,
           "probability": 1.0
         },
         {
           "ore": "OURATITE",
-          "min_pct": 44.19,
-          "max_pct": 90.19,
+          "min_pct": 39.18,
+          "max_pct": 83.18,
           "probability": 1.0
         },
         {
           "ore": "AGRICIUM",
-          "min_pct": 3.0,
-          "max_pct": 8.0,
+          "min_pct": 5.0,
+          "max_pct": 10.0,
           "probability": 1.0
         }
       ]
@@ -811,20 +811,20 @@
       "parts": [
         {
           "ore": "RICCITE",
-          "min_pct": 0.06,
-          "max_pct": 1.81,
+          "min_pct": 2.82,
+          "max_pct": 6.82,
           "probability": 1.0
         },
         {
           "ore": "RICCITE",
-          "min_pct": 44.19,
-          "max_pct": 90.19,
+          "min_pct": 39.18,
+          "max_pct": 83.18,
           "probability": 1.0
         },
         {
           "ore": "LARANITE",
-          "min_pct": 3.0,
-          "max_pct": 8.0,
+          "min_pct": 5.0,
+          "max_pct": 10.0,
           "probability": 1.0
         }
       ]
@@ -836,20 +836,20 @@
       "parts": [
         {
           "ore": "LINDINIUM",
-          "min_pct": 0.06,
-          "max_pct": 1.81,
+          "min_pct": 2.82,
+          "max_pct": 6.82,
           "probability": 1.0
         },
         {
           "ore": "LINDINIUM",
-          "min_pct": 44.19,
-          "max_pct": 90.19,
+          "min_pct": 39.18,
+          "max_pct": 83.18,
           "probability": 1.0
         },
         {
           "ore": "TUNGSTEN",
-          "min_pct": 3.0,
-          "max_pct": 8.0,
+          "min_pct": 5.0,
+          "max_pct": 10.0,
           "probability": 1.0
         }
       ]
@@ -861,38 +861,20 @@
       "parts": [
         {
           "ore": "QUANTANIUM",
-          "min_pct": 0.06,
-          "max_pct": 1.81,
+          "min_pct": 2.82,
+          "max_pct": 6.82,
           "probability": 1.0
         },
         {
           "ore": "QUANTANIUM",
-          "min_pct": 44.19,
-          "max_pct": 90.19,
+          "min_pct": 39.18,
+          "max_pct": 83.18,
           "probability": 1.0
         },
         {
           "ore": "BERYL",
-          "min_pct": 3.0,
-          "max_pct": 8.0,
-          "probability": 1.0
-        },
-        {
-          "ore": "QUANTANIUM",
-          "min_pct": 38.19,
-          "max_pct": 78.19,
-          "probability": 1.0
-        },
-        {
-          "ore": "BERYL",
-          "min_pct": 0.15,
-          "max_pct": 0.45,
-          "probability": 1.0
-        },
-        {
-          "ore": "BERYL",
-          "min_pct": 9.55,
-          "max_pct": 19.55,
+          "min_pct": 5.0,
+          "max_pct": 10.0,
           "probability": 1.0
         }
       ]
@@ -904,20 +886,20 @@
       "parts": [
         {
           "ore": "SAVRILIUM",
-          "min_pct": 0.06,
-          "max_pct": 1.81,
+          "min_pct": 2.82,
+          "max_pct": 6.82,
           "probability": 1.0
         },
         {
           "ore": "SAVRILIUM",
-          "min_pct": 44.19,
-          "max_pct": 90.19,
+          "min_pct": 39.18,
+          "max_pct": 83.18,
           "probability": 1.0
         },
         {
           "ore": "GOLD",
-          "min_pct": 3.0,
-          "max_pct": 8.0,
+          "min_pct": 5.0,
+          "max_pct": 10.0,
           "probability": 1.0
         }
       ]
@@ -929,20 +911,20 @@
       "parts": [
         {
           "ore": "STILERON",
-          "min_pct": 0.06,
-          "max_pct": 1.81,
+          "min_pct": 2.82,
+          "max_pct": 6.82,
           "probability": 1.0
         },
         {
           "ore": "STILERON",
-          "min_pct": 44.19,
-          "max_pct": 90.19,
+          "min_pct": 39.18,
+          "max_pct": 83.18,
           "probability": 1.0
         },
         {
           "ore": "TARANITE",
-          "min_pct": 3.0,
-          "max_pct": 8.0,
+          "min_pct": 5.0,
+          "max_pct": 10.0,
           "probability": 1.0
         }
       ]
@@ -954,20 +936,20 @@
       "parts": [
         {
           "ore": "QUANTANIUM",
-          "min_pct": 0.06,
-          "max_pct": 1.81,
+          "min_pct": 2.82,
+          "max_pct": 6.82,
           "probability": 1.0
         },
         {
           "ore": "QUANTANIUM",
-          "min_pct": 44.19,
-          "max_pct": 90.19,
+          "min_pct": 39.18,
+          "max_pct": 83.18,
           "probability": 1.0
         },
         {
           "ore": "BERYL",
-          "min_pct": 3.0,
-          "max_pct": 8.0,
+          "min_pct": 5.0,
+          "max_pct": 10.0,
           "probability": 1.0
         }
       ]
