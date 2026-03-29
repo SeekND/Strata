@@ -3,18 +3,18 @@
     "source": "SC Hub Mining v3 — datamined from game files + UEX Corp API",
     "regolith_export_date": null,
     "regolith_enabled": false,
-    "uex_fetch_date": "2026-03-23T20:07:22.482104+00:00",
+    "uex_fetch_date": "2026-03-29T01:18:10.870037+00:00",
     "current_patch": "4.7",
-    "data_updated": "2026-03-26",
+    "data_updated": "2026-03-29",
     "news_reel": "",
-    "total_mining_locations": 83,
-    "total_ores": 36,
+    "total_mining_locations": 84,
+    "total_ores": 37,
     "total_refineries": 20,
     "total_ore_elements": 41,
     "total_compositions": 63,
     "total_scanner_signals": 76,
     "total_cave_presets": 14,
-    "total_location_ores": 45,
+    "total_location_ores": 46,
     "has_equipment": true,
     "has_mining_params": true
   },
@@ -3528,6 +3528,10 @@
           {
             "ore": "HADANITE",
             "relative_probability": 6.0
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2
           }
         ],
         "vehicle": [
@@ -3578,6 +3582,10 @@
           {
             "ore": "HADANITE",
             "relative_probability": 6.0
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2
           }
         ],
         "vehicle": [
@@ -3682,6 +3690,10 @@
           {
             "ore": "HADANITE",
             "relative_probability": 6.0
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2
           }
         ],
         "vehicle": [
@@ -3736,6 +3748,10 @@
           {
             "ore": "HADANITE",
             "relative_probability": 6.0
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2
           }
         ],
         "vehicle": [
@@ -3764,8 +3780,8 @@
         ]
       }
     },
-    "FAI": {
-      "name": "Fairo",
+    "VAT": {
+      "name": "Vatra",
       "system": "Pyro",
       "type": "moon",
       "group_probabilities": {
@@ -3786,6 +3802,10 @@
           {
             "ore": "HADANITE",
             "relative_probability": 6.0
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2
           }
         ],
         "vehicle": [
@@ -3840,6 +3860,10 @@
           {
             "ore": "HADANITE",
             "relative_probability": 6.0
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2
           }
         ],
         "vehicle": [
@@ -3868,8 +3892,8 @@
         ]
       }
     },
-    "FUE": {
-      "name": "Fuego",
+    "FAI": {
+      "name": "Fairo",
       "system": "Pyro",
       "type": "moon",
       "group_probabilities": {
@@ -3890,6 +3914,10 @@
           {
             "ore": "HADANITE",
             "relative_probability": 6.0
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2
           }
         ],
         "vehicle": [
@@ -3922,8 +3950,8 @@
         ]
       }
     },
-    "VAT": {
-      "name": "Vatra",
+    "FUE": {
+      "name": "Fuego",
       "system": "Pyro",
       "type": "moon",
       "group_probabilities": {
@@ -3998,6 +4026,10 @@
           {
             "ore": "HADANITE",
             "relative_probability": 6.0
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2
           }
         ],
         "vehicle": [
@@ -4320,6 +4352,10 @@
           {
             "ore": "HADANITE",
             "relative_probability": 6.0
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2
           }
         ],
         "ship": [
@@ -4342,8 +4378,8 @@
         ]
       }
     },
-    "ABE": {
-      "name": "Aberdeen",
+    "ARI": {
+      "name": "Arial",
       "system": "Stanton",
       "type": "moon",
       "group_probabilities": {
@@ -4404,12 +4440,16 @@
           {
             "ore": "HADANITE",
             "relative_probability": 6.0
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2
           }
         ]
       }
     },
-    "ARI": {
-      "name": "Arial",
+    "ABE": {
+      "name": "Aberdeen",
       "system": "Stanton",
       "type": "moon",
       "group_probabilities": {
@@ -4466,12 +4506,16 @@
           {
             "ore": "HADANITE",
             "relative_probability": 6.0
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2
           }
         ]
       }
     },
-    "ITA": {
-      "name": "Ita",
+    "MAG": {
+      "name": "Magda",
       "system": "Stanton",
       "type": "moon",
       "group_probabilities": {
@@ -4528,12 +4572,16 @@
           {
             "ore": "HADANITE",
             "relative_probability": 6.0
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2
           }
         ]
       }
     },
-    "MAG": {
-      "name": "Magda",
+    "ITA": {
+      "name": "Ita",
       "system": "Stanton",
       "type": "moon",
       "group_probabilities": {
@@ -4586,6 +4634,10 @@
           {
             "ore": "HADANITE",
             "relative_probability": 6.0
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2
           }
         ]
       }
@@ -4648,6 +4700,10 @@
           {
             "ore": "HADANITE",
             "relative_probability": 6.0
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2
           }
         ]
       }
@@ -4706,6 +4762,10 @@
           {
             "ore": "HADANITE",
             "relative_probability": 6.0
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2
           }
         ]
       }
@@ -5527,6 +5587,30 @@
           }
         ]
       }
+    },
+    "ROCK_CRACKER": {
+      "name": "Rock Cracker",
+      "system": "Nyx",
+      "type": "mission_location",
+      "group_probabilities": {},
+      "ores": {
+        "fps": [
+          {
+            "ore": "SADARYX",
+            "relative_probability": null
+          }
+        ],
+        "ship": [
+          {
+            "ore": "TORITE",
+            "relative_probability": null
+          },
+          {
+            "ore": "SAVRILIUM",
+            "relative_probability": null
+          }
+        ]
+      }
     }
   },
   "ores": {
@@ -5824,6 +5908,24 @@
         "optimal_window_randomness": 0.2,
         "optimal_window_thinness": 2.3,
         "explosion_multiplier": 260.0,
+        "cluster_factor": 0.0
+      }
+    },
+    "SADARYX": {
+      "display_name": "Sadaryx",
+      "uex_name": null,
+      "form": "gem",
+      "mining_method": "fps",
+      "crafting_slots": [],
+      "notes": "Mission-only. Found at Rock Cracker in Nyx.",
+      "image_url": "",
+      "difficulty": {
+        "instability": 200.0,
+        "resistance": 0.0,
+        "optimal_window_midpoint": 0.6,
+        "optimal_window_randomness": 0.2,
+        "optimal_window_thinness": 0.0,
+        "explosion_multiplier": 1.0,
         "cluster_factor": 0.0
       }
     },
@@ -6918,6 +7020,16 @@
       "has_refinery": false,
       "lpoint": null,
       "notes": ""
+    },
+    "ROCK_CRACKER": {
+      "display_name": "Rock Cracker",
+      "system": "Nyx",
+      "parent": null,
+      "type": "mission_location",
+      "region": "nyx",
+      "has_refinery": false,
+      "lpoint": null,
+      "notes": "Mission-gated mobile mining platform. Not a fixed location."
     },
     "RODSFUEL": {
       "display_name": "Rod's Fuel",
@@ -8471,7 +8583,7 @@
     "stations": {
       "Refinement Center - Checkmate": {
         "system": "Pyro",
-        "capacity_scu": 39317,
+        "capacity_scu": 3796,
         "yields": {
           "AGRICIUM": {
             "value": -8,
@@ -8532,7 +8644,7 @@
       },
       "Refinement Center - Levski": {
         "system": "Nyx",
-        "capacity_scu": 79702,
+        "capacity_scu": 3444,
         "yields": {
           "Construction Material Salvage": {
             "value": 9,
@@ -9024,7 +9136,7 @@
       },
       "Refinement Processing - ARC-L2": {
         "system": "Stanton",
-        "capacity_scu": 8856,
+        "capacity_scu": 2005,
         "yields": {
           "BEXALITE": {
             "value": 2,
@@ -9136,7 +9248,7 @@
       },
       "Refinement Processing - CRU-L1": {
         "system": "Stanton",
-        "capacity_scu": 43814,
+        "capacity_scu": 20076,
         "yields": {
           "IRON": {
             "value": 2,
@@ -9294,7 +9406,7 @@
       },
       "Refinement Processing - MIC-L1": {
         "system": "Stanton",
-        "capacity_scu": 13298,
+        "capacity_scu": 6205,
         "yields": {
           "CORUNDUM": {
             "value": 2,
@@ -9340,7 +9452,7 @@
       },
       "Refinement Processing - MIC-L2": {
         "system": "Stanton",
-        "capacity_scu": 7490,
+        "capacity_scu": 4423,
         "yields": {
           "TITANIUM": {
             "value": 6,
@@ -9401,7 +9513,7 @@
       },
       "Refinement Processing - MIC-L5": {
         "system": "Stanton",
-        "capacity_scu": 18416,
+        "capacity_scu": 1291,
         "yields": {
           "LINDINIUM": {
             "value": 7,
