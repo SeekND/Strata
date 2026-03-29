@@ -80,6 +80,7 @@ function computeSecondaryScore(targetOre, locData, method) {
   const details = [];
   const ores = locData.ores?.[method] || [];
   for (const entry of ores) {
+    if (entry.panel_confirmed === false) continue;
     const comp = getOreComposition(entry.ore, method === 'ship' ? 'surface' : method);
     if (!comp) continue;
     const sp = comp.parts?.find(p => p.ore === targetOre && p.ore !== comp.primary_ore);
@@ -391,7 +392,7 @@ function gatherLocationScores(selectedOres) {
       const searchMethods = [...new Set(methods)];
 
       for (const method of searchMethods) {
-        const entry = (locData.ores?.[method] || []).find(o => o.ore === ore);
+        const entry = (locData.ores?.[method] || []).find(o => o.ore === ore && o.panel_confirmed !== false);
         if (entry) {
           const prob = (entry.relative_probability ?? 0) / 100;
           if (!oreScores[ore] || prob > oreScores[ore].prob) oreScores[ore] = { prob, method, relative_probability: entry.relative_probability ?? 0 };
@@ -967,7 +968,7 @@ function rankLocationsForOre(targetOre, methodFilter = 'all', systemFilter = 'al
       if (methodFilter === 'ship' && method !== 'ship') continue;
 
       const ores = ld.ores?.[method] || [];
-      const oe = ores.find(o => o.ore === targetOre);
+      const oe = ores.find(o => o.ore === targetOre && o.panel_confirmed !== false);
       if (!oe) continue;
       if (results.find(r => r.code === lc)) continue;
       const sec = computeSecondaryScore(targetOre, ld, method);

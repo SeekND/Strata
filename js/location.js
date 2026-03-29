@@ -161,8 +161,8 @@ function renderLocationResults() {
     const ores = locData.ores?.[method];
     if (!ores || ores.length === 0) continue;
 
-    // Sort by probability descending
-    const sorted = [...ores].sort((a, b) => b.relative_probability - a.relative_probability);
+    // Sort by probability descending, filter out unconfirmed ores
+    const sorted = [...ores].filter(o => o.panel_confirmed !== false).sort((a, b) => (b.relative_probability ?? 0) - (a.relative_probability ?? 0));
     const maxProb = sorted[0]?.relative_probability || 1;
 
     html += `
@@ -259,6 +259,7 @@ function findBestRefineryForLocation(locData) {
   const allOres = new Set();
   for (const method of ['ship', 'fps', 'vehicle']) {
     for (const oreEntry of (locData.ores?.[method] || [])) {
+      if (oreEntry.panel_confirmed === false) continue;
       allOres.add(oreEntry.ore);
     }
   }

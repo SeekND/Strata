@@ -318,7 +318,7 @@ function getLocationsForOre(oreCode, method = 'all') {
     
     for (const m of methods) {
       const ores = locData.ores?.[m] || [];
-      const oreEntry = ores.find(o => o.ore === oreCode);
+      const oreEntry = ores.find(o => o.ore === oreCode && o.panel_confirmed !== false);
       if (oreEntry) {
         results.push({
           code,
@@ -508,7 +508,7 @@ function getOreAt(locCode) {
     const ores = [];
     for (const method of ['ship', 'fps', 'vehicle']) {
       for (const entry of (locData.ores?.[method] || [])) {
-        if (entry.ore === 'INERTMATERIAL') continue;
+        if (entry.ore === 'INERTMATERIAL' || entry.panel_confirmed === false) continue;
         // Avoid duplicates
         if (!ores.find(o => o.code === entry.ore)) {
           ores.push({code: entry.ore, prob: entry.relative_probability / 100, method});
