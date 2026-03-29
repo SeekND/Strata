@@ -679,6 +679,31 @@ function findRefineries(locCode, oreCode) {
   return {nearest, best, selfYield, isBelt};
 }
 
+/** Compute a refinery convenience score for ranking: yield × proximity.
+ *  Higher = better refinery access. Returns 0 for ground ores or no data.
+ *  Used by rankLocationsForOre and gatherLocationScores to break ties. */
+function computeRefineryConvenience(locCode, oreCode) {
+  const loc = D.locations?.[locCode];
+  if (!loc) return 0;
+  const sys = loc.system;
+  const locXY = computeLocXY(locCode);
+  if (!locXY) return 0;
+  const NORM_DIST = 100;
+  let bestScore = 0;
+  for (const [sname, sdata] of Object.entries(D.refineries?.stations || {})) {
+    if (sdata.system !== sys) continue;
+    const y = sdata.yields?.[oreCode]?.value;
+    if (y == null || y <= 0) continue;
+    const refCode = refStationToLocCode(sname);
+    const refXY = computeLocXY(refCode);
+    if (!refXY) continue;
+    const dist = Math.sqrt((locXY.x - refXY.x) ** 2 + (locXY.y - refXY.y) ** 2);
+    const score = y * (NORM_DIST / (NORM_DIST + dist));
+    if (score > bestScore) bestScore = score;
+  }
+  return bestScore;
+}
+
 // ============================================================
 // PIPS RENDERER (for refining methods)
 // ============================================================

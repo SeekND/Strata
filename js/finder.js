@@ -393,8 +393,8 @@ function gatherLocationScores(selectedOres) {
       for (const method of searchMethods) {
         const entry = (locData.ores?.[method] || []).find(o => o.ore === ore);
         if (entry) {
-          const prob = entry.relative_probability / 100;
-          if (!oreScores[ore] || prob > oreScores[ore].prob) oreScores[ore] = { prob, method, relative_probability: entry.relative_probability };
+          const prob = (entry.relative_probability ?? 0) / 100;
+          if (!oreScores[ore] || prob > oreScores[ore].prob) oreScores[ore] = { prob, method, relative_probability: entry.relative_probability ?? 0 };
         }
         // Compute secondary contribution
         const sec = computeSecondaryScore(ore, locData, method);
@@ -415,7 +415,11 @@ function gatherLocationScores(selectedOres) {
     const secBoost = Object.values(secondaryInfo).reduce((s, v) => s + v.score, 0) / 100 / selectedOres.length;
     const scans = locData.scans || 0;
     const baseScore = avgProb + secBoost * 0.3; // Secondary worth 30% of primary
-    scores.push({ code: locCode, name: locData.name, system: locData.system, type: locData.type, oreScores, secondaryInfo, avgProb, found, scans, weightedScore: scans > 0 ? baseScore * (scans / (scans + 200)) : baseScore });
+    // Refinery convenience: boost locations near good refineries for ship ores
+    const shipOres = selectedOres.filter(o => !['fps', 'vehicle', 'fps_vehicle'].includes(D.ores?.[o]?.mining_method || ''));
+    const refBonus = shipOres.length > 0 ? shipOres.reduce((s, o) => s + computeRefineryConvenience(locCode, o), 0) / shipOres.length * 0.001 : 0;
+    const finalScore = baseScore + refBonus;
+    scores.push({ code: locCode, name: locData.name, system: locData.system, type: locData.type, oreScores, secondaryInfo, avgProb, found, scans, weightedScore: scans > 0 ? finalScore * (scans / (scans + 200)) : finalScore });
   }
   return scores;
 }
@@ -900,7 +904,8 @@ function renderSecondaryRefInsight(ore, primaryRef) {
 }
 
 function renderLocationCell(row, refs) {
-  let c = `<div><strong>${locDisplayName(row.code)}</strong></div>`;
+  const isMission = row.type === 'mission_location';
+  let c = `<div><strong>${locDisplayName(row.code)}</strong>${isMission ? ' <span style="font-size:9px;color:var(--purple);border:1px solid var(--purple);padding:1px 4px;border-radius:3px;vertical-align:middle">MISSION</span>' : ''}</div>`;
   if (!refs || !refs.nearest) return c;
   if (refs.isBelt && refs.best) {
     c += `<div class="delta-box" style="border-color:var(--green)"><span style="color:var(--green)">${refs.best.name.split(' - ')[1] || refs.best.name}</span> ${refs.best.yield != null ? fmtYield(refs.best.yield) : ''} <span class="tag tag-best" style="font-size:8px">BEST</span></div>`;
@@ -966,7 +971,9 @@ function rankLocationsForOre(targetOre, methodFilter = 'all', systemFilter = 'al
       if (!oe) continue;
       if (results.find(r => r.code === lc)) continue;
       const sec = computeSecondaryScore(targetOre, ld, method);
-      results.push({ code: lc, name: ld.name, system: ld.system, type: ld.type, method, primaryScore: oe.relative_probability, secondaryScore: sec.score, secondaryDetails: sec.details, totalScore: oe.relative_probability + sec.score });
+      const prob = oe.relative_probability ?? 0;
+      const refConv = isGround ? 0 : computeRefineryConvenience(lc, targetOre) * 0.1;
+      results.push({ code: lc, name: ld.name, system: ld.system, type: ld.type, method, primaryScore: prob, secondaryScore: sec.score, secondaryDetails: sec.details, refineryConvenience: refConv, totalScore: prob + sec.score + refConv });
     }
   }
   results.sort((a, b) => b.totalScore - a.totalScore);

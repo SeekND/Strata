@@ -118,7 +118,7 @@ function runQuickMine() {
     html += `<div class="map-info-title">GO ${method === 'fps' ? 'HAND' : 'SURFACE'} MINE HERE</div>`;
     if (bestLoc) {
       html += `<div style="font-size:18px;font-weight:700;margin-top:8px">${bestLoc.name}</div>
-        <div style="margin-top:8px">${systemTag(bestLoc.system)} <span style="color:var(--text-dim)">${bestLoc.type}</span></div>
+        <div style="margin-top:8px">${systemTag(bestLoc.system)} <span style="color:var(--text-dim)">${bestLoc.type === 'mission_location' ? '<span style="color:var(--purple)">mission</span>' : bestLoc.type}</span></div>
         <div style="margin-top:8px;font-size:12px;color:var(--text-secondary)">Score: <span class="mono" style="color:var(--cyan)">${bestLoc.totalScore.toFixed(1)}</span></div>`;
     } else {
       html += '<div style="color:var(--text-dim);margin-top:8px">No locations found.</div>';
@@ -153,8 +153,9 @@ function runQuickMine() {
     html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">';
     html += `<div class="card"><div class="map-info-title">GO MINE HERE</div>`;
     if (bestLoc) {
+      const typeLabel = bestLoc.type === 'mission_location' ? '<span style="color:var(--purple)">mission</span>' : bestLoc.type;
       html += `<div style="font-size:18px;font-weight:700;margin-top:8px">${bestLoc.name}</div>
-        <div style="margin-top:8px">${systemTag(bestLoc.system)} <span style="color:var(--text-dim)">${bestLoc.type}</span></div>
+        <div style="margin-top:8px">${systemTag(bestLoc.system)} <span style="color:var(--text-dim)">${typeLabel}</span></div>
         <div style="margin-top:8px;font-size:12px;color:var(--text-secondary)">Score: <span class="mono" style="color:var(--cyan)">${bestLoc.totalScore.toFixed(1)}</span></div>`;
     } else { html += '<div style="color:var(--text-dim);margin-top:8px">No locations found.</div>'; }
     html += '</div>';
