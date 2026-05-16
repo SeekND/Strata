@@ -1,4 +1,4 @@
-# Strata
+# DISCONTINUED
 Know before you dig.
 
 Strata is a Star Citizen mining reference tool — find the best locations 
