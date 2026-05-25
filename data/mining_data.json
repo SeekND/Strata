@@ -3,9 +3,9 @@
     "source": "SC Hub Mining v3 — datamined from game files + UEX Corp API",
     "regolith_export_date": null,
     "regolith_enabled": false,
-    "uex_fetch_date": "2026-03-29T01:18:10.870037+00:00",
-    "current_patch": "4.7",
-    "data_updated": "2026-03-29",
+    "uex_fetch_date": "2026-05-25T13:51:25.718815+00:00",
+    "current_patch": "4.8",
+    "data_updated": "2026-05-25",
     "news_reel": "",
     "total_mining_locations": 84,
     "total_ores": 37,
@@ -549,14 +549,14 @@
       "parts": [
         {
           "ore": "COPPER",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "COPPER",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 28.3,
+          "max_pct": 78.3,
           "probability": 1.0
         },
         {
@@ -574,14 +574,14 @@
       "parts": [
         {
           "ore": "CORUNDUM",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "CORUNDUM",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 28.3,
+          "max_pct": 78.3,
           "probability": 1.0
         },
         {
@@ -630,14 +630,14 @@
       "parts": [
         {
           "ore": "ICE",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "ICE",
-          "min_pct": 43.18,
-          "max_pct": 93.18,
+          "min_pct": 34.3,
+          "max_pct": 84.3,
           "probability": 1.0
         }
       ]
@@ -649,14 +649,14 @@
       "parts": [
         {
           "ore": "IRON",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "IRON",
-          "min_pct": 43.18,
-          "max_pct": 93.18,
+          "min_pct": 34.3,
+          "max_pct": 84.3,
           "probability": 1.0
         }
       ]
@@ -668,14 +668,14 @@
       "parts": [
         {
           "ore": "QUARTZ",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "QUARTZ",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 28.3,
+          "max_pct": 78.3,
           "probability": 1.0
         },
         {
@@ -699,14 +699,14 @@
       "parts": [
         {
           "ore": "SILICON",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "SILICON",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 28.3,
+          "max_pct": 78.3,
           "probability": 1.0
         },
         {
@@ -736,14 +736,14 @@
       "parts": [
         {
           "ore": "TIN",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "TIN",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 24.3,
+          "max_pct": 74.3,
           "probability": 1.0
         },
         {
@@ -761,14 +761,14 @@
       "parts": [
         {
           "ore": "LINDINIUM",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "LINDINIUM",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 24.3,
+          "max_pct": 74.3,
           "probability": 1.0
         },
         {
@@ -811,14 +811,14 @@
       "parts": [
         {
           "ore": "RICCITE",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "RICCITE",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 24.3,
+          "max_pct": 74.3,
           "probability": 1.0
         },
         {
@@ -861,14 +861,14 @@
       "parts": [
         {
           "ore": "QUANTANIUM",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "QUANTANIUM",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 28.3,
+          "max_pct": 78.3,
           "probability": 1.0
         },
         {
@@ -886,14 +886,14 @@
       "parts": [
         {
           "ore": "SAVRILIUM",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "SAVRILIUM",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 24.3,
+          "max_pct": 74.3,
           "probability": 1.0
         },
         {
@@ -911,14 +911,14 @@
       "parts": [
         {
           "ore": "STILERON",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "STILERON",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 24.3,
+          "max_pct": 74.3,
           "probability": 1.0
         },
         {
@@ -961,14 +961,14 @@
       "parts": [
         {
           "ore": "BERYL",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "BERYL",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 38.3,
+          "max_pct": 88.3,
           "probability": 1.0
         }
       ]
@@ -980,14 +980,14 @@
       "parts": [
         {
           "ore": "BEXALITE",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "BEXALITE",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 28.3,
+          "max_pct": 78.3,
           "probability": 1.0
         },
         {
@@ -1011,14 +1011,14 @@
       "parts": [
         {
           "ore": "BORASE",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "BORASE",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 24.3,
+          "max_pct": 74.3,
           "probability": 1.0
         },
         {
@@ -1042,14 +1042,14 @@
       "parts": [
         {
           "ore": "GOLD",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "GOLD",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 28.3,
+          "max_pct": 78.3,
           "probability": 1.0
         },
         {
@@ -1073,14 +1073,14 @@
       "parts": [
         {
           "ore": "TARANITE",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "TARANITE",
-          "min_pct": 43.18,
-          "max_pct": 93.18,
+          "min_pct": 38.3,
+          "max_pct": 88.3,
           "probability": 1.0
         }
       ]
@@ -1098,14 +1098,14 @@
       "parts": [
         {
           "ore": "AGRICIUM",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "AGRICIUM",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 24.3,
+          "max_pct": 74.3,
           "probability": 1.0
         },
         {
@@ -1160,14 +1160,14 @@
       "parts": [
         {
           "ore": "LARANITE",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "LARANITE",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 28.3,
+          "max_pct": 78.3,
           "probability": 1.0
         },
         {
@@ -1191,14 +1191,14 @@
       "parts": [
         {
           "ore": "TITANIUM",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "TITANIUM",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 24.3,
+          "max_pct": 74.3,
           "probability": 1.0
         },
         {
@@ -1222,14 +1222,14 @@
       "parts": [
         {
           "ore": "TORITE",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "TORITE",
-          "min_pct": 43.18,
-          "max_pct": 93.18,
+          "min_pct": 34.3,
+          "max_pct": 84.3,
           "probability": 1.0
         }
       ]
@@ -1241,14 +1241,14 @@
       "parts": [
         {
           "ore": "TUNGSTEN",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "TUNGSTEN",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 24.3,
+          "max_pct": 74.3,
           "probability": 1.0
         },
         {
@@ -1291,14 +1291,14 @@
       "parts": [
         {
           "ore": "COPPER",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "COPPER",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 28.3,
+          "max_pct": 78.3,
           "probability": 1.0
         },
         {
@@ -1316,14 +1316,14 @@
       "parts": [
         {
           "ore": "CORUNDUM",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "CORUNDUM",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 28.3,
+          "max_pct": 78.3,
           "probability": 1.0
         },
         {
@@ -1372,14 +1372,14 @@
       "parts": [
         {
           "ore": "ICE",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "ICE",
-          "min_pct": 43.18,
-          "max_pct": 93.18,
+          "min_pct": 34.3,
+          "max_pct": 84.3,
           "probability": 1.0
         }
       ]
@@ -1391,14 +1391,14 @@
       "parts": [
         {
           "ore": "IRON",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "IRON",
-          "min_pct": 43.18,
-          "max_pct": 93.18,
+          "min_pct": 34.3,
+          "max_pct": 84.3,
           "probability": 1.0
         }
       ]
@@ -1410,14 +1410,14 @@
       "parts": [
         {
           "ore": "QUARTZ",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "QUARTZ",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 28.3,
+          "max_pct": 78.3,
           "probability": 1.0
         },
         {
@@ -1441,14 +1441,14 @@
       "parts": [
         {
           "ore": "SILICON",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "SILICON",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 28.3,
+          "max_pct": 78.3,
           "probability": 1.0
         },
         {
@@ -1485,14 +1485,14 @@
       "parts": [
         {
           "ore": "TIN",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "TIN",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 24.3,
+          "max_pct": 74.3,
           "probability": 1.0
         },
         {
@@ -1510,14 +1510,14 @@
       "parts": [
         {
           "ore": "LINDINIUM",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "LINDINIUM",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 24.3,
+          "max_pct": 74.3,
           "probability": 1.0
         },
         {
@@ -1560,14 +1560,14 @@
       "parts": [
         {
           "ore": "RICCITE",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "RICCITE",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 24.3,
+          "max_pct": 74.3,
           "probability": 1.0
         },
         {
@@ -1610,14 +1610,14 @@
       "parts": [
         {
           "ore": "QUANTANIUM",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "QUANTANIUM",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 28.3,
+          "max_pct": 78.3,
           "probability": 1.0
         },
         {
@@ -1635,14 +1635,14 @@
       "parts": [
         {
           "ore": "SAVRILIUM",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "SAVRILIUM",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 24.3,
+          "max_pct": 74.3,
           "probability": 1.0
         },
         {
@@ -1685,14 +1685,14 @@
       "parts": [
         {
           "ore": "STILERON",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "STILERON",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 24.3,
+          "max_pct": 74.3,
           "probability": 1.0
         },
         {
@@ -1735,14 +1735,14 @@
       "parts": [
         {
           "ore": "BERYL",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "BERYL",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 38.3,
+          "max_pct": 88.3,
           "probability": 1.0
         }
       ]
@@ -1754,14 +1754,14 @@
       "parts": [
         {
           "ore": "BEXALITE",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "BEXALITE",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 28.3,
+          "max_pct": 78.3,
           "probability": 1.0
         },
         {
@@ -1785,14 +1785,14 @@
       "parts": [
         {
           "ore": "BORASE",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "BORASE",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 24.3,
+          "max_pct": 74.3,
           "probability": 1.0
         },
         {
@@ -1816,14 +1816,14 @@
       "parts": [
         {
           "ore": "GOLD",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "GOLD",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 28.3,
+          "max_pct": 78.3,
           "probability": 1.0
         },
         {
@@ -1847,14 +1847,14 @@
       "parts": [
         {
           "ore": "TARANITE",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "TARANITE",
-          "min_pct": 43.18,
-          "max_pct": 93.18,
+          "min_pct": 38.3,
+          "max_pct": 88.3,
           "probability": 1.0
         }
       ]
@@ -1879,14 +1879,14 @@
       "parts": [
         {
           "ore": "AGRICIUM",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "AGRICIUM",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 24.3,
+          "max_pct": 74.3,
           "probability": 1.0
         },
         {
@@ -1941,14 +1941,14 @@
       "parts": [
         {
           "ore": "LARANITE",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 5.7,
+          "max_pct": 11.7,
           "probability": 1.0
         },
         {
           "ore": "LARANITE",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 28.3,
+          "max_pct": 78.3,
           "probability": 1.0
         },
         {
@@ -1979,14 +1979,14 @@
       "parts": [
         {
           "ore": "TITANIUM",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "TITANIUM",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 24.3,
+          "max_pct": 74.3,
           "probability": 1.0
         },
         {
@@ -2010,14 +2010,14 @@
       "parts": [
         {
           "ore": "TORITE",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "TORITE",
-          "min_pct": 43.18,
-          "max_pct": 93.18,
+          "min_pct": 34.3,
+          "max_pct": 84.3,
           "probability": 1.0
         }
       ]
@@ -2029,14 +2029,14 @@
       "parts": [
         {
           "ore": "TUNGSTEN",
-          "min_pct": 2.82,
-          "max_pct": 6.82,
+          "min_pct": 9.7,
+          "max_pct": 15.7,
           "probability": 1.0
         },
         {
           "ore": "TUNGSTEN",
-          "min_pct": 39.18,
-          "max_pct": 83.18,
+          "min_pct": 24.3,
+          "max_pct": 74.3,
           "probability": 1.0
         },
         {
@@ -2513,29 +2513,29 @@
       "initial_slots_probability": 0.5,
       "slots": [
         {
-          "ore_hint": "APHORITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_b4dbb414",
+          "slot_type": "unknown",
           "relative_probability": 43.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "HADANITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_f42be172",
+          "slot_type": "unknown",
           "relative_probability": 31.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "DOLIVINE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_aeb1d11d",
+          "slot_type": "unknown",
           "relative_probability": 25.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "JANALITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_a33e0397",
+          "slot_type": "unknown",
           "relative_probability": 0.2,
           "deepest_probability": 0.4,
           "has_loot_table": false
@@ -2583,29 +2583,29 @@
       "initial_slots_probability": 0.4,
       "slots": [
         {
-          "ore_hint": "APHORITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_b4dbb414",
+          "slot_type": "unknown",
           "relative_probability": 41.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "DOLIVINE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_aeb1d11d",
+          "slot_type": "unknown",
           "relative_probability": 33.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "HADANITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_f42be172",
+          "slot_type": "unknown",
           "relative_probability": 25.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "JANALITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_a33e0397",
+          "slot_type": "unknown",
           "relative_probability": 0.2,
           "deepest_probability": 0.4,
           "has_loot_table": false
@@ -2646,29 +2646,29 @@
       "initial_slots_probability": 0.8,
       "slots": [
         {
-          "ore_hint": "HADANITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_f42be172",
+          "slot_type": "unknown",
           "relative_probability": 42.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "APHORITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_b4dbb414",
+          "slot_type": "unknown",
           "relative_probability": 31.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "DOLIVINE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_aeb1d11d",
+          "slot_type": "unknown",
           "relative_probability": 26.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "JANALITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_a33e0397",
+          "slot_type": "unknown",
           "relative_probability": 0.2,
           "deepest_probability": 0.4,
           "has_loot_table": false
@@ -2688,15 +2688,15 @@
           "has_loot_table": false
         },
         {
-          "ore_hint": "FEYNMALINE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_7510bf4b",
+          "slot_type": "unknown",
           "relative_probability": 1.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "GLACOSITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_f0207105",
+          "slot_type": "unknown",
           "relative_probability": 0.9,
           "deepest_probability": null,
           "has_loot_table": false
@@ -2737,29 +2737,29 @@
       "initial_slots_probability": 0.4,
       "slots": [
         {
-          "ore_hint": "APHORITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_b4dbb414",
+          "slot_type": "unknown",
           "relative_probability": 33.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "HADANITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_f42be172",
+          "slot_type": "unknown",
           "relative_probability": 33.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "DOLIVINE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_aeb1d11d",
+          "slot_type": "unknown",
           "relative_probability": 33.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "JANALITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_a33e0397",
+          "slot_type": "unknown",
           "relative_probability": 0.2,
           "deepest_probability": 0.4,
           "has_loot_table": false
@@ -2800,29 +2800,29 @@
       "initial_slots_probability": 0.2,
       "slots": [
         {
-          "ore_hint": "APHORITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_b4dbb414",
+          "slot_type": "unknown",
           "relative_probability": 33.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "HADANITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_f42be172",
+          "slot_type": "unknown",
           "relative_probability": 33.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "DOLIVINE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_aeb1d11d",
+          "slot_type": "unknown",
           "relative_probability": 33.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "JANALITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_a33e0397",
+          "slot_type": "unknown",
           "relative_probability": 0.2,
           "deepest_probability": 0.4,
           "has_loot_table": false
@@ -2863,29 +2863,29 @@
       "initial_slots_probability": 0.6,
       "slots": [
         {
-          "ore_hint": "APHORITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_b4dbb414",
+          "slot_type": "unknown",
           "relative_probability": 33.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "HADANITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_f42be172",
+          "slot_type": "unknown",
           "relative_probability": 33.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "DOLIVINE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_aeb1d11d",
+          "slot_type": "unknown",
           "relative_probability": 33.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "JANALITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_a33e0397",
+          "slot_type": "unknown",
           "relative_probability": 0.2,
           "deepest_probability": 0.4,
           "has_loot_table": false
@@ -2926,43 +2926,43 @@
       "initial_slots_probability": 0.75,
       "slots": [
         {
-          "ore_hint": "HADANITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_f42be172",
+          "slot_type": "unknown",
           "relative_probability": 42.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "APHORITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_b4dbb414",
+          "slot_type": "unknown",
           "relative_probability": 31.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "DOLIVINE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_aeb1d11d",
+          "slot_type": "unknown",
           "relative_probability": 0.0,
           "deepest_probability": 10.0,
           "has_loot_table": false
         },
         {
-          "ore_hint": "JANALITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_a33e0397",
+          "slot_type": "unknown",
           "relative_probability": 0.2,
           "deepest_probability": 0.4,
           "has_loot_table": false
         },
         {
-          "ore_hint": "FEYNMALINE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_7510bf4b",
+          "slot_type": "unknown",
           "relative_probability": 1.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "GLACOSITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_f0207105",
+          "slot_type": "unknown",
           "relative_probability": 0.9,
           "deepest_probability": null,
           "has_loot_table": false
@@ -3003,29 +3003,29 @@
       "initial_slots_probability": 0.3,
       "slots": [
         {
-          "ore_hint": "APHORITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_b4dbb414",
+          "slot_type": "unknown",
           "relative_probability": 33.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "HADANITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_f42be172",
+          "slot_type": "unknown",
           "relative_probability": 33.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "DOLIVINE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_aeb1d11d",
+          "slot_type": "unknown",
           "relative_probability": 33.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "JANALITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_a33e0397",
+          "slot_type": "unknown",
           "relative_probability": 0.2,
           "deepest_probability": 0.4,
           "has_loot_table": false
@@ -3066,29 +3066,29 @@
       "initial_slots_probability": 0.1,
       "slots": [
         {
-          "ore_hint": "APHORITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_b4dbb414",
+          "slot_type": "unknown",
           "relative_probability": 33.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "HADANITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_f42be172",
+          "slot_type": "unknown",
           "relative_probability": 33.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "DOLIVINE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_aeb1d11d",
+          "slot_type": "unknown",
           "relative_probability": 33.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "JANALITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_a33e0397",
+          "slot_type": "unknown",
           "relative_probability": 0.2,
           "deepest_probability": 0.4,
           "has_loot_table": false
@@ -3129,29 +3129,29 @@
       "initial_slots_probability": 0.5,
       "slots": [
         {
-          "ore_hint": "APHORITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_b4dbb414",
+          "slot_type": "unknown",
           "relative_probability": 33.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "HADANITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_f42be172",
+          "slot_type": "unknown",
           "relative_probability": 33.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "DOLIVINE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_aeb1d11d",
+          "slot_type": "unknown",
           "relative_probability": 33.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "JANALITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_a33e0397",
+          "slot_type": "unknown",
           "relative_probability": 0.2,
           "deepest_probability": 0.4,
           "has_loot_table": false
@@ -3192,22 +3192,22 @@
       "initial_slots_probability": 0.5,
       "slots": [
         {
-          "ore_hint": "HADANITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_f42be172",
+          "slot_type": "unknown",
           "relative_probability": 0.0,
           "deepest_probability": 0.2,
           "has_loot_table": false
         },
         {
-          "ore_hint": "DOLIVINE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_aeb1d11d",
+          "slot_type": "unknown",
           "relative_probability": 0.05,
           "deepest_probability": 0.7,
           "has_loot_table": false
         },
         {
-          "ore_hint": "APHORITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_b4dbb414",
+          "slot_type": "unknown",
           "relative_probability": 0.95,
           "deepest_probability": 0.1,
           "has_loot_table": false
@@ -3269,29 +3269,29 @@
           "has_loot_table": false
         },
         {
-          "ore_hint": "DOLIVINE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_aeb1d11d",
+          "slot_type": "unknown",
           "relative_probability": 6.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "APHORITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_b4dbb414",
+          "slot_type": "unknown",
           "relative_probability": 5.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "HADANITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_f42be172",
+          "slot_type": "unknown",
           "relative_probability": 4.0,
           "deepest_probability": null,
           "has_loot_table": false
         },
         {
-          "ore_hint": "JANALITE",
-          "slot_type": "ore",
+          "ore_hint": "UNKNOWN_a33e0397",
+          "slot_type": "unknown",
           "relative_probability": 0.15,
           "deepest_probability": 0.15,
           "has_loot_table": false
@@ -3437,38 +3437,31 @@
         "ship": [
           {
             "ore": "ICE",
-            "relative_probability": 13.9,
-            "panel_confirmed": false
+            "relative_probability": 13.9
           },
           {
             "ore": "ALUMINUM",
-            "relative_probability": 13.8,
-            "panel_confirmed": false
+            "relative_probability": 13.8
           },
           {
             "ore": "IRON",
-            "relative_probability": 13.8,
-            "panel_confirmed": false
+            "relative_probability": 13.8
           },
           {
             "ore": "LINDINIUM",
-            "relative_probability": 10.0,
-            "panel_confirmed": false
+            "relative_probability": 10.0
           },
           {
             "ore": "BEXALITE",
-            "relative_probability": 18.0,
-            "panel_confirmed": false
+            "relative_probability": 18.0
           },
           {
             "ore": "SAVRILIUM",
-            "relative_probability": 2.0,
-            "panel_confirmed": false
+            "relative_probability": 2.0
           },
           {
             "ore": "TORITE",
-            "relative_probability": 28.5,
-            "panel_confirmed": false
+            "relative_probability": 28.5
           }
         ]
       }
@@ -3484,38 +3477,31 @@
         "ship": [
           {
             "ore": "ICE",
-            "relative_probability": 13.9,
-            "panel_confirmed": false
+            "relative_probability": 13.9
           },
           {
             "ore": "ALUMINUM",
-            "relative_probability": 13.8,
-            "panel_confirmed": false
+            "relative_probability": 13.8
           },
           {
             "ore": "IRON",
-            "relative_probability": 13.8,
-            "panel_confirmed": false
+            "relative_probability": 13.8
           },
           {
             "ore": "LINDINIUM",
-            "relative_probability": 10.0,
-            "panel_confirmed": false
+            "relative_probability": 10.0
           },
           {
             "ore": "BEXALITE",
-            "relative_probability": 18.0,
-            "panel_confirmed": false
+            "relative_probability": 18.0
           },
           {
             "ore": "SAVRILIUM",
-            "relative_probability": 2.0,
-            "panel_confirmed": false
+            "relative_probability": 2.0
           },
           {
             "ore": "TORITE",
-            "relative_probability": 28.5,
-            "panel_confirmed": false
+            "relative_probability": 28.5
           }
         ]
       }
@@ -3532,30 +3518,50 @@
       "ores": {
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 58.6,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "UNKNOWN_aeb1d11d",
             "relative_probability": 35.4,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "HADANITE",
+            "ore": "UNKNOWN_f42be172",
             "relative_probability": 6.0,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
             "ore": "JANALITE",
             "relative_probability": 0.2,
             "panel_confirmed": true
+          },
+          {
+            "ore": "DOLIVINE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
           }
         ],
         "vehicle": [
           {
-            "ore": "BERADOM",
+            "ore": "UNKNOWN_0b32a5ed",
             "relative_probability": 6.0,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "BERADOM",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ],
@@ -3595,30 +3601,50 @@
       "ores": {
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 58.6,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "UNKNOWN_aeb1d11d",
             "relative_probability": 35.4,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "HADANITE",
+            "ore": "UNKNOWN_f42be172",
             "relative_probability": 6.0,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
             "ore": "JANALITE",
             "relative_probability": 0.2,
             "panel_confirmed": true
+          },
+          {
+            "ore": "DOLIVINE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
           }
         ],
         "vehicle": [
           {
-            "ore": "GLACOSITE",
+            "ore": "UNKNOWN_f0207105",
             "relative_probability": 12.5,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "GLACOSITE",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ],
@@ -3658,25 +3684,45 @@
       "ores": {
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 61.1,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_aeb1d11d",
+            "relative_probability": 36.9,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_a33e0397",
+            "relative_probability": 2.0,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2,
             "panel_confirmed": true
           },
           {
             "ore": "DOLIVINE",
-            "relative_probability": 36.9,
+            "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "JANALITE",
-            "relative_probability": 2.0,
+            "ore": "APHORITE",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ],
         "vehicle": [
           {
-            "ore": "BERADOM",
+            "ore": "UNKNOWN_0b32a5ed",
             "relative_probability": 12.5,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "BERADOM",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ],
@@ -3721,30 +3767,50 @@
       "ores": {
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 58.6,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "UNKNOWN_aeb1d11d",
             "relative_probability": 35.4,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "HADANITE",
+            "ore": "UNKNOWN_f42be172",
             "relative_probability": 6.0,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
             "ore": "JANALITE",
             "relative_probability": 0.2,
             "panel_confirmed": true
+          },
+          {
+            "ore": "DOLIVINE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
           }
         ],
         "vehicle": [
           {
-            "ore": "FEYNMALINE",
+            "ore": "UNKNOWN_7510bf4b",
             "relative_probability": 8.0,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "FEYNMALINE",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ],
@@ -3789,29 +3855,44 @@
       "ores": {
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 58.6,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "UNKNOWN_aeb1d11d",
             "relative_probability": 35.4,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "HADANITE",
+            "ore": "UNKNOWN_f42be172",
             "relative_probability": 6.0,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
             "ore": "JANALITE",
             "relative_probability": 0.2,
             "panel_confirmed": true
+          },
+          {
+            "ore": "DOLIVINE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
           }
         ],
         "vehicle": [
           {
-            "ore": "FEYNMALINE",
+            "ore": "UNKNOWN_7510bf4b",
             "relative_probability": 2.0,
             "panel_confirmed": false
           }
@@ -3852,34 +3933,49 @@
       "ores": {
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 58.6,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "UNKNOWN_aeb1d11d",
             "relative_probability": 35.4,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "HADANITE",
+            "ore": "UNKNOWN_f42be172",
             "relative_probability": 6.0,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
             "ore": "JANALITE",
             "relative_probability": 0.2,
             "panel_confirmed": true
+          },
+          {
+            "ore": "DOLIVINE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
           }
         ],
         "vehicle": [
           {
-            "ore": "BERADOM",
+            "ore": "UNKNOWN_0b32a5ed",
             "relative_probability": 7.0,
             "panel_confirmed": false
           },
           {
-            "ore": "GLACOSITE",
+            "ore": "UNKNOWN_f0207105",
             "relative_probability": 7.0,
             "panel_confirmed": false
           }
@@ -3920,29 +4016,44 @@
       "ores": {
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 58.6,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "UNKNOWN_aeb1d11d",
             "relative_probability": 35.4,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "HADANITE",
+            "ore": "UNKNOWN_f42be172",
             "relative_probability": 6.0,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
             "ore": "JANALITE",
             "relative_probability": 0.2,
             "panel_confirmed": true
+          },
+          {
+            "ore": "DOLIVINE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
           }
         ],
         "vehicle": [
           {
-            "ore": "GLACOSITE",
+            "ore": "UNKNOWN_f0207105",
             "relative_probability": 10.0,
             "panel_confirmed": false
           }
@@ -3983,29 +4094,44 @@
       "ores": {
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 58.6,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "UNKNOWN_aeb1d11d",
             "relative_probability": 35.4,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "HADANITE",
+            "ore": "UNKNOWN_f42be172",
             "relative_probability": 6.0,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
             "ore": "JANALITE",
             "relative_probability": 0.2,
             "panel_confirmed": true
+          },
+          {
+            "ore": "DOLIVINE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
           }
         ],
         "vehicle": [
           {
-            "ore": "BERADOM",
+            "ore": "UNKNOWN_0b32a5ed",
             "relative_probability": 9.0,
             "panel_confirmed": false
           }
@@ -4051,24 +4177,39 @@
       "ores": {
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 61.1,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_aeb1d11d",
+            "relative_probability": 36.9,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_a33e0397",
+            "relative_probability": 2.0,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2,
             "panel_confirmed": true
           },
           {
             "ore": "DOLIVINE",
-            "relative_probability": 36.9,
+            "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "JANALITE",
-            "relative_probability": 2.0,
+            "ore": "APHORITE",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ],
         "vehicle": [
           {
-            "ore": "FEYNMALINE",
+            "ore": "UNKNOWN_7510bf4b",
             "relative_probability": 4.0,
             "panel_confirmed": false
           }
@@ -4114,29 +4255,44 @@
       "ores": {
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 58.6,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "UNKNOWN_aeb1d11d",
             "relative_probability": 35.4,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "HADANITE",
+            "ore": "UNKNOWN_f42be172",
             "relative_probability": 6.0,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
             "ore": "JANALITE",
             "relative_probability": 0.2,
             "panel_confirmed": true
+          },
+          {
+            "ore": "DOLIVINE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
           }
         ],
         "vehicle": [
           {
-            "ore": "GLACOSITE",
+            "ore": "UNKNOWN_f0207105",
             "relative_probability": 7.0,
             "panel_confirmed": false
           }
@@ -4182,24 +4338,39 @@
       "ores": {
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 61.1,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_aeb1d11d",
+            "relative_probability": 36.9,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_a33e0397",
+            "relative_probability": 2.0,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2,
             "panel_confirmed": true
           },
           {
             "ore": "DOLIVINE",
-            "relative_probability": 36.9,
+            "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "JANALITE",
-            "relative_probability": 2.0,
+            "ore": "APHORITE",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ],
         "vehicle": [
           {
-            "ore": "FEYNMALINE",
+            "ore": "UNKNOWN_7510bf4b",
             "relative_probability": 12.0,
             "panel_confirmed": false
           }
@@ -4254,38 +4425,31 @@
         "ship": [
           {
             "ore": "ICE",
-            "relative_probability": 14.9,
-            "panel_confirmed": false
+            "relative_probability": 14.9
           },
           {
             "ore": "SILICON",
-            "relative_probability": 14.9,
-            "panel_confirmed": false
+            "relative_probability": 14.9
           },
           {
             "ore": "COPPER",
-            "relative_probability": 14.9,
-            "panel_confirmed": false
+            "relative_probability": 14.9
           },
           {
             "ore": "IRON",
-            "relative_probability": 14.8,
-            "panel_confirmed": false
+            "relative_probability": 14.8
           },
           {
             "ore": "RICCITE",
-            "relative_probability": 10.0,
-            "panel_confirmed": false
+            "relative_probability": 10.0
           },
           {
             "ore": "STILERON",
-            "relative_probability": 2.0,
-            "panel_confirmed": false
+            "relative_probability": 2.0
           },
           {
             "ore": "TORITE",
-            "relative_probability": 28.5,
-            "panel_confirmed": false
+            "relative_probability": 28.5
           }
         ]
       }
@@ -4301,23 +4465,19 @@
         "ship": [
           {
             "ore": "ICE",
-            "relative_probability": 26.8,
-            "panel_confirmed": false
+            "relative_probability": 26.8
           },
           {
             "ore": "SILICON",
-            "relative_probability": 26.7,
-            "panel_confirmed": false
+            "relative_probability": 26.7
           },
           {
             "ore": "TITANIUM",
-            "relative_probability": 28.5,
-            "panel_confirmed": false
+            "relative_probability": 28.5
           },
           {
             "ore": "BORASE",
-            "relative_probability": 18.0,
-            "panel_confirmed": false
+            "relative_probability": 18.0
           }
         ]
       }
@@ -4333,23 +4493,19 @@
         "ship": [
           {
             "ore": "ICE",
-            "relative_probability": 26.8,
-            "panel_confirmed": false
+            "relative_probability": 26.8
           },
           {
             "ore": "SILICON",
-            "relative_probability": 26.7,
-            "panel_confirmed": false
+            "relative_probability": 26.7
           },
           {
             "ore": "ASLARITE",
-            "relative_probability": 28.5,
-            "panel_confirmed": false
+            "relative_probability": 28.5
           },
           {
             "ore": "TARANITE",
-            "relative_probability": 18.0,
-            "panel_confirmed": false
+            "relative_probability": 18.0
           }
         ]
       }
@@ -4365,38 +4521,31 @@
         "ship": [
           {
             "ore": "ALUMINUM",
-            "relative_probability": 14.9,
-            "panel_confirmed": false
+            "relative_probability": 14.9
           },
           {
             "ore": "CORUNDUM",
-            "relative_probability": 14.9,
-            "panel_confirmed": false
+            "relative_probability": 14.9
           },
           {
             "ore": "QUARTZ",
-            "relative_probability": 14.9,
-            "panel_confirmed": false
+            "relative_probability": 14.9
           },
           {
             "ore": "TIN",
-            "relative_probability": 14.8,
-            "panel_confirmed": false
+            "relative_probability": 14.8
           },
           {
             "ore": "RICCITE",
-            "relative_probability": 10.0,
-            "panel_confirmed": false
+            "relative_probability": 10.0
           },
           {
             "ore": "STILERON",
-            "relative_probability": 2.0,
-            "panel_confirmed": false
+            "relative_probability": 2.0
           },
           {
             "ore": "TORITE",
-            "relative_probability": 28.5,
-            "panel_confirmed": false
+            "relative_probability": 28.5
           }
         ]
       }
@@ -4412,23 +4561,19 @@
         "ship": [
           {
             "ore": "IRON",
-            "relative_probability": 26.8,
-            "panel_confirmed": false
+            "relative_probability": 26.8
           },
           {
             "ore": "COPPER",
-            "relative_probability": 26.7,
-            "panel_confirmed": false
+            "relative_probability": 26.7
           },
           {
             "ore": "AGRICIUM",
-            "relative_probability": 28.5,
-            "panel_confirmed": false
+            "relative_probability": 28.5
           },
           {
             "ore": "BEXALITE",
-            "relative_probability": 18.0,
-            "panel_confirmed": false
+            "relative_probability": 18.0
           }
         ]
       }
@@ -4444,23 +4589,19 @@
         "ship": [
           {
             "ore": "IRON",
-            "relative_probability": 26.8,
-            "panel_confirmed": false
+            "relative_probability": 26.8
           },
           {
             "ore": "COPPER",
-            "relative_probability": 26.7,
-            "panel_confirmed": false
+            "relative_probability": 26.7
           },
           {
             "ore": "TUNGSTEN",
-            "relative_probability": 28.5,
-            "panel_confirmed": false
+            "relative_probability": 28.5
           },
           {
             "ore": "GOLD",
-            "relative_probability": 18.0,
-            "panel_confirmed": false
+            "relative_probability": 18.0
           }
         ]
       }
@@ -4477,40 +4618,55 @@
       "ores": {
         "vehicle": [
           {
-            "ore": "BERADOM",
+            "ore": "UNKNOWN_0b32a5ed",
             "relative_probability": 8.0,
             "panel_confirmed": false
           },
           {
-            "ore": "GLACOSITE",
+            "ore": "UNKNOWN_f0207105",
             "relative_probability": 4.0,
             "panel_confirmed": false
           },
           {
-            "ore": "FEYNMALINE",
+            "ore": "UNKNOWN_7510bf4b",
             "relative_probability": 0.5,
             "panel_confirmed": false
           }
         ],
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 58.6,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "UNKNOWN_aeb1d11d",
             "relative_probability": 35.4,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "HADANITE",
+            "ore": "UNKNOWN_f42be172",
             "relative_probability": 6.0,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
             "ore": "JANALITE",
             "relative_probability": 0.2,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "DOLIVINE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "HADANITE",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ],
@@ -4582,40 +4738,55 @@
         ],
         "vehicle": [
           {
-            "ore": "BERADOM",
+            "ore": "UNKNOWN_0b32a5ed",
             "relative_probability": 2.0,
             "panel_confirmed": false
           },
           {
-            "ore": "GLACOSITE",
+            "ore": "UNKNOWN_f0207105",
             "relative_probability": 4.0,
             "panel_confirmed": false
           },
           {
-            "ore": "FEYNMALINE",
+            "ore": "UNKNOWN_7510bf4b",
             "relative_probability": 6.5,
             "panel_confirmed": false
           }
         ],
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 58.6,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "UNKNOWN_aeb1d11d",
             "relative_probability": 35.4,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "HADANITE",
+            "ore": "UNKNOWN_f42be172",
             "relative_probability": 6.0,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
             "ore": "JANALITE",
             "relative_probability": 0.2,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "DOLIVINE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "HADANITE",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ]
@@ -4660,40 +4831,55 @@
         ],
         "vehicle": [
           {
-            "ore": "BERADOM",
+            "ore": "UNKNOWN_0b32a5ed",
             "relative_probability": 0.5,
             "panel_confirmed": false
           },
           {
-            "ore": "GLACOSITE",
+            "ore": "UNKNOWN_f0207105",
             "relative_probability": 4.0,
             "panel_confirmed": false
           },
           {
-            "ore": "FEYNMALINE",
+            "ore": "UNKNOWN_7510bf4b",
             "relative_probability": 8.0,
             "panel_confirmed": false
           }
         ],
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 58.6,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "UNKNOWN_aeb1d11d",
             "relative_probability": 35.4,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "HADANITE",
+            "ore": "UNKNOWN_f42be172",
             "relative_probability": 6.0,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
             "ore": "JANALITE",
             "relative_probability": 0.2,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "DOLIVINE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "HADANITE",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ]
@@ -4738,40 +4924,55 @@
         ],
         "vehicle": [
           {
-            "ore": "BERADOM",
+            "ore": "UNKNOWN_0b32a5ed",
             "relative_probability": 0.5,
             "panel_confirmed": false
           },
           {
-            "ore": "GLACOSITE",
+            "ore": "UNKNOWN_f0207105",
             "relative_probability": 8.0,
             "panel_confirmed": false
           },
           {
-            "ore": "FEYNMALINE",
+            "ore": "UNKNOWN_7510bf4b",
             "relative_probability": 5.0,
             "panel_confirmed": false
           }
         ],
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 58.6,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "UNKNOWN_aeb1d11d",
             "relative_probability": 35.4,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "HADANITE",
+            "ore": "UNKNOWN_f42be172",
             "relative_probability": 6.0,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
             "ore": "JANALITE",
             "relative_probability": 0.2,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "DOLIVINE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "HADANITE",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ]
@@ -4811,40 +5012,55 @@
         ],
         "vehicle": [
           {
-            "ore": "BERADOM",
+            "ore": "UNKNOWN_0b32a5ed",
             "relative_probability": 0.5,
             "panel_confirmed": false
           },
           {
-            "ore": "GLACOSITE",
+            "ore": "UNKNOWN_f0207105",
             "relative_probability": 9.0,
             "panel_confirmed": false
           },
           {
-            "ore": "FEYNMALINE",
+            "ore": "UNKNOWN_7510bf4b",
             "relative_probability": 3.5,
             "panel_confirmed": false
           }
         ],
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 58.6,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "UNKNOWN_aeb1d11d",
             "relative_probability": 35.4,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "HADANITE",
+            "ore": "UNKNOWN_f42be172",
             "relative_probability": 6.0,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
             "ore": "JANALITE",
             "relative_probability": 0.2,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "DOLIVINE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "HADANITE",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ]
@@ -4889,40 +5105,55 @@
         ],
         "vehicle": [
           {
-            "ore": "BERADOM",
+            "ore": "UNKNOWN_0b32a5ed",
             "relative_probability": 7.0,
             "panel_confirmed": false
           },
           {
-            "ore": "GLACOSITE",
+            "ore": "UNKNOWN_f0207105",
             "relative_probability": 4.0,
             "panel_confirmed": false
           },
           {
-            "ore": "FEYNMALINE",
+            "ore": "UNKNOWN_7510bf4b",
             "relative_probability": 1.5,
             "panel_confirmed": false
           }
         ],
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 58.6,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "UNKNOWN_aeb1d11d",
             "relative_probability": 35.4,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "HADANITE",
+            "ore": "UNKNOWN_f42be172",
             "relative_probability": 6.0,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
             "ore": "JANALITE",
             "relative_probability": 0.2,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "DOLIVINE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "HADANITE",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ]
@@ -4967,40 +5198,55 @@
         ],
         "vehicle": [
           {
-            "ore": "BERADOM",
+            "ore": "UNKNOWN_0b32a5ed",
             "relative_probability": 6.0,
             "panel_confirmed": false
           },
           {
-            "ore": "GLACOSITE",
+            "ore": "UNKNOWN_f0207105",
             "relative_probability": 1.5,
             "panel_confirmed": false
           },
           {
-            "ore": "FEYNMALINE",
+            "ore": "UNKNOWN_7510bf4b",
             "relative_probability": 5.0,
             "panel_confirmed": false
           }
         ],
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 58.6,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "UNKNOWN_aeb1d11d",
             "relative_probability": 35.4,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
-            "ore": "HADANITE",
+            "ore": "UNKNOWN_f42be172",
             "relative_probability": 6.0,
-            "panel_confirmed": true
+            "panel_confirmed": false
           },
           {
             "ore": "JANALITE",
             "relative_probability": 0.2,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "DOLIVINE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "HADANITE",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ]
@@ -5045,35 +5291,50 @@
         ],
         "vehicle": [
           {
-            "ore": "BERADOM",
+            "ore": "UNKNOWN_0b32a5ed",
             "relative_probability": 3.0,
             "panel_confirmed": false
           },
           {
-            "ore": "GLACOSITE",
+            "ore": "UNKNOWN_f0207105",
             "relative_probability": 8.5,
             "panel_confirmed": false
           },
           {
-            "ore": "FEYNMALINE",
+            "ore": "UNKNOWN_7510bf4b",
             "relative_probability": 1.0,
             "panel_confirmed": false
           }
         ],
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 58.6,
-            "panel_confirmed": true
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_aeb1d11d",
+            "relative_probability": 35.4,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_f42be172",
+            "relative_probability": 6.0,
+            "panel_confirmed": false
           },
           {
             "ore": "DOLIVINE",
-            "relative_probability": 35.4,
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
+            "relative_probability": null,
             "panel_confirmed": true
           },
           {
             "ore": "HADANITE",
-            "relative_probability": 6.0,
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ]
@@ -5113,35 +5374,50 @@
         ],
         "vehicle": [
           {
-            "ore": "BERADOM",
+            "ore": "UNKNOWN_0b32a5ed",
             "relative_probability": 6.0,
             "panel_confirmed": false
           },
           {
-            "ore": "GLACOSITE",
+            "ore": "UNKNOWN_f0207105",
             "relative_probability": 6.0,
             "panel_confirmed": false
           },
           {
-            "ore": "FEYNMALINE",
+            "ore": "UNKNOWN_7510bf4b",
             "relative_probability": 0.5,
             "panel_confirmed": false
           }
         ],
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 61.1,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_aeb1d11d",
+            "relative_probability": 36.9,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_a33e0397",
+            "relative_probability": 2.0,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2,
             "panel_confirmed": true
           },
           {
             "ore": "DOLIVINE",
-            "relative_probability": 36.9,
+            "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "JANALITE",
-            "relative_probability": 2.0,
+            "ore": "APHORITE",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ]
@@ -5186,35 +5462,50 @@
         ],
         "vehicle": [
           {
-            "ore": "BERADOM",
+            "ore": "UNKNOWN_0b32a5ed",
             "relative_probability": 7.0,
             "panel_confirmed": false
           },
           {
-            "ore": "GLACOSITE",
+            "ore": "UNKNOWN_f0207105",
             "relative_probability": 5.0,
             "panel_confirmed": false
           },
           {
-            "ore": "FEYNMALINE",
+            "ore": "UNKNOWN_7510bf4b",
             "relative_probability": 0.5,
             "panel_confirmed": false
           }
         ],
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 61.1,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_aeb1d11d",
+            "relative_probability": 36.9,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_a33e0397",
+            "relative_probability": 2.0,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2,
             "panel_confirmed": true
           },
           {
             "ore": "DOLIVINE",
-            "relative_probability": 36.9,
+            "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "JANALITE",
-            "relative_probability": 2.0,
+            "ore": "APHORITE",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ]
@@ -5254,35 +5545,50 @@
         ],
         "vehicle": [
           {
-            "ore": "BERADOM",
+            "ore": "UNKNOWN_0b32a5ed",
             "relative_probability": 3.5,
             "panel_confirmed": false
           },
           {
-            "ore": "GLACOSITE",
+            "ore": "UNKNOWN_f0207105",
             "relative_probability": 8.5,
             "panel_confirmed": false
           },
           {
-            "ore": "FEYNMALINE",
+            "ore": "UNKNOWN_7510bf4b",
             "relative_probability": 0.5,
             "panel_confirmed": false
           }
         ],
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 61.1,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_aeb1d11d",
+            "relative_probability": 36.9,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_a33e0397",
+            "relative_probability": 2.0,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2,
             "panel_confirmed": true
           },
           {
             "ore": "DOLIVINE",
-            "relative_probability": 36.9,
+            "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "JANALITE",
-            "relative_probability": 2.0,
+            "ore": "APHORITE",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ]
@@ -5322,35 +5628,50 @@
         ],
         "vehicle": [
           {
-            "ore": "BERADOM",
+            "ore": "UNKNOWN_0b32a5ed",
             "relative_probability": 1.5,
             "panel_confirmed": false
           },
           {
-            "ore": "GLACOSITE",
+            "ore": "UNKNOWN_f0207105",
             "relative_probability": 10.5,
             "panel_confirmed": false
           },
           {
-            "ore": "FEYNMALINE",
+            "ore": "UNKNOWN_7510bf4b",
             "relative_probability": 0.5,
             "panel_confirmed": false
           }
         ],
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 61.1,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_aeb1d11d",
+            "relative_probability": 36.9,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_a33e0397",
+            "relative_probability": 2.0,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2,
             "panel_confirmed": true
           },
           {
             "ore": "DOLIVINE",
-            "relative_probability": 36.9,
+            "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "JANALITE",
-            "relative_probability": 2.0,
+            "ore": "APHORITE",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ]
@@ -5390,35 +5711,50 @@
         ],
         "vehicle": [
           {
-            "ore": "BERADOM",
+            "ore": "UNKNOWN_0b32a5ed",
             "relative_probability": 2.5,
             "panel_confirmed": false
           },
           {
-            "ore": "GLACOSITE",
+            "ore": "UNKNOWN_f0207105",
             "relative_probability": 8.5,
             "panel_confirmed": false
           },
           {
-            "ore": "FEYNMALINE",
+            "ore": "UNKNOWN_7510bf4b",
             "relative_probability": 1.5,
             "panel_confirmed": false
           }
         ],
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 61.1,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_aeb1d11d",
+            "relative_probability": 36.9,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_a33e0397",
+            "relative_probability": 2.0,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2,
             "panel_confirmed": true
           },
           {
             "ore": "DOLIVINE",
-            "relative_probability": 36.9,
+            "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "JANALITE",
-            "relative_probability": 2.0,
+            "ore": "APHORITE",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ]
@@ -5458,35 +5794,50 @@
         ],
         "vehicle": [
           {
-            "ore": "BERADOM",
+            "ore": "UNKNOWN_0b32a5ed",
             "relative_probability": 1.5,
             "panel_confirmed": false
           },
           {
-            "ore": "GLACOSITE",
+            "ore": "UNKNOWN_f0207105",
             "relative_probability": 11.0,
             "panel_confirmed": false
           },
           {
-            "ore": "FEYNMALINE",
+            "ore": "UNKNOWN_7510bf4b",
             "relative_probability": 0.0,
             "panel_confirmed": false
           }
         ],
         "fps": [
           {
-            "ore": "APHORITE",
+            "ore": "UNKNOWN_b4dbb414",
             "relative_probability": 61.1,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_aeb1d11d",
+            "relative_probability": 36.9,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "UNKNOWN_a33e0397",
+            "relative_probability": 2.0,
+            "panel_confirmed": false
+          },
+          {
+            "ore": "JANALITE",
+            "relative_probability": 0.2,
             "panel_confirmed": true
           },
           {
             "ore": "DOLIVINE",
-            "relative_probability": 36.9,
+            "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "JANALITE",
-            "relative_probability": 2.0,
+            "ore": "APHORITE",
+            "relative_probability": null,
             "panel_confirmed": true
           }
         ]
@@ -5503,33 +5854,27 @@
         "ship": [
           {
             "ore": "ICE",
-            "relative_probability": 19.6,
-            "panel_confirmed": false
+            "relative_probability": 19.6
           },
           {
             "ore": "SILICON",
-            "relative_probability": 19.6,
-            "panel_confirmed": false
+            "relative_probability": 19.6
           },
           {
             "ore": "ALUMINUM",
-            "relative_probability": 19.6,
-            "panel_confirmed": false
+            "relative_probability": 19.6
           },
           {
             "ore": "IRON",
-            "relative_probability": 19.6,
-            "panel_confirmed": false
+            "relative_probability": 19.6
           },
           {
             "ore": "COPPER",
-            "relative_probability": 19.6,
-            "panel_confirmed": false
+            "relative_probability": 19.6
           },
           {
             "ore": "QUANTANIUM",
-            "relative_probability": 2.0,
-            "panel_confirmed": false
+            "relative_probability": 2.0
           }
         ]
       }
@@ -5545,33 +5890,27 @@
         "ship": [
           {
             "ore": "ICE",
-            "relative_probability": 19.6,
-            "panel_confirmed": false
+            "relative_probability": 19.6
           },
           {
             "ore": "SILICON",
-            "relative_probability": 19.6,
-            "panel_confirmed": false
+            "relative_probability": 19.6
           },
           {
             "ore": "ALUMINUM",
-            "relative_probability": 19.6,
-            "panel_confirmed": false
+            "relative_probability": 19.6
           },
           {
             "ore": "IRON",
-            "relative_probability": 19.6,
-            "panel_confirmed": false
+            "relative_probability": 19.6
           },
           {
             "ore": "COPPER",
-            "relative_probability": 19.6,
-            "panel_confirmed": false
+            "relative_probability": 19.6
           },
           {
             "ore": "QUANTANIUM",
-            "relative_probability": 2.0,
-            "panel_confirmed": false
+            "relative_probability": 2.0
           }
         ]
       }
@@ -5587,48 +5926,39 @@
         "ship": [
           {
             "ore": "ICE",
-            "relative_probability": 10.4,
-            "panel_confirmed": false
+            "relative_probability": 10.4
           },
           {
             "ore": "SILICON",
-            "relative_probability": 10.3,
-            "panel_confirmed": false
+            "relative_probability": 10.3
           },
           {
             "ore": "ALUMINUM",
-            "relative_probability": 10.3,
-            "panel_confirmed": false
+            "relative_probability": 10.3
           },
           {
             "ore": "QUANTANIUM",
-            "relative_probability": 2.0,
-            "panel_confirmed": false
+            "relative_probability": 2.0
           },
           {
             "ore": "IRON",
-            "relative_probability": 10.3,
-            "panel_confirmed": false
+            "relative_probability": 10.3
           },
           {
             "ore": "COPPER",
-            "relative_probability": 10.3,
-            "panel_confirmed": false
+            "relative_probability": 10.3
           },
           {
             "ore": "ASLARITE",
-            "relative_probability": 14.2,
-            "panel_confirmed": false
+            "relative_probability": 14.2
           },
           {
             "ore": "TITANIUM",
-            "relative_probability": 14.2,
-            "panel_confirmed": false
+            "relative_probability": 14.2
           },
           {
             "ore": "BERYL",
-            "relative_probability": 18.0,
-            "panel_confirmed": false
+            "relative_probability": 18.0
           }
         ]
       }
@@ -5644,28 +5974,23 @@
         "ship": [
           {
             "ore": "ALUMINUM",
-            "relative_probability": 17.9,
-            "panel_confirmed": false
+            "relative_probability": 17.9
           },
           {
             "ore": "CORUNDUM",
-            "relative_probability": 17.8,
-            "panel_confirmed": false
+            "relative_probability": 17.8
           },
           {
             "ore": "HEPHAESTANITE",
-            "relative_probability": 17.8,
-            "panel_confirmed": false
+            "relative_probability": 17.8
           },
           {
             "ore": "LARANITE",
-            "relative_probability": 28.5,
-            "panel_confirmed": false
+            "relative_probability": 28.5
           },
           {
             "ore": "BORASE",
-            "relative_probability": 18.0,
-            "panel_confirmed": false
+            "relative_probability": 18.0
           }
         ]
       }
@@ -5681,28 +6006,23 @@
         "ship": [
           {
             "ore": "IRON",
-            "relative_probability": 17.9,
-            "panel_confirmed": false
+            "relative_probability": 17.9
           },
           {
             "ore": "ICE",
-            "relative_probability": 17.8,
-            "panel_confirmed": false
+            "relative_probability": 17.8
           },
           {
             "ore": "COPPER",
-            "relative_probability": 17.8,
-            "panel_confirmed": false
+            "relative_probability": 17.8
           },
           {
             "ore": "ASLARITE",
-            "relative_probability": 28.5,
-            "panel_confirmed": false
+            "relative_probability": 28.5
           },
           {
             "ore": "GOLD",
-            "relative_probability": 18.0,
-            "panel_confirmed": false
+            "relative_probability": 18.0
           }
         ]
       }
@@ -5718,23 +6038,19 @@
         "ship": [
           {
             "ore": "ALUMINUM",
-            "relative_probability": 23.9,
-            "panel_confirmed": false
+            "relative_probability": 23.9
           },
           {
             "ore": "CORUNDUM",
-            "relative_probability": 23.9,
-            "panel_confirmed": false
+            "relative_probability": 23.9
           },
           {
             "ore": "HEPHAESTANITE",
-            "relative_probability": 23.9,
-            "panel_confirmed": false
+            "relative_probability": 23.9
           },
           {
             "ore": "TORITE",
-            "relative_probability": 28.5,
-            "panel_confirmed": false
+            "relative_probability": 28.5
           }
         ]
       }
@@ -5750,28 +6066,23 @@
         "ship": [
           {
             "ore": "IRON",
-            "relative_probability": 17.9,
-            "panel_confirmed": false
+            "relative_probability": 17.9
           },
           {
             "ore": "ICE",
-            "relative_probability": 17.8,
-            "panel_confirmed": false
+            "relative_probability": 17.8
           },
           {
             "ore": "COPPER",
-            "relative_probability": 17.8,
-            "panel_confirmed": false
+            "relative_probability": 17.8
           },
           {
             "ore": "AGRICIUM",
-            "relative_probability": 28.5,
-            "panel_confirmed": false
+            "relative_probability": 28.5
           },
           {
             "ore": "BERYL",
-            "relative_probability": 18.0,
-            "panel_confirmed": false
+            "relative_probability": 18.0
           }
         ]
       }
@@ -5787,28 +6098,23 @@
         "ship": [
           {
             "ore": "IRON",
-            "relative_probability": 17.9,
-            "panel_confirmed": false
+            "relative_probability": 17.9
           },
           {
             "ore": "ICE",
-            "relative_probability": 17.8,
-            "panel_confirmed": false
+            "relative_probability": 17.8
           },
           {
             "ore": "COPPER",
-            "relative_probability": 17.8,
-            "panel_confirmed": false
+            "relative_probability": 17.8
           },
           {
             "ore": "TITANIUM",
-            "relative_probability": 28.5,
-            "panel_confirmed": false
+            "relative_probability": 28.5
           },
           {
             "ore": "BEXALITE",
-            "relative_probability": 18.0,
-            "panel_confirmed": false
+            "relative_probability": 18.0
           }
         ]
       }
@@ -5824,28 +6130,23 @@
         "ship": [
           {
             "ore": "CORUNDUM",
-            "relative_probability": 17.9,
-            "panel_confirmed": false
+            "relative_probability": 17.9
           },
           {
             "ore": "ALUMINUM",
-            "relative_probability": 17.8,
-            "panel_confirmed": false
+            "relative_probability": 17.8
           },
           {
             "ore": "HEPHAESTANITE",
-            "relative_probability": 17.8,
-            "panel_confirmed": false
+            "relative_probability": 17.8
           },
           {
             "ore": "TUNGSTEN",
-            "relative_probability": 28.5,
-            "panel_confirmed": false
+            "relative_probability": 28.5
           },
           {
             "ore": "TARANITE",
-            "relative_probability": 18.0,
-            "panel_confirmed": false
+            "relative_probability": 18.0
           }
         ]
       }
@@ -5861,28 +6162,23 @@
         "ship": [
           {
             "ore": "IRON",
-            "relative_probability": 17.9,
-            "panel_confirmed": false
+            "relative_probability": 17.9
           },
           {
             "ore": "ICE",
-            "relative_probability": 17.8,
-            "panel_confirmed": false
+            "relative_probability": 17.8
           },
           {
             "ore": "COPPER",
-            "relative_probability": 17.8,
-            "panel_confirmed": false
+            "relative_probability": 17.8
           },
           {
             "ore": "AGRICIUM",
-            "relative_probability": 28.5,
-            "panel_confirmed": false
+            "relative_probability": 28.5
           },
           {
             "ore": "BERYL",
-            "relative_probability": 18.0,
-            "panel_confirmed": false
+            "relative_probability": 18.0
           }
         ]
       }
@@ -5898,28 +6194,23 @@
         "ship": [
           {
             "ore": "IRON",
-            "relative_probability": 17.9,
-            "panel_confirmed": false
+            "relative_probability": 17.9
           },
           {
             "ore": "ICE",
-            "relative_probability": 17.8,
-            "panel_confirmed": false
+            "relative_probability": 17.8
           },
           {
             "ore": "COPPER",
-            "relative_probability": 17.8,
-            "panel_confirmed": false
+            "relative_probability": 17.8
           },
           {
             "ore": "AGRICIUM",
-            "relative_probability": 28.5,
-            "panel_confirmed": false
+            "relative_probability": 28.5
           },
           {
             "ore": "BERYL",
-            "relative_probability": 18.0,
-            "panel_confirmed": false
+            "relative_probability": 18.0
           }
         ]
       }
@@ -5935,28 +6226,23 @@
         "ship": [
           {
             "ore": "IRON",
-            "relative_probability": 20.5,
-            "panel_confirmed": false
+            "relative_probability": 20.5
           },
           {
             "ore": "ICE",
-            "relative_probability": 20.5,
-            "panel_confirmed": false
+            "relative_probability": 20.5
           },
           {
             "ore": "COPPER",
-            "relative_probability": 20.5,
-            "panel_confirmed": false
+            "relative_probability": 20.5
           },
           {
             "ore": "TITANIUM",
-            "relative_probability": 28.5,
-            "panel_confirmed": false
+            "relative_probability": 28.5
           },
           {
             "ore": "OURATITE",
-            "relative_probability": 10.0,
-            "panel_confirmed": false
+            "relative_probability": 10.0
           }
         ]
       }
@@ -5970,24 +6256,82 @@
         "fps": [
           {
             "ore": "SADARYX",
-            "relative_probability": null,
-            "panel_confirmed": false
+            "relative_probability": null
           }
         ],
         "ship": [
           {
             "ore": "TORITE",
-            "relative_probability": null,
-            "panel_confirmed": false
+            "relative_probability": null
           },
           {
             "ore": "SAVRILIUM",
-            "relative_probability": null,
-            "panel_confirmed": false
+            "relative_probability": null
           }
         ]
       }
     }
+  },
+  "lagrange_presets": {
+    "HUR-L1": [
+      "LAG_TYPE_A"
+    ],
+    "HUR-L4": [
+      "LAG_TYPE_A"
+    ],
+    "HUR-L5": [
+      "LAG_TYPE_C"
+    ],
+    "HUR-L2": [
+      "LAG_TYPE_F"
+    ],
+    "HUR-L3": [
+      "LAG_TYPE_E"
+    ],
+    "ARC-L1": [
+      "LAG_TYPE_F"
+    ],
+    "ARC-L2": [
+      "LAG_TYPE_F"
+    ],
+    "ARC-L3": [
+      "LAG_TYPE_D"
+    ],
+    "ARC-L4": [
+      "LAG_TYPE_F"
+    ],
+    "ARC-L5": [
+      "LAG_TYPE_B"
+    ],
+    "CRU-L1": [
+      "LAG_TYPE_E"
+    ],
+    "CRU-L2": [
+      "LAG_TYPE_E"
+    ],
+    "CRU-L4": [
+      "LAG_TYPE_B"
+    ],
+    "CRU-L5": [
+      "LAG_TYPE_D",
+      "LAG_TYPE_G"
+    ],
+    "MIC-L1": [
+      "LAG_TYPE_C"
+    ],
+    "MIC-L2": [
+      "LAG_TYPE_C"
+    ],
+    "MIC-L3": [
+      "LAG_TYPE_B"
+    ],
+    "MIC-L4": [
+      "LAG_TYPE_D",
+      "LAG_TYPE_G"
+    ],
+    "MIC-L5": [
+      "LAG_TYPE_C"
+    ]
   },
   "ores": {
     "AGRICIUM": {
@@ -7515,14 +7859,14 @@
         "size": 1,
         "manufacturer": "Drake Interplanetary",
         "module_slots": 2,
-        "instability": 35.0,
-        "resistance": 25.0,
-        "optimal_window_size": 40.0,
-        "optimal_window_rate": -40.0,
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "filter": 40.0,
+        "filter": 0,
         "max_power": 3150,
         "min_power": 630,
         "min_power_pct": 20,
@@ -7537,7 +7881,7 @@
         "size": 0,
         "manufacturer": "Greycat Industrial",
         "module_slots": 0,
-        "instability": -40.0,
+        "instability": 0,
         "resistance": 0,
         "optimal_window_size": 0,
         "optimal_window_rate": 0,
@@ -7558,14 +7902,14 @@
         "size": 1,
         "manufacturer": "Greycat Industrial",
         "module_slots": 1,
-        "instability": -35.0,
-        "resistance": 25.0,
-        "optimal_window_size": 40.0,
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "filter": 30.0,
+        "filter": 0,
         "max_power": 1890,
         "min_power": 189,
         "min_power_pct": 10,
@@ -7579,14 +7923,14 @@
         "size": 2,
         "manufacturer": "Greycat Industrial",
         "module_slots": 2,
-        "instability": -35.0,
-        "resistance": 25.0,
-        "optimal_window_size": 40.0,
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "filter": 40.0,
+        "filter": 0,
         "max_power": 2400,
         "min_power": 480,
         "min_power_pct": 20,
@@ -7600,14 +7944,14 @@
         "size": 1,
         "manufacturer": "Greycat Industrial",
         "module_slots": 1,
-        "instability": -10.0,
+        "instability": 0,
         "resistance": 0,
-        "optimal_window_size": -60.0,
-        "optimal_window_rate": 40.0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "filter": 30.0,
+        "filter": 0,
         "max_power": 2520,
         "min_power": 504,
         "min_power_pct": 20,
@@ -7621,14 +7965,14 @@
         "size": 2,
         "manufacturer": "Greycat Industrial",
         "module_slots": 2,
-        "instability": -10.0,
+        "instability": 0,
         "resistance": 0,
-        "optimal_window_size": -60.0,
-        "optimal_window_rate": 40.0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "filter": 40.0,
+        "filter": 0,
         "max_power": 3600,
         "min_power": 900,
         "min_power_pct": 25,
@@ -7642,10 +7986,10 @@
         "size": 0,
         "manufacturer": "Shubin Interstellar",
         "module_slots": 0,
-        "instability": 30.0,
-        "resistance": -40.0,
-        "optimal_window_size": 40.0,
-        "optimal_window_rate": 20.0,
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
@@ -7663,14 +8007,14 @@
         "size": 1,
         "manufacturer": "Shubin Interstellar",
         "module_slots": 1,
-        "instability": 10.0,
-        "resistance": -30.0,
-        "optimal_window_size": 60.0,
-        "optimal_window_rate": 20.0,
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "filter": 30.0,
+        "filter": 0,
         "max_power": 2100,
         "min_power": 105,
         "min_power_pct": 5,
@@ -7684,14 +8028,14 @@
         "size": 2,
         "manufacturer": "Shubin Interstellar",
         "module_slots": 2,
-        "instability": 10.0,
-        "resistance": -30.0,
-        "optimal_window_size": 60.0,
-        "optimal_window_rate": 20.0,
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "filter": 40.0,
+        "filter": 0,
         "max_power": 3360,
         "min_power": 336,
         "min_power_pct": 10,
@@ -7705,10 +8049,10 @@
         "size": 0,
         "manufacturer": "Shubin Interstellar",
         "module_slots": 0,
-        "instability": 30.0,
-        "resistance": -40.0,
-        "optimal_window_size": 40.0,
-        "optimal_window_rate": 0.0,
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
@@ -7726,14 +8070,14 @@
         "size": 1,
         "manufacturer": "Shubin Interstellar",
         "module_slots": 0,
-        "instability": 35.0,
-        "resistance": -45.0,
-        "optimal_window_size": 20.0,
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "filter": 30.0,
+        "filter": 0,
         "max_power": 2220,
         "min_power": 378,
         "min_power_pct": 17,
@@ -7747,14 +8091,14 @@
         "size": 2,
         "manufacturer": "Shubin Interstellar",
         "module_slots": 1,
-        "instability": 35.0,
-        "resistance": -45.0,
-        "optimal_window_size": 20.0,
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "filter": 40.0,
+        "filter": 0,
         "max_power": 3600,
         "min_power": 720,
         "min_power_pct": 20,
@@ -7770,8 +8114,8 @@
         "module_slots": 0,
         "instability": 0,
         "resistance": 0,
-        "optimal_window_size": -40.0,
-        "optimal_window_rate": 20.0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
@@ -7790,13 +8134,13 @@
         "manufacturer": "Thermyte Concern",
         "module_slots": 2,
         "instability": 0,
-        "resistance": -30.0,
-        "optimal_window_size": -40.0,
+        "resistance": 0,
+        "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "filter": 30.0,
+        "filter": 0,
         "max_power": 3150,
         "min_power": 630,
         "min_power_pct": 20,
@@ -7811,13 +8155,13 @@
         "manufacturer": "Thermyte Concern",
         "module_slots": 3,
         "instability": 0,
-        "resistance": -30.0,
-        "optimal_window_size": -40.0,
+        "resistance": 0,
+        "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "filter": 40.0,
+        "filter": 0,
         "max_power": 4080,
         "min_power": 1020,
         "min_power_pct": 25,
@@ -7831,14 +8175,14 @@
         "size": 1,
         "manufacturer": "Thermyte Concern",
         "module_slots": 2,
-        "instability": -10.0,
-        "resistance": 10.0,
-        "optimal_window_size": 20.0,
-        "optimal_window_rate": -40.0,
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "filter": 30.0,
+        "filter": 0,
         "max_power": 2100,
         "min_power": 420,
         "min_power_pct": 20,
@@ -7852,14 +8196,14 @@
         "size": 2,
         "manufacturer": "Thermyte Concern",
         "module_slots": 3,
-        "instability": -10.0,
-        "resistance": 10.0,
-        "optimal_window_size": 20.0,
-        "optimal_window_rate": -40.0,
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "filter": 40.0,
+        "filter": 0,
         "max_power": 3360,
         "min_power": 840,
         "min_power_pct": 25,
@@ -7875,16 +8219,16 @@
         "type": "active",
         "manufacturer": "Greycat Industrial",
         "instability": 0,
-        "resistance": 15.5,
+        "resistance": 0,
         "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
-        "shatter_damage": -30.0,
+        "shatter_damage": 0,
         "cluster": 0,
         "filter": 0,
         "power_mod": 35,
         "extract_power_mod": 0,
-        "lifetime": 60.0,
+        "lifetime": null,
         "notes": ""
       },
       "active_forel": {
@@ -7892,50 +8236,50 @@
         "type": "active",
         "manufacturer": "Shubin Interstellar",
         "instability": 0,
-        "resistance": 15.5,
+        "resistance": 0,
         "optimal_window_size": 0,
         "optimal_window_rate": 0,
-        "catastrophic_rate": -60.0,
+        "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
         "filter": 0,
         "power_mod": 0,
         "extract_power_mod": 50,
-        "lifetime": 60.0,
+        "lifetime": null,
         "notes": ""
       },
       "active_lifeline": {
         "name": "Lifeline",
         "type": "active",
         "manufacturer": "Greycat Industrial",
-        "instability": -20.0,
-        "resistance": -15.5,
+        "instability": 0,
+        "resistance": 0,
         "optimal_window_size": 0,
         "optimal_window_rate": 0,
-        "catastrophic_rate": 60.0,
+        "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
         "filter": 0,
         "power_mod": 0,
         "extract_power_mod": 0,
-        "lifetime": 15.0,
+        "lifetime": null,
         "notes": ""
       },
       "active_optimum": {
         "name": "Optimum",
         "type": "active",
         "manufacturer": "Greycat Industrial",
-        "instability": -10.0,
+        "instability": 0,
         "resistance": 0,
         "optimal_window_size": 0,
         "optimal_window_rate": 0,
-        "catastrophic_rate": -80.0,
+        "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
         "filter": 0,
         "power_mod": -15,
         "extract_power_mod": 0,
-        "lifetime": 60.0,
+        "lifetime": null,
         "notes": ""
       },
       "active_rime": {
@@ -7943,41 +8287,41 @@
         "type": "active",
         "manufacturer": "Greycat Industrial",
         "instability": 0,
-        "resistance": -24.8,
+        "resistance": 0,
         "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
-        "shatter_damage": -10.0,
+        "shatter_damage": 0,
         "cluster": 0,
         "filter": 0,
         "power_mod": -15,
         "extract_power_mod": 0,
-        "lifetime": 20.0,
+        "lifetime": null,
         "notes": ""
       },
       "active_stampede": {
         "name": "Stampede",
         "type": "active",
         "manufacturer": "Thermyte Concern",
-        "instability": -10.0,
+        "instability": 0,
         "resistance": 0,
         "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
-        "shatter_damage": -10.0,
+        "shatter_damage": 0,
         "cluster": 0,
         "filter": 0,
         "power_mod": 35,
         "extract_power_mod": -15,
-        "lifetime": 30.0,
+        "lifetime": null,
         "notes": ""
       },
       "active_surge": {
         "name": "Surge",
         "type": "active",
         "manufacturer": "Thermyte Concern",
-        "instability": 10.0,
-        "resistance": -15.5,
+        "instability": 0,
+        "resistance": 0,
         "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
@@ -7986,7 +8330,7 @@
         "filter": 0,
         "power_mod": 50,
         "extract_power_mod": 0,
-        "lifetime": 15.0,
+        "lifetime": null,
         "notes": ""
       },
       "active_torpid": {
@@ -7996,14 +8340,14 @@
         "instability": 0,
         "resistance": 0,
         "optimal_window_size": 0,
-        "optimal_window_rate": 60.0,
-        "catastrophic_rate": -60.0,
-        "shatter_damage": 40.0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
         "cluster": 0,
         "filter": 0,
         "power_mod": 0,
         "extract_power_mod": 0,
-        "lifetime": 60.0,
+        "lifetime": null,
         "notes": ""
       },
       "passive_fltr_mk1": {
@@ -8017,7 +8361,7 @@
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "filter": 20.0,
+        "filter": 0,
         "power_mod": 0,
         "extract_power_mod": -15,
         "lifetime": null,
@@ -8034,7 +8378,7 @@
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "filter": 23.0,
+        "filter": 0,
         "power_mod": 0,
         "extract_power_mod": -10,
         "lifetime": null,
@@ -8051,7 +8395,7 @@
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "filter": 24.0,
+        "filter": 0,
         "power_mod": 0,
         "extract_power_mod": -5,
         "lifetime": null,
@@ -8063,7 +8407,7 @@
         "manufacturer": "Thermyte Concern",
         "instability": 0,
         "resistance": 0,
-        "optimal_window_size": 30.0,
+        "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
@@ -8080,7 +8424,7 @@
         "manufacturer": "Thermyte Concern",
         "instability": 0,
         "resistance": 0,
-        "optimal_window_size": 37.0,
+        "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
@@ -8097,7 +8441,7 @@
         "manufacturer": "Thermyte Concern",
         "instability": 0,
         "resistance": 0,
-        "optimal_window_size": 40.0,
+        "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
@@ -8114,7 +8458,7 @@
         "manufacturer": "Shubin Interstellar",
         "instability": 0,
         "resistance": 0,
-        "optimal_window_size": -10.0,
+        "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
@@ -8131,7 +8475,7 @@
         "manufacturer": "Shubin Interstellar",
         "instability": 0,
         "resistance": 0,
-        "optimal_window_size": -3.0,
+        "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
@@ -8148,7 +8492,7 @@
         "manufacturer": "Shubin Interstellar",
         "instability": 0,
         "resistance": 0,
-        "optimal_window_size": -1.0,
+        "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
@@ -8165,8 +8509,8 @@
         "manufacturer": "Thermyte Concern",
         "instability": 0,
         "resistance": 0,
-        "optimal_window_size": -10.0,
-        "optimal_window_rate": 30.0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
@@ -8182,8 +8526,8 @@
         "manufacturer": "Thermyte Concern",
         "instability": 0,
         "resistance": 0,
-        "optimal_window_size": -3.0,
-        "optimal_window_rate": 35.0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
@@ -8199,8 +8543,8 @@
         "manufacturer": "Thermyte Concern",
         "instability": 0,
         "resistance": 0,
-        "optimal_window_size": -1.0,
-        "optimal_window_rate": 45.0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
@@ -8217,7 +8561,7 @@
         "instability": 0,
         "resistance": 0,
         "optimal_window_size": 0,
-        "optimal_window_rate": -20.0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
@@ -8234,7 +8578,7 @@
         "instability": 0,
         "resistance": 0,
         "optimal_window_size": 0,
-        "optimal_window_rate": -15.0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
@@ -8251,7 +8595,7 @@
         "instability": 0,
         "resistance": 0,
         "optimal_window_size": 0,
-        "optimal_window_rate": -5.0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
@@ -8267,12 +8611,12 @@
         "manufacturer": "Greycat Industrial",
         "instability": 0,
         "resistance": 0,
-        "optimal_window_size": 15.0,
+        "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "filter": 5.0,
+        "filter": 0,
         "power_mod": 0,
         "extract_power_mod": -15,
         "lifetime": null,
@@ -8284,12 +8628,12 @@
         "manufacturer": "Greycat Industrial",
         "instability": 0,
         "resistance": 0,
-        "optimal_window_size": 22.0,
+        "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "filter": 5.75,
+        "filter": 0,
         "power_mod": 0,
         "extract_power_mod": -10,
         "lifetime": null,
@@ -8301,12 +8645,12 @@
         "manufacturer": "Greycat Industrial",
         "instability": 0,
         "resistance": 0,
-        "optimal_window_size": 25.0,
+        "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "filter": 6.0,
+        "filter": 0,
         "power_mod": 0,
         "extract_power_mod": -5,
         "lifetime": null,
@@ -8336,7 +8680,7 @@
         "instability": 0,
         "resistance": 0,
         "optimal_window_size": 0,
-        "optimal_window_rate": 20.0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
@@ -8352,26 +8696,26 @@
         "name": "OptiMax",
         "manufacturer": "Greycat Industrial",
         "instability": 0,
-        "resistance": -25.0,
-        "optimal_window_size": -30.0,
+        "resistance": 0,
+        "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
-        "cluster": 60.0,
-        "charges": -1,
+        "cluster": 0,
+        "charges": null,
         "notes": ""
       },
       "grin_waveshift": {
         "name": "WaveShift",
         "manufacturer": "Greycat Industrial",
-        "instability": -35.0,
+        "instability": 0,
         "resistance": 0,
-        "optimal_window_size": 100.0,
-        "optimal_window_rate": -30.0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "charges": -1,
+        "charges": null,
         "notes": ""
       },
       "shin_okunis": {
@@ -8379,51 +8723,51 @@
         "manufacturer": "Shubin Interstellar",
         "instability": 0,
         "resistance": 0,
-        "optimal_window_size": 50.0,
-        "optimal_window_rate": 100.0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
-        "cluster": -20.0,
-        "charges": -1,
+        "cluster": 0,
+        "charges": null,
         "notes": ""
       },
       "shin_sabir": {
         "name": "Sabir",
         "manufacturer": "Shubin Interstellar",
-        "instability": 15.0,
-        "resistance": -50.0,
-        "optimal_window_size": 50.0,
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
         "cluster": 0,
-        "charges": -1,
+        "charges": null,
         "notes": ""
       },
       "thcn_boremax": {
         "name": "BoreMax",
         "manufacturer": "Thermyte Concern",
-        "instability": -70.0,
-        "resistance": 10.0,
+        "instability": 0,
+        "resistance": 0,
         "optimal_window_size": 0,
         "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
-        "cluster": 30.0,
-        "charges": -1,
+        "cluster": 0,
+        "charges": null,
         "notes": ""
       },
       "thcn_stalwart": {
         "name": "Stalwart",
         "manufacturer": "Thermyte Concern",
-        "instability": -35.0,
+        "instability": 0,
         "resistance": 0,
-        "optimal_window_size": -30.0,
-        "optimal_window_rate": 50.0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
         "catastrophic_rate": 0,
         "shatter_damage": 0,
-        "cluster": 30.0,
-        "charges": -1,
+        "cluster": 0,
+        "charges": null,
         "notes": ""
       }
     },
@@ -8959,7 +9303,7 @@
     "stations": {
       "Refinement Center - Checkmate": {
         "system": "Pyro",
-        "capacity_scu": 3796,
+        "capacity_scu": 5771,
         "yields": {
           "AGRICIUM": {
             "value": -8,
@@ -9020,19 +9364,14 @@
       },
       "Refinement Center - Levski": {
         "system": "Nyx",
-        "capacity_scu": 3444,
+        "capacity_scu": 14935,
         "yields": {
           "Construction Material Salvage": {
-            "value": 9,
-            "value_week": 9,
-            "value_month": 9
+            "value": 8,
+            "value_week": 8,
+            "value_month": 8
           },
           "Construction Material Rubble": {
-            "value": 9,
-            "value_week": 9,
-            "value_month": 9
-          },
-          "Construction Material Pebbles": {
             "value": 9,
             "value_week": 9,
             "value_month": 9
@@ -9151,7 +9490,7 @@
       },
       "Refinement Center - Nyx Gateway (Pyro)": {
         "system": "Pyro",
-        "capacity_scu": 3712,
+        "capacity_scu": 397,
         "yields": {
           "IRON": {
             "value": -5,
@@ -9212,7 +9551,7 @@
       },
       "Refinement Center - Orbituary": {
         "system": "Pyro",
-        "capacity_scu": 44571,
+        "capacity_scu": 2254,
         "yields": {
           "AGRICIUM": {
             "value": -8,
@@ -9273,7 +9612,7 @@
       },
       "Refinement Center - Pyro Gateway (Nyx)": {
         "system": "Nyx",
-        "capacity_scu": 57,
+        "capacity_scu": 3400,
         "yields": {
           "BEXALITE": {
             "value": -2,
@@ -9334,7 +9673,7 @@
       },
       "Refinement Center - Ruin Station": {
         "system": "Pyro",
-        "capacity_scu": 7502,
+        "capacity_scu": 5130,
         "yields": {
           "ALUMINUM": {
             "value": -4,
@@ -9395,7 +9734,7 @@
       },
       "Refinement Center - Stanton Gateway (Nyx)": {
         "system": "Nyx",
-        "capacity_scu": 128,
+        "capacity_scu": 415,
         "yields": {
           "IRON": {
             "value": -5,
@@ -9456,7 +9795,7 @@
       },
       "Refinement Processing - ARC-L1": {
         "system": "Stanton",
-        "capacity_scu": 14554,
+        "capacity_scu": 12549,
         "yields": {
           "BERYL": {
             "value": 7,
@@ -9512,7 +9851,7 @@
       },
       "Refinement Processing - ARC-L2": {
         "system": "Stanton",
-        "capacity_scu": 2005,
+        "capacity_scu": 2623,
         "yields": {
           "BEXALITE": {
             "value": 2,
@@ -9563,7 +9902,7 @@
       },
       "Refinement Processing - ARC-L4": {
         "system": "Stanton",
-        "capacity_scu": 8347,
+        "capacity_scu": 10636,
         "yields": {
           "COPPER": {
             "value": -4,
@@ -9624,7 +9963,7 @@
       },
       "Refinement Processing - CRU-L1": {
         "system": "Stanton",
-        "capacity_scu": 20076,
+        "capacity_scu": 14474,
         "yields": {
           "IRON": {
             "value": 2,
@@ -9675,7 +10014,7 @@
       },
       "Refinement Processing - HUR-L1": {
         "system": "Stanton",
-        "capacity_scu": 21435,
+        "capacity_scu": 17161,
         "yields": {
           "BEXALITE": {
             "value": -2,
@@ -9736,7 +10075,7 @@
       },
       "Refinement Processing - HUR-L2": {
         "system": "Stanton",
-        "capacity_scu": 4841,
+        "capacity_scu": 12153,
         "yields": {
           "COPPER": {
             "value": -3,
@@ -9782,7 +10121,7 @@
       },
       "Refinement Processing - MIC-L1": {
         "system": "Stanton",
-        "capacity_scu": 6205,
+        "capacity_scu": 11881,
         "yields": {
           "CORUNDUM": {
             "value": 2,
@@ -9828,7 +10167,7 @@
       },
       "Refinement Processing - MIC-L2": {
         "system": "Stanton",
-        "capacity_scu": 4423,
+        "capacity_scu": 4556,
         "yields": {
           "TITANIUM": {
             "value": 6,
@@ -9889,7 +10228,7 @@
       },
       "Refinement Processing - MIC-L5": {
         "system": "Stanton",
-        "capacity_scu": 1291,
+        "capacity_scu": 4607,
         "yields": {
           "LINDINIUM": {
             "value": 7,
@@ -9945,7 +10284,7 @@
       },
       "Refinement Processing - Nyx Gateway (Stanton)": {
         "system": "Stanton",
-        "capacity_scu": 2389,
+        "capacity_scu": 443,
         "yields": {
           "BERYL": {
             "value": 7,
@@ -10001,7 +10340,7 @@
       },
       "Refinement Processing - Pyro Gateway (Stanton)": {
         "system": "Stanton",
-        "capacity_scu": 144,
+        "capacity_scu": 6959,
         "yields": {
           "IRON": {
             "value": 2,
@@ -10052,7 +10391,7 @@
       },
       "Refinement Processing - Stanton Gateway (Pyro)": {
         "system": "Pyro",
-        "capacity_scu": 2382,
+        "capacity_scu": 308,
         "yields": {
           "TUNGSTEN": {
             "value": 4,
@@ -10113,7 +10452,7 @@
       },
       "Refinement Processing - Terra Gateway (Stanton)": {
         "system": "Stanton",
-        "capacity_scu": 2028,
+        "capacity_scu": 4895,
         "yields": {
           "QUARTZ": {
             "value": -3,
@@ -10284,15 +10623,10 @@
       },
       "Construction Material Salvage": {
         "station": "Refinement Center - Levski",
-        "value": 9,
+        "value": 8,
         "system": "Nyx"
       },
       "Construction Material Rubble": {
-        "station": "Refinement Center - Levski",
-        "value": 9,
-        "system": "Nyx"
-      },
-      "Construction Material Pebbles": {
         "station": "Refinement Center - Levski",
         "value": 9,
         "system": "Nyx"
