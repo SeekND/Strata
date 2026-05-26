@@ -4,16 +4,16 @@
     "regolith_enabled": false,
     "uex_fetch_date": "2026-05-25T13:51:25.718815+00:00",
     "current_patch": "4.8",
-    "data_updated": "2026-05-25",
+    "data_updated": "2026-05-26",
     "news_reel": "",
-    "total_mining_locations": 84,
-    "total_ores": 37,
+    "total_mining_locations": 86,
+    "total_ores": 38,
     "total_refineries": 20,
     "total_ore_elements": 41,
     "total_compositions": 63,
     "total_scanner_signals": 76,
     "total_cave_presets": 14,
-    "total_location_ores": 46,
+    "total_location_ores": 48,
     "has_equipment": true,
     "has_mining_params": true
   },
@@ -3537,12 +3537,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
@@ -3620,12 +3620,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
@@ -3703,12 +3703,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -3786,12 +3786,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
@@ -3874,12 +3874,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
@@ -3952,12 +3952,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
@@ -4035,12 +4035,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
@@ -4113,12 +4113,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
@@ -4196,12 +4196,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -4274,12 +4274,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
@@ -4357,12 +4357,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -4654,12 +4654,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
@@ -4774,12 +4774,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
@@ -4867,12 +4867,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
@@ -4960,12 +4960,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
@@ -5048,12 +5048,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
@@ -5141,12 +5141,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
@@ -5234,12 +5234,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
@@ -5322,12 +5322,12 @@
             "panel_confirmed": false
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
@@ -5410,12 +5410,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -5498,12 +5498,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -5581,12 +5581,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -5664,12 +5664,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -5747,12 +5747,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -5830,12 +5830,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -6265,6 +6265,58 @@
           },
           {
             "ore": "SAVRILIUM",
+            "relative_probability": null
+          }
+        ]
+      }
+    },
+    "HATHOR_DAY": {
+      "name": "Hathor Caves (Daymar)",
+      "system": "Stanton",
+      "type": "hathor",
+      "group_probabilities": {},
+      "ores": {
+        "fps": [
+          {
+            "ore": "JACLIUM",
+            "relative_probability": null
+          },
+          {
+            "ore": "SALDYNIUM",
+            "relative_probability": null
+          },
+          {
+            "ore": "CARINITE",
+            "relative_probability": null
+          },
+          {
+            "ore": "CARINITEPURE",
+            "relative_probability": null
+          }
+        ]
+      }
+    },
+    "HATHOR_ABE": {
+      "name": "Hathor Caves (Aberdeen)",
+      "system": "Stanton",
+      "type": "hathor",
+      "group_probabilities": {},
+      "ores": {
+        "fps": [
+          {
+            "ore": "JACLIUM",
+            "relative_probability": null
+          },
+          {
+            "ore": "SALDYNIUM",
+            "relative_probability": null
+          },
+          {
+            "ore": "CARINITE",
+            "relative_probability": null
+          },
+          {
+            "ore": "CARINITEPURE",
             "relative_probability": null
           }
         ]
@@ -6924,7 +6976,7 @@
       "form": "gem",
       "mining_method": "fps",
       "crafting_slots": [],
-      "notes": "Special mission locations only (Daymar, Aberdeen). PVP zones.",
+      "notes": "Hathor Caves (Daymar, Aberdeen). PVP zones.",
       "image_url": "",
       "difficulty": {
         "instability": 300.0,
@@ -6942,7 +6994,7 @@
       "form": "gem",
       "mining_method": "fps",
       "crafting_slots": [],
-      "notes": "Special mission locations only (Daymar, Aberdeen). PVP zones.",
+      "notes": "Hathor Caves (Daymar, Aberdeen). PVP zones.",
       "image_url": "",
       "difficulty": {
         "instability": 100.0,
@@ -6960,7 +7012,7 @@
       "form": "gem",
       "mining_method": "fps",
       "crafting_slots": [],
-      "notes": "Special mission locations only (Daymar, Aberdeen). PVP zones.",
+      "notes": "Hathor Caves (Daymar, Aberdeen). PVP zones.",
       "image_url": "",
       "difficulty": {
         "instability": 100.0,
@@ -6969,6 +7021,24 @@
         "optimal_window_randomness": 0.0,
         "optimal_window_thinness": 5.0,
         "explosion_multiplier": 1.0,
+        "cluster_factor": 0.0
+      }
+    },
+    "CARINITEPURE": {
+      "display_name": "Carinite Pure",
+      "uex_name": null,
+      "form": "gem",
+      "mining_method": "fps",
+      "crafting_slots": [],
+      "notes": "Hathor Caves (Daymar, Aberdeen). PVP zones.",
+      "image_url": "",
+      "difficulty": {
+        "instability": 300.0,
+        "resistance": 0.5,
+        "optimal_window_midpoint": 0.4,
+        "optimal_window_randomness": 0.2,
+        "optimal_window_thinness": 10.0,
+        "explosion_multiplier": 0.5,
         "cluster_factor": 0.0
       }
     },
@@ -7309,6 +7379,26 @@
       "has_refinery": false,
       "lpoint": null,
       "notes": ""
+    },
+    "HATHOR_ABE": {
+      "display_name": "Hathor Caves (Aberdeen)",
+      "system": "Stanton",
+      "parent": "ABE",
+      "type": "hathor",
+      "region": "hurston",
+      "has_refinery": false,
+      "lpoint": null,
+      "notes": "PVP cave mining location on Aberdeen. Yields rare gems (Jaclium, Saldynium, Carinite, Carinite Pure)."
+    },
+    "HATHOR_DAY": {
+      "display_name": "Hathor Caves (Daymar)",
+      "system": "Stanton",
+      "parent": "DAY",
+      "type": "hathor",
+      "region": "crusader",
+      "has_refinery": false,
+      "lpoint": null,
+      "notes": "PVP cave mining location on Daymar. Yields rare gems (Jaclium, Saldynium, Carinite, Carinite Pure)."
     },
     "HUR": {
       "display_name": "Hurston",
