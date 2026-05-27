@@ -1,10 +1,8 @@
 {
   "meta": {
-    "regolith_export_date": null,
-    "regolith_enabled": false,
     "uex_fetch_date": "2026-05-25T13:51:25.718815+00:00",
     "current_patch": "4.8",
-    "data_updated": "2026-05-26",
+    "data_updated": "2026-05-27",
     "news_reel": "",
     "total_mining_locations": 86,
     "total_ores": 38,
@@ -3537,17 +3535,17 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
-            "relative_probability": null,
-            "panel_confirmed": true
-          },
-          {
             "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
             "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -3620,17 +3618,17 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
-            "relative_probability": null,
-            "panel_confirmed": true
-          },
-          {
             "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
             "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -3703,12 +3701,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -3786,17 +3784,17 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
-            "relative_probability": null,
-            "panel_confirmed": true
-          },
-          {
             "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
             "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -3874,17 +3872,17 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
-            "relative_probability": null,
-            "panel_confirmed": true
-          },
-          {
             "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
             "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -3952,17 +3950,17 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
-            "relative_probability": null,
-            "panel_confirmed": true
-          },
-          {
             "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
             "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -4035,17 +4033,17 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
-            "relative_probability": null,
-            "panel_confirmed": true
-          },
-          {
             "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
             "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -4113,17 +4111,17 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
-            "relative_probability": null,
-            "panel_confirmed": true
-          },
-          {
             "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
             "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -4196,12 +4194,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -4274,17 +4272,17 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
-            "relative_probability": null,
-            "panel_confirmed": true
-          },
-          {
             "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
             "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -4357,12 +4355,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -4654,17 +4652,17 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
-            "relative_probability": null,
-            "panel_confirmed": true
-          },
-          {
             "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
             "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -4774,17 +4772,17 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
-            "relative_probability": null,
-            "panel_confirmed": true
-          },
-          {
             "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
             "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -4867,17 +4865,17 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
-            "relative_probability": null,
-            "panel_confirmed": true
-          },
-          {
             "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
             "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -4960,17 +4958,17 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
-            "relative_probability": null,
-            "panel_confirmed": true
-          },
-          {
             "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
             "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -5048,17 +5046,17 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
-            "relative_probability": null,
-            "panel_confirmed": true
-          },
-          {
             "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
             "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -5141,17 +5139,17 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
-            "relative_probability": null,
-            "panel_confirmed": true
-          },
-          {
             "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
             "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -5234,17 +5232,17 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
-            "relative_probability": null,
-            "panel_confirmed": true
-          },
-          {
             "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
             "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -5322,17 +5320,17 @@
             "panel_confirmed": false
           },
           {
-            "ore": "APHORITE",
-            "relative_probability": null,
-            "panel_confirmed": true
-          },
-          {
             "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
             "ore": "HADANITE",
+            "relative_probability": null,
+            "panel_confirmed": true
+          },
+          {
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -5410,12 +5408,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -5498,12 +5496,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -5581,12 +5579,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -5664,12 +5662,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -5747,12 +5745,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -5830,12 +5828,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "DOLIVINE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "DOLIVINE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
