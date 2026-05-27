@@ -775,9 +775,7 @@ function renderExpStopCard(a) {
       }
     }
     if (hasDirectPresence && !od.isGround && od.difficulty) {
-      // Difficulty description (not a gear recommendation \u2014 the loadout column
-      // on the right already shows what's equipped, so showing alternative gear
-      // here would conflict)
+      // Difficulty description
       const traits = [];
       if (od.difficulty.resistance >= 0.7) traits.push('<span style="color:var(--red)">extreme resistance</span>');
       else if (od.difficulty.resistance >= 0.4) traits.push('high resistance');
@@ -785,6 +783,47 @@ function renderExpStopCard(a) {
       else if (od.difficulty.instability >= 300) traits.push('unstable');
       if (od.difficulty.explosion_multiplier >= 100) traits.push(`<span style="color:var(--red)">${od.difficulty.explosion_multiplier.toFixed(0)}\u00d7 explosion</span>`);
       if (traits.length) det += `<div style="color:var(--text-dim)">Rock traits: ${traits.join(', ')}</div>`;
+
+      // Per-rock swap hint: compute the ideal loadout for THIS rock and compare to
+      // the stop's primary loadout. If they differ, surface what to swap before
+      // mining this rock. Skip Mole/turreted setups \u2014 too many slots to summarize.
+      if (a.loadout && !a.loadout.turrets && a.ship?.type && typeof computeOptimizedLoadout === 'function') {
+        const oreLoadout = computeOptimizedLoadout(a.ship.type, od.difficulty);
+        if (oreLoadout) {
+          const modules = D.equipment?.modules || {};
+          const gadgets = D.equipment?.gadgets || {};
+          const stopMods = new Set(a.loadout.modules || []);
+          const stopGads = new Set(a.loadout.gadgets || []);
+          const oreMods = new Set(oreLoadout.modules || []);
+          const oreGads = new Set(oreLoadout.gadgets || []);
+          const dropMods = [...stopMods].filter(m => !oreMods.has(m));
+          const addMods  = [...oreMods].filter(m => !stopMods.has(m));
+          const dropGads = [...stopGads].filter(g => !oreGads.has(g));
+          const addGads  = [...oreGads].filter(g => !stopGads.has(g));
+          const modName = k => modules[k]?.name || k;
+          const gadName = k => gadgets[k]?.name || k;
+          const parts = [];
+          // Pair drop\u2192add for modules (same slot count = direct swap)
+          if (dropMods.length || addMods.length) {
+            const lim = Math.max(dropMods.length, addMods.length);
+            for (let i = 0; i < lim; i++) {
+              const d = dropMods[i] ? modName(dropMods[i]) : '(empty slot)';
+              const a_ = addMods[i] ? modName(addMods[i]) : '(remove)';
+              parts.push(`<strong>${d}</strong> \u2192 <strong style="color:var(--accent)">${a_}</strong>`);
+            }
+          }
+          if (dropGads.length || addGads.length) {
+            const dG = dropGads.length ? dropGads.map(gadName).join('+') : '(none)';
+            const aG = addGads.length ? addGads.map(gadName).join('+') : '(none)';
+            parts.push(`gadget <strong>${dG}</strong> \u2192 <strong style="color:var(--accent)">${aG}</strong>`);
+          }
+          if (parts.length) {
+            det += `<div style="margin-top:4px;padding:6px 8px;background:rgba(232,117,26,0.06);border-left:2px solid var(--accent);border-radius:3px;font-size:11px;color:var(--text-secondary)"><span style="color:var(--accent);font-weight:600">SWAP FOR THIS ROCK:</span> ${parts.join(' &nbsp; ')}</div>`;
+          } else {
+            det += `<div style="margin-top:4px;font-size:11px;color:var(--green)">\u2713 Stop loadout fits this rock</div>`;
+          }
+        }
+      }
     }
     det += '</div>';
     const secNote = od.secScore > 0 ? ' <span style="color:var(--yellow);font-size:10px">+sec</span>' : '';
