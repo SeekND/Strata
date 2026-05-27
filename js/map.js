@@ -393,9 +393,9 @@ function renderMapSidebar() {
     locCount++;
     for (const method of ['ship', 'fps', 'vehicle']) {
       for (const entry of (locData.ores?.[method] || [])) {
-        if (entry.ore === 'INERTMATERIAL' || entry.panel_confirmed === false) continue;
+        if (entry.ore === 'INERTMATERIAL' || !isOreVisible(entry, locData.type)) continue;
         if (!oreTotals[entry.ore]) oreTotals[entry.ore] = {prob: 0, count: 0};
-        oreTotals[entry.ore].prob += entry.relative_probability / 100;
+        oreTotals[entry.ore].prob += (entry.relative_probability ?? 0) / 100;
         oreTotals[entry.ore].count++;
       }
     }

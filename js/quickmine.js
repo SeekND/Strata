@@ -281,6 +281,12 @@ function renderSingleLaserLoadout(loadout, ore, diff) {
     if(fx.length) effectsHtml=`<div style="font-size:12px;margin-top:4px">${fx.join(', ')}</div>`;
   }
 
+  // Reasoning block \u2014 why each piece was chosen
+  let whyHtml = '';
+  if (loadout.reasoning?.length) {
+    whyHtml = `<div style="margin-top:10px;padding:8px 10px;background:rgba(232,117,26,0.06);border-left:2px solid var(--accent);border-radius:3px"><div style="font-size:10px;color:var(--accent);font-weight:600;margin-bottom:4px">WHY THESE PICKS</div><div style="font-size:12px;line-height:1.6;color:var(--text-secondary)">${loadout.reasoning.map(r => '\u2022 ' + r).join('<br>')}</div></div>`;
+  }
+
   let html = `<div class="card" style="margin-top:16px;border-left:3px solid var(--accent)">
     <div class="map-info-title">${modeLabel} \u2014 ${QM_SHIPS[qmState.ship]?.label}</div>
     <div style="font-size:10px;color:var(--text-dim);margin-bottom:4px">${sourceLabel}</div>
@@ -288,9 +294,9 @@ function renderSingleLaserLoadout(loadout, ore, diff) {
     ${effectsHtml}${moduleHtml}${gadgetHtml}
     ${loadout.max_mass?`<div style="margin-top:8px;font-size:12px;color:var(--text-secondary)">Max rock mass: ~${loadout.max_mass.toLocaleString()}</div>`:''}
     ${loadout.effective_power?`<div style="font-size:12px;color:var(--text-dim)">Effective power: ${loadout.effective_power.toLocaleString()}</div>`:''}
-    ${loadout.notes?`<div style="margin-top:8px;font-size:12px;color:var(--text-dim)">${loadout.notes}</div>`:''}
+    ${whyHtml}
   </div>`;
-  if (diff) html += renderGearRecommendations(diff);
+  if (diff) html += renderGearRecommendations(diff, loadout);
   return html;
 }
 
@@ -305,11 +311,13 @@ function renderMaterialInsight(ore, diff, signal, comp, locations, isGround) {
       // Simple resistance display for ground ores
       html += `<div>${oreName(ore)} rock \u2014 resistance ${(diff.resistance * 100).toFixed(0)}%.</div>`;
     } else {
+      // Pure rock-trait description \u2014 no gear recommendations here. The
+      // WHY THESE PICKS / ALSO CONSIDER sections above handle gear advice.
       const dl = diff.resistance>=0.7?'Extreme':diff.resistance>=0.4?'Hard':diff.resistance>=0?'Medium':'Easy';
-      html += `<div><strong>${dl} rock</strong> \u2014 resistance ${(diff.resistance*100).toFixed(0)}%. ${diff.resistance>=0.4?'Needs strong modifiers.':'Standard power should work.'}</div>`;
-      if (diff.instability>=500) html += `<div><span style="color:var(--red)">Extreme instability (${diff.instability.toFixed(0)})</span> \u2014 BoreMax gadget and stability modules essential.</div>`;
-      else if (diff.instability>=200) html += `<div><span style="color:var(--accent)">High instability (${diff.instability.toFixed(0)})</span> \u2014 Use stability modules (Torpid, Optimum).</div>`;
-      if (diff.explosion_multiplier>=100) html += `<div><span style="color:var(--red)">High explosion risk (${diff.explosion_multiplier.toFixed(0)}\u00d7)</span></div>`;
+      html += `<div><strong>${dl} rock</strong> \u2014 resistance ${(diff.resistance*100).toFixed(0)}%.</div>`;
+      if (diff.instability>=500) html += `<div><span style="color:var(--red)">Extreme instability (${diff.instability.toFixed(0)})</span> \u2014 high catastrophic-damage risk.</div>`;
+      else if (diff.instability>=200) html += `<div><span style="color:var(--accent)">High instability (${diff.instability.toFixed(0)})</span></div>`;
+      if (diff.explosion_multiplier>=100) html += `<div><span style="color:var(--red)">Explosion multiplier ${diff.explosion_multiplier.toFixed(0)}\u00d7</span></div>`;
     }
   }
 
@@ -333,14 +341,35 @@ function renderMaterialInsight(ore, diff, signal, comp, locations, isGround) {
 // ============================================================
 // GEAR RECOMMENDATIONS (ship only)
 // ============================================================
-function renderGearRecommendations(diff) {
-  const tips=[];
-  if(diff.resistance>=0.4) tips.push(`High resistance \u2014 use <strong>Surge</strong> (-15.5% res) or <strong>Rime</strong> (-24.8% res)`);
-  if(diff.instability>=300) tips.push(`Unstable \u2014 equip <strong>Optimum</strong> (-80% catastrophic) or <strong>Torpid</strong> (+60% window, -60% catastrophic)`);
-  if(diff.instability>=700) tips.push(`<span style="color:var(--red)">Extreme instability</span> \u2014 throw <strong>BoreMax</strong> gadget (-70% instability, reusable)`);
-  if(QM_SHIPS[qmState.ship]?.bespoke) tips.push(`Golem bespoke laser has <strong>+25% resistance</strong> \u2014 always throw <strong>Sabir</strong> before cracking`);
-  tips.push(`<strong>FLTR</strong> module (up to 24% less inert) improves cargo value \u2014 worth a slot if not struggling to crack`);
-  return `<div class="card" style="margin-top:16px"><div class="map-info-title">GEAR RECOMMENDATIONS</div><div style="margin-top:12px;font-size:13px;line-height:1.8;color:var(--text-secondary)">${tips.map(t=>'\u2022 '+t).join('<br>')}</div></div>`;
+function renderGearRecommendations(diff, loadout) {
+  // Only ALTERNATIVES the player should genuinely consider \u2014 the loadout above
+  // tells them what's equipped, the WHY block tells them why.
+  const gads = new Set((loadout?.gadgets || []).map(g => g.toLowerCase()));
+  const mods = new Set((loadout?.modules || []).map(m => m.toLowerCase()));
+  const hasSabir   = [...gads].some(g => g.includes('sabir'));
+  const hasBoremax = [...gads].some(g => g.includes('boremax'));
+  const hasFocus   = [...mods].some(m => m.includes('focus'));
+  const isBespoke  = QM_SHIPS[qmState.ship]?.bespoke || false;
+  const effRes     = diff.resistance + (isBespoke ? 0.25 : 0);
+
+  const tips = [];
+
+  // Gadget trade-off: rock has both detonation AND resistance issues. Only one
+  // gadget per crack, so this is a genuine swap decision.
+  if (diff.instability >= 500 && hasSabir && !hasBoremax) {
+    tips.push(`Trade-off: <strong>BoreMax</strong> (-70% instability) is the alternative gadget \u2014 swap if preventing detonation matters more than cracking faster`);
+  }
+  if (effRes >= 0.5 && hasBoremax && !hasSabir) {
+    tips.push(`Trade-off: <strong>Sabir</strong> (-50% resistance) is the alternative gadget \u2014 swap if cracking the rock becomes the bottleneck`);
+  }
+
+  // Standing slot suggestion
+  if (!hasFocus) {
+    tips.push(`<strong>FLTR</strong> module (up to 24% less inert) improves cargo value \u2014 worth a spare slot if not struggling to crack`);
+  }
+
+  if (!tips.length) return '';
+  return `<div class="card" style="margin-top:16px"><div class="map-info-title">ALSO CONSIDER</div><div style="margin-top:12px;font-size:13px;line-height:1.8;color:var(--text-secondary)">${tips.map(t => '\u2022 ' + t).join('<br>')}</div></div>`;
 }
 
 // ============================================================
@@ -368,33 +397,101 @@ function computeOptimizedLoadout(shipKey, oreDiff) {
   }
   const laserSize=shipDef?.laserSize||1; const isBespoke=shipDef?.bespoke||false;
   const lasers=D.equipment?.lasers||{}; const modules=D.equipment?.modules||{}; const gadgets=D.equipment?.gadgets||{};
+  const reasoning=[];
+
+  // ---- LASER ----
   let laser=null, laserKey=null;
-  if (isBespoke) { laserKey='drak_golem_s1'; laser=lasers[laserKey]; }
-  else {
+  if (isBespoke) {
+    laserKey='drak_golem_s1'; laser=lasers[laserKey];
+    if (laser) reasoning.push(`<strong>${laser.name}</strong> — Golem bespoke laser (no other option for this ship)`);
+  } else {
     const cands=Object.entries(lasers).filter(([,l])=>l.size===laserSize&&!l.bespoke);
-    let pick;
-    if(oreDiff.resistance>=0.5) pick=cands.find(([k])=>k.includes('helix'))||cands.find(([k])=>k.includes('lancet'))||cands[0];
-    else if(oreDiff.instability>=500) pick=cands.find(([k])=>k.includes('arbor'))||cands.find(([k])=>k.includes('hofstede'))||cands[0];
-    else pick=cands.find(([k])=>k.includes('helix'))||cands[0];
-    if(pick) [laserKey,laser]=pick;
+    let pick, why;
+    if(oreDiff.resistance>=0.5){
+      pick=cands.find(([k])=>k.includes('helix'))||cands.find(([k])=>k.includes('lancet'))||cands[0];
+      why=`high resistance (${oreDiff.resistance.toFixed(2)}) → laser with best resistance profile`;
+    } else if(oreDiff.instability>=500){
+      pick=cands.find(([k])=>k.includes('arbor'))||cands.find(([k])=>k.includes('hofstede'))||cands[0];
+      why=`high instability (${oreDiff.instability}) → laser that handles unstable rocks best`;
+    } else {
+      pick=cands.find(([k])=>k.includes('helix'))||cands[0];
+      why=`easy rock → solid all-rounder`;
+    }
+    if(pick){ [laserKey,laser]=pick; reasoning.push(`<strong>${laser.name}</strong> — ${why}`); }
   }
   if (!laser) return null;
+
+  // ---- MODULES ----
   const slots=laser.module_slots||0; const selMods=[];
   if(slots>0){
     const riegers=Object.entries(modules).filter(([k])=>k.includes('rieger'));
     const br=riegers.find(([k])=>k.includes('mk3'))||riegers[0];
-    if(br) selMods.push(br[0]);
+    if(br){ selMods.push(br[0]); reasoning.push(`<strong>${modules[br[0]]?.name||br[0]}</strong> — baseline power boost, always worth slot 1`); }
     if(slots>1){
-      if(oreDiff.instability>=500){const p=Object.entries(modules).find(([k])=>k.includes('optimum'))||Object.entries(modules).find(([k])=>k.includes('torpid'));if(p)selMods.push(p[0]);}
-      else if(oreDiff.resistance>=0.5){const p=Object.entries(modules).find(([k])=>k.includes('surge'));if(p)selMods.push(p[0]);}
-      else{const f=Object.entries(modules).filter(([k])=>k.includes('focus'));const p=f.find(([k])=>k.includes('mk3'))||f[0];if(p)selMods.push(p[0]);}
+      let p, why;
+      if(oreDiff.instability>=500){
+        p=Object.entries(modules).find(([k])=>k.includes('optimum'))||Object.entries(modules).find(([k])=>k.includes('torpid'));
+        why=`instability (${oreDiff.instability}) is more dangerous than resistance (${oreDiff.resistance.toFixed(2)}) — pick the catastrophic-damage reducer over Surge`;
+      } else if(oreDiff.resistance>=0.5){
+        p=Object.entries(modules).find(([k])=>k.includes('surge'));
+        why=`high resistance (${oreDiff.resistance.toFixed(2)}), manageable instability — Surge cuts resistance directly`;
+      } else {
+        const f=Object.entries(modules).filter(([k])=>k.includes('focus'));
+        p=f.find(([k])=>k.includes('mk3'))||f[0];
+        why=`easy rock — Focus widens the green window`;
+      }
+      if(p){ selMods.push(p[0]); reasoning.push(`<strong>${modules[p[0]]?.name||p[0]}</strong> — ${why}`); }
     }
-    if(slots>2&&selMods.length<slots){const f=Object.entries(modules).filter(([k])=>k.includes('focus'));const p=f.find(([k])=>k.includes('mk3'))||f[0];if(p&&!selMods.includes(p[0]))selMods.push(p[0]);}
+    if(slots>2&&selMods.length<slots){
+      const f=Object.entries(modules).filter(([k])=>k.includes('focus'));
+      const p=f.find(([k])=>k.includes('mk3'))||f[0];
+      if(p&&!selMods.includes(p[0])){ selMods.push(p[0]); reasoning.push(`<strong>${modules[p[0]]?.name||p[0]}</strong> — spare slot, Focus is the safe pick`); }
+    }
   }
+
+  // ---- GADGET (only one fits per rock — pick the most pressing problem) ----
+  // Goal: best chance of cracking the rock SAFELY (instability randomly spikes
+  // the gauge red — too much red and the rock detonates and you lose the ore).
+  // For Golem, "effective resistance" = base + 0.25 (bespoke laser penalty).
+  //
+  // Decision tree (handles both Golem and non-Golem):
+  //   instability >= 500 (detonation risk) ──┐
+  //     effRes >= 0.7  → Sabir   (can't crack at all without it; risk explosion)
+  //     effRes <  0.7  → BoreMax (crackable; prevent detonation — preferred)
+  //   instability <  500 ──┐
+  //     effRes >= 0.5  → Sabir   (resistance is the only real problem)
+  //     effRes <  0.5  → none    (mild rock — no gadget needed)
   const selGadgets=[];
-  if(oreDiff.instability>=700||oreDiff.resistance>=0.7||isBespoke){const s=Object.entries(gadgets).find(([k])=>k.includes('sabir'));if(s)selGadgets.push(s[0]);}
+  const effRes = oreDiff.resistance + (isBespoke ? 0.25 : 0);
+  const findGadget = (name) => Object.entries(gadgets).find(([k])=>k.includes(name));
+  if (oreDiff.instability >= 500) {
+    if (effRes >= 0.7) {
+      const s = findGadget('sabir');
+      if (s) {
+        selGadgets.push(s[0]);
+        const ctx = isBespoke ? `Golem's +25% penalty makes effective resistance ${effRes.toFixed(2)}` : `resistance ${oreDiff.resistance.toFixed(2)}`;
+        reasoning.push(`<strong>${gadgets[s[0]]?.name||s[0]}</strong> — ${ctx}, too high to crack without help; accept the instability ${oreDiff.instability} risk`);
+      }
+    } else {
+      const b = findGadget('boremax');
+      if (b) {
+        selGadgets.push(b[0]);
+        const ctx = isBespoke ? `effective resistance ${effRes.toFixed(2)} (Golem penalty included) is crackable` : `resistance ${oreDiff.resistance.toFixed(2)} is crackable`;
+        reasoning.push(`<strong>${gadgets[b[0]]?.name||b[0]}</strong> — ${ctx}; instability ${oreDiff.instability} would detonate the rock — BoreMax cuts that 70%`);
+      }
+    }
+  } else if (effRes >= 0.5) {
+    const s = findGadget('sabir');
+    if (s) {
+      selGadgets.push(s[0]);
+      const ctx = isBespoke ? `Golem +25% → effective resistance ${effRes.toFixed(2)}` : `resistance ${oreDiff.resistance.toFixed(2)}`;
+      reasoning.push(`<strong>${gadgets[s[0]]?.name||s[0]}</strong> — ${ctx}; low instability so cracking speed is the bottleneck — Sabir cuts resistance 50%`);
+    }
+  }
+  // else: mild rock on both axes — no gadget needed
+
   const bp=laser.max_power||2000; let pm=0;
   for(const m of selMods){if(modules[m]?.power_mod)pm+=modules[m].power_mod;}
   const ep=bp*(1+pm/100);
-  return {laser:laserKey,modules:selMods,gadgets:selGadgets,max_mass:Math.round(ep*2.5),effective_power:Math.round(ep),notes:'Computed from ore difficulty data'};
+  return {laser:laserKey,modules:selMods,gadgets:selGadgets,max_mass:Math.round(ep*2.5),effective_power:Math.round(ep),notes:'Computed from ore difficulty data',reasoning};
 }

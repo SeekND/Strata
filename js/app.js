@@ -318,7 +318,7 @@ function getLocationsForOre(oreCode, method = 'all') {
     
     for (const m of methods) {
       const ores = locData.ores?.[m] || [];
-      const oreEntry = ores.find(o => o.ore === oreCode && o.panel_confirmed !== false);
+      const oreEntry = ores.find(o => o.ore === oreCode && isOreVisible(o, locData.type));
       if (oreEntry) {
         results.push({
           code,
@@ -500,6 +500,15 @@ function confChip(label, scans) {
 // LOCATION/ORE LOOKUPS (compatible with both data schemas)
 // ============================================================
 
+// Location types the game does not show info panels for — trust the preset ore list directly.
+const PRESET_ONLY_TYPES = new Set(['ring', 'asteroid_belt', 'asteroid_cluster', 'lagrange_field', 'mission_location', 'hathor']);
+
+/** True if an ore entry should be displayed for this location type. */
+function isOreVisible(entry, locType) {
+  if (PRESET_ONLY_TYPES.has(locType)) return true;
+  return entry.panel_confirmed !== false;
+}
+
 /** Get ores at a location — works with both old ore_locations and new location_ores */
 function getOreAt(locCode) {
   // New schema: location_ores
@@ -508,10 +517,10 @@ function getOreAt(locCode) {
     const ores = [];
     for (const method of ['ship', 'fps', 'vehicle']) {
       for (const entry of (locData.ores?.[method] || [])) {
-        if (entry.ore === 'INERTMATERIAL' || entry.panel_confirmed === false) continue;
+        if (entry.ore === 'INERTMATERIAL' || !isOreVisible(entry, locData.type)) continue;
         // Avoid duplicates
         if (!ores.find(o => o.code === entry.ore)) {
-          ores.push({code: entry.ore, prob: entry.relative_probability / 100, method});
+          ores.push({code: entry.ore, prob: (entry.relative_probability ?? 0) / 100, method});
         }
       }
     }

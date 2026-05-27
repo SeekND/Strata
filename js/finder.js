@@ -80,13 +80,13 @@ function computeSecondaryScore(targetOre, locData, method) {
   const details = [];
   const ores = locData.ores?.[method] || [];
   for (const entry of ores) {
-    if (entry.panel_confirmed === false) continue;
+    if (!isOreVisible(entry, locData.type)) continue;
     const comp = getOreComposition(entry.ore, method === 'ship' ? 'surface' : method);
     if (!comp) continue;
     const sp = comp.parts?.find(p => p.ore === targetOre && p.ore !== comp.primary_ore);
     if (sp) {
       const avg = ((sp.min_pct || 0) + (sp.max_pct || 0)) / 2 / 100;
-      const c = entry.relative_probability * avg;
+      const c = (entry.relative_probability ?? 0) * avg;
       score += c;
       details.push({ rock: entry.ore, rockName: oreName(entry.ore), pct: (avg * 100).toFixed(0), contribution: c });
     }
@@ -392,7 +392,7 @@ function gatherLocationScores(selectedOres) {
       const searchMethods = [...new Set(methods)];
 
       for (const method of searchMethods) {
-        const entry = (locData.ores?.[method] || []).find(o => o.ore === ore && o.panel_confirmed !== false);
+        const entry = (locData.ores?.[method] || []).find(o => o.ore === ore && isOreVisible(o, locData.type));
         if (entry) {
           const prob = (entry.relative_probability ?? 0) / 100;
           if (!oreScores[ore] || prob > oreScores[ore].prob) oreScores[ore] = { prob, method, relative_probability: entry.relative_probability ?? 0 };
@@ -775,13 +775,16 @@ function renderExpStopCard(a) {
       }
     }
     if (hasDirectPresence && !od.isGround && od.difficulty) {
-      const tips = [];
-      if (od.difficulty.resistance >= 0.7) tips.push('<span style="color:var(--red)">Extreme resistance</span> \u2014 Sabir + Surge');
-      else if (od.difficulty.resistance >= 0.4) tips.push('High resistance \u2014 Surge or Rime');
-      if (od.difficulty.instability >= 700) tips.push('<span style="color:var(--red)">Extreme instability</span> \u2014 BoreMax first');
-      else if (od.difficulty.instability >= 300) tips.push('High instab \u2014 Optimum or Torpid');
-      if (od.difficulty.explosion_multiplier >= 100) tips.push(`\u26A0 Explosion ${od.difficulty.explosion_multiplier.toFixed(0)}\u00d7`);
-      if (tips.length) det += `<div style="color:var(--text-dim)">${tips.join(' \u2022 ')}</div>`;
+      // Difficulty description (not a gear recommendation \u2014 the loadout column
+      // on the right already shows what's equipped, so showing alternative gear
+      // here would conflict)
+      const traits = [];
+      if (od.difficulty.resistance >= 0.7) traits.push('<span style="color:var(--red)">extreme resistance</span>');
+      else if (od.difficulty.resistance >= 0.4) traits.push('high resistance');
+      if (od.difficulty.instability >= 700) traits.push('<span style="color:var(--red)">extreme instability</span>');
+      else if (od.difficulty.instability >= 300) traits.push('unstable');
+      if (od.difficulty.explosion_multiplier >= 100) traits.push(`<span style="color:var(--red)">${od.difficulty.explosion_multiplier.toFixed(0)}\u00d7 explosion</span>`);
+      if (traits.length) det += `<div style="color:var(--text-dim)">Rock traits: ${traits.join(', ')}</div>`;
     }
     det += '</div>';
     const secNote = od.secScore > 0 ? ' <span style="color:var(--yellow);font-size:10px">+sec</span>' : '';
@@ -968,7 +971,7 @@ function rankLocationsForOre(targetOre, methodFilter = 'all', systemFilter = 'al
       if (methodFilter === 'ship' && method !== 'ship') continue;
 
       const ores = ld.ores?.[method] || [];
-      const oe = ores.find(o => o.ore === targetOre && o.panel_confirmed !== false);
+      const oe = ores.find(o => o.ore === targetOre && isOreVisible(o, ld.type));
       if (!oe) continue;
       if (results.find(r => r.code === lc)) continue;
       const sec = computeSecondaryScore(targetOre, ld, method);

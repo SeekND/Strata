@@ -9,6 +9,27 @@ let locationState = {
   system: 'all',
 };
 
+// Named Stanton Lagrange points → preset L-Point Field type(s).
+// Authoritative mapping comes from mining_data.json's `lagrange_presets` (emitted
+// by the SCHub miner). This inline copy is only a fallback for older data files.
+const LAGRANGE_PRESETS_FALLBACK = {
+  'HUR-L1': ['LAG_TYPE_A'], 'HUR-L4': ['LAG_TYPE_A'], 'HUR-L5': ['LAG_TYPE_C'],
+  'HUR-L2': ['LAG_TYPE_F'], 'HUR-L3': ['LAG_TYPE_E'],
+  'ARC-L1': ['LAG_TYPE_F'], 'ARC-L2': ['LAG_TYPE_F'], 'ARC-L3': ['LAG_TYPE_D'],
+  'ARC-L4': ['LAG_TYPE_F'], 'ARC-L5': ['LAG_TYPE_B'],
+  'CRU-L1': ['LAG_TYPE_E'], 'CRU-L2': ['LAG_TYPE_E'], 'CRU-L4': ['LAG_TYPE_B'],
+  'CRU-L5': ['LAG_TYPE_D', 'LAG_TYPE_G'],
+  'MIC-L1': ['LAG_TYPE_C'], 'MIC-L2': ['LAG_TYPE_C'], 'MIC-L3': ['LAG_TYPE_B'],
+  'MIC-L4': ['LAG_TYPE_D', 'LAG_TYPE_G'], 'MIC-L5': ['LAG_TYPE_C'],
+};
+function getLagrangePresets() {
+  return D?.lagrange_presets || LAGRANGE_PRESETS_FALLBACK;
+}
+const LAGRANGE_TYPE_LETTER = {
+  LAG_TYPE_A: 'A', LAG_TYPE_B: 'B', LAG_TYPE_C: 'C', LAG_TYPE_D: 'D',
+  LAG_TYPE_E: 'E', LAG_TYPE_F: 'F', LAG_TYPE_G: 'G', LAG_OCCUPIED: 'Occupied',
+};
+
 // ============================================================
 // MAIN RENDER
 // ============================================================
@@ -78,11 +99,22 @@ function renderLocation() {
 // ============================================================
 function buildLocationOptions() {
   const grouped = { Stanton: [], Pyro: [], Nyx: [] };
-  
+
   for (const [code, locData] of Object.entries(D.location_ores || {})) {
     const sys = locData.system || 'Unknown';
     if (!grouped[sys]) grouped[sys] = [];
     grouped[sys].push({ code, name: locData.name, type: locData.type });
+  }
+
+  // Add named Stanton Lagrange points (HUR-L1, ARC-L4, ...) as virtual entries that
+  // resolve to their preset L-Point Field type at render time.
+  for (const [code, presets] of Object.entries(getLagrangePresets())) {
+    if (!presets.length) continue;
+    const meta = D.locations?.[code];
+    const sys = meta?.system || 'Stanton';
+    const label = presets.map(p => LAGRANGE_TYPE_LETTER[p] || '?').join('/');
+    grouped[sys] = grouped[sys] || [];
+    grouped[sys].push({ code, name: code, type: `lagrange · Type ${label}` });
   }
 
   // Sort each group
@@ -94,7 +126,7 @@ function buildLocationOptions() {
   for (const [sys, locs] of Object.entries(grouped)) {
     if (locs.length === 0) continue;
     if (locationState.system !== 'all' && sys !== locationState.system) continue;
-    
+
     html += `<optgroup label="${sys}">`;
     for (const loc of locs) {
       html += `<option value="${loc.code}">${loc.name} (${loc.type || 'location'})</option>`;
@@ -116,6 +148,50 @@ function updateLocationDropdown() {
 }
 
 // ============================================================
+// RESOLVE LOCATION (handles named L-points → preset L-Point Field type)
+// ============================================================
+function resolveLocationOres(code) {
+  const direct = D.location_ores?.[code];
+  if (direct) return direct;
+
+  const presets = getLagrangePresets()[code];
+  if (!presets?.length) return null;
+
+  const meta = D.locations?.[code] || {};
+  const sources = presets.map(p => D.location_ores?.[p]).filter(Boolean);
+  if (!sources.length) return null;
+
+  // Merge ores across all preset sources, deduping by ore code per method
+  // (keeping the highest relative_probability where there's overlap).
+  const mergedOres = { ship: [], fps: [], vehicle: [] };
+  for (const src of sources) {
+    for (const method of ['ship', 'fps', 'vehicle']) {
+      for (const entry of (src.ores?.[method] || [])) {
+        const existing = mergedOres[method].find(e => e.ore === entry.ore);
+        if (!existing) mergedOres[method].push({ ...entry });
+        else if ((entry.relative_probability ?? 0) > (existing.relative_probability ?? 0)) {
+          Object.assign(existing, entry);
+        }
+      }
+    }
+  }
+  for (const method of Object.keys(mergedOres)) {
+    if (mergedOres[method].length === 0) delete mergedOres[method];
+  }
+
+  const letters = presets.map(p => LAGRANGE_TYPE_LETTER[p] || '?').join(' / ');
+  return {
+    name: `${code} — L-Point Field (Type ${letters})`,
+    system: meta.system || sources[0].system,
+    type: 'lagrange_field',
+    group_probabilities: sources[0].group_probabilities,
+    ores: mergedOres,
+    _virtual: true,
+    _presetSources: presets,
+  };
+}
+
+// ============================================================
 // RENDER LOCATION RESULTS
 // ============================================================
 function renderLocationResults() {
@@ -130,7 +206,7 @@ function renderLocationResults() {
     return;
   }
 
-  const locData = D.location_ores?.[location];
+  const locData = resolveLocationOres(location);
   if (!locData) {
     container.innerHTML = `<div class="card" style="color:var(--text-secondary);text-align:center;padding:40px">
       No ore data found for this location.
@@ -139,6 +215,10 @@ function renderLocationResults() {
   }
 
   // Location header
+  const presetOnly = PRESET_ONLY_TYPES.has(locData.type);
+  const presetNote = presetOnly
+    ? `<div style="margin-top:10px;padding:8px 10px;background:rgba(155,126,219,0.08);border-left:3px solid var(--purple);border-radius:3px;font-size:11px;color:var(--text-secondary)">Preset data — no in-game info panel exists for this location type. Ore list comes from CIG preset files via Regolith.</div>`
+    : '';
   let html = `
     <div class="card" style="margin-bottom:16px">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
@@ -150,6 +230,7 @@ function renderLocationResults() {
           ${renderGroupProbabilities(locData.group_probabilities)}
         </div>
       </div>
+      ${presetNote}
     </div>
   `;
 
@@ -161,9 +242,10 @@ function renderLocationResults() {
     const ores = locData.ores?.[method];
     if (!ores || ores.length === 0) continue;
 
-    // Sort by probability descending, filter out unconfirmed ores
-    const sorted = [...ores].filter(o => o.panel_confirmed !== false).sort((a, b) => (b.relative_probability ?? 0) - (a.relative_probability ?? 0));
-    const maxProb = sorted[0]?.relative_probability || 1;
+    // Sort by probability descending. For planets/moons we trust in-game info panels;
+    // for rings/belts/Lagrange/clusters the game has no panel, so display preset data.
+    const sorted = [...ores].filter(o => isOreVisible(o, locData.type)).sort((a, b) => (b.relative_probability ?? 0) - (a.relative_probability ?? 0));
+    const maxProb = sorted[0]?.relative_probability ?? 1;
 
     html += `
       <div class="section-header" style="margin-top:20px">// ${methodLabels[method]}</div>
@@ -173,7 +255,9 @@ function renderLocationResults() {
     for (const oreEntry of sorted) {
       const diff = getOreDifficulty(oreEntry.ore);
       const signal = getOreSignal(oreEntry.ore);
-      const barWidth = (oreEntry.relative_probability / maxProb * 100).toFixed(1);
+      const hasProb = oreEntry.relative_probability != null;
+      const barWidth = hasProb ? (oreEntry.relative_probability / (maxProb || 1) * 100).toFixed(1) : 0;
+      const probLabel = hasProb ? oreEntry.relative_probability.toFixed(1) : '—';
       
       // Get composition
       const comp = getOreComposition(oreEntry.ore);
@@ -200,7 +284,7 @@ function renderLocationResults() {
                   <div style="width:${barWidth}%;height:100%;background:var(--cyan)"></div>
                 </div>
               </div>
-              <div class="mono" style="width:50px;text-align:right;color:var(--cyan)">${oreEntry.relative_probability.toFixed(1)}</div>
+              <div class="mono" style="width:50px;text-align:right;color:var(--cyan)">${probLabel}</div>
               <button class="chip" onclick="openFinderForOre('${oreEntry.ore}')" style="font-size:11px;padding:4px 8px">
                 Find More
               </button>
@@ -259,7 +343,7 @@ function findBestRefineryForLocation(locData) {
   const allOres = new Set();
   for (const method of ['ship', 'fps', 'vehicle']) {
     for (const oreEntry of (locData.ores?.[method] || [])) {
-      if (oreEntry.panel_confirmed === false) continue;
+      if (!isOreVisible(oreEntry, locData.type)) continue;
       allOres.add(oreEntry.ore);
     }
   }
