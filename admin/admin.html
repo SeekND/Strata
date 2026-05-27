@@ -295,7 +295,7 @@ document.getElementById('nav').addEventListener('click', e => {
 // ============================================================
 function renderSettings() {
   const m = D.meta;
-  const fields = [['current_patch','Patch'],['data_updated','Data Updated'],['regolith_export_date','Regolith Date'],['news_reel','News Reel'],['source','Source']];
+  const fields = [['current_patch','Patch'],['data_updated','Data Updated'],['news_reel','News Reel']];
   document.getElementById('settings-form').innerHTML = fields.map(([k,l]) =>
     `<div class="prop-row"><span class="prop-label" style="min-width:120px">${l}</span><input value="${m[k]||''}" onchange="D.meta['${k}']=this.value" style="flex:1"></div>`
   ).join('');

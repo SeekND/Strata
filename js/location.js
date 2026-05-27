@@ -217,7 +217,7 @@ function renderLocationResults() {
   // Location header
   const presetOnly = PRESET_ONLY_TYPES.has(locData.type);
   const presetNote = presetOnly
-    ? `<div style="margin-top:10px;padding:8px 10px;background:rgba(155,126,219,0.08);border-left:3px solid var(--purple);border-radius:3px;font-size:11px;color:var(--text-secondary)">Preset data — no in-game info panel exists for this location type. Ore list comes from CIG preset files via Regolith.</div>`
+    ? `<div style="margin-top:10px;padding:8px 10px;background:rgba(155,126,219,0.08);border-left:3px solid var(--purple);border-radius:3px;font-size:11px;color:var(--text-secondary)">No in-game info panel exists for this location type — ore list reflects the location's default rock spawns.</div>`
     : '';
   let html = `
     <div class="card" style="margin-bottom:16px">

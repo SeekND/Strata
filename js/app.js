@@ -111,8 +111,7 @@ function initFooter() {
   footer.innerHTML = `
     <div class="footer-content">
       <div class="footer-credits">
-        Data sources: <a href="https://uexcorp.space" target="_blank">UEX Corp</a> (refinery yields) • 
-        <a href="https://regolith.rocks" target="_blank">Regolith Survey Corps</a> (community scans)
+        Refinery yields: <a href="https://uexcorp.space" target="_blank">UEX Corp</a>
       </div>
       <div class="footer-disclaimer">
         This site is not endorsed by or affiliated with the Cloud Imperium or Roberts Space Industries group of companies. 
