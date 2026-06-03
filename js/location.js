@@ -106,15 +106,18 @@ function buildLocationOptions() {
     grouped[sys].push({ code, name: locData.name, type: locData.type });
   }
 
-  // Add named Stanton Lagrange points (HUR-L1, ARC-L4, ...) as virtual entries that
-  // resolve to their preset L-Point Field type at render time.
-  for (const [code, presets] of Object.entries(getLagrangePresets())) {
-    if (!presets.length) continue;
-    const meta = D.locations?.[code];
-    const sys = meta?.system || 'Stanton';
-    const label = presets.map(p => LAGRANGE_TYPE_LETTER[p] || '?').join('/');
-    grouped[sys] = grouped[sys] || [];
-    grouped[sys].push({ code, name: code, type: `lagrange · Type ${label}` });
+  // If app.js materialized named L-points into location_ores, they're already in
+  // `grouped` above. Otherwise (older data without lagrange_presets), inject
+  // virtual entries so they at least appear in this dropdown.
+  if (!D.location_ores?.['HUR-L1']) {
+    for (const [code, presets] of Object.entries(getLagrangePresets())) {
+      if (!presets.length) continue;
+      const meta = D.locations?.[code];
+      const sys = meta?.system || 'Stanton';
+      const label = presets.map(p => LAGRANGE_TYPE_LETTER[p] || '?').join('/');
+      grouped[sys] = grouped[sys] || [];
+      grouped[sys].push({ code, name: code, type: `lagrange · Type ${label}` });
+    }
   }
 
   // Sort each group

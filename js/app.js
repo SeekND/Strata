@@ -34,6 +34,11 @@ async function init() {
     if (lr.ok) D.cstone_links = await lr.json();
   } catch (e) { /* non-fatal */ }
 
+  // Promote named Lagrange points to first-class location_ores entries.
+  // Without this they'd only appear in the Location Explorer dropdown — Material
+  // Finder, system map, etc. iterate location_ores directly and would miss them.
+  materializeLagrangePoints();
+
   loadingEl.style.display = 'none';
 
   // Initialize modules — each wrapped so one failure doesn't crash everything
@@ -507,7 +512,58 @@ function confChip(label, scans) {
 // ============================================================
 
 // Location types the game does not show info panels for — trust the preset ore list directly.
-const PRESET_ONLY_TYPES = new Set(['ring', 'asteroid_belt', 'asteroid_cluster', 'lagrange_field', 'mission_location', 'hathor']);
+const PRESET_ONLY_TYPES = new Set(['ring', 'asteroid_belt', 'asteroid_cluster', 'lagrange_field', 'lagrange', 'mission_location', 'hathor']);
+
+/** Inject HUR-L1, ARC-L5, etc. into D.location_ores by merging their
+ *  preset L-Point Field(s). After this call those L-points behave as real
+ *  locations everywhere — Material Finder, Map, etc. */
+function materializeLagrangePoints() {
+  const presets = D?.lagrange_presets;
+  if (!presets || !D?.location_ores) return;
+  let added = 0;
+  for (const [code, presetKeys] of Object.entries(presets)) {
+    if (!presetKeys?.length) continue;
+    if (D.location_ores[code]) continue; // already a real entry
+    const sources = presetKeys.map(k => D.location_ores[k]).filter(Boolean);
+    if (!sources.length) continue;
+    const meta = D.locations?.[code] || {};
+    // Merge ores across all preset sources, deduping by ore code per method
+    const mergedOres = { ship: [], fps: [], vehicle: [] };
+    for (const src of sources) {
+      for (const method of ['ship', 'fps', 'vehicle']) {
+        for (const entry of (src.ores?.[method] || [])) {
+          const existing = mergedOres[method].find(e => e.ore === entry.ore);
+          if (!existing) mergedOres[method].push({ ...entry });
+          else if ((entry.relative_probability ?? 0) > (existing.relative_probability ?? 0)) {
+            Object.assign(existing, entry);
+          }
+        }
+      }
+    }
+    for (const m of Object.keys(mergedOres)) {
+      if (!mergedOres[m].length) delete mergedOres[m];
+    }
+    const typeLetters = presetKeys.map(k => k.replace(/^LAG_TYPE_/, '').replace('LAG_OCCUPIED', 'Occupied')).join(' / ');
+    D.location_ores[code] = {
+      name: `${code} — L-Point Field (Type ${typeLetters})`,
+      system: meta.system || sources[0].system,
+      type: 'lagrange',           // NOT 'lagrange_field' — the latter is in FINDER_EXCLUDE
+      parent: meta.parent,
+      group_probabilities: sources[0].group_probabilities,
+      ores: mergedOres,
+      _virtual: true,
+      _presetSources: presetKeys,
+    };
+    added++;
+  }
+  // Hide the abstract LAG_TYPE_* entries now that named L-points exist.
+  // They were placeholders for when we couldn't tie ores to specific L-points.
+  if (added > 0) {
+    for (const k of Object.keys(D.location_ores)) {
+      if (k.startsWith('LAG_TYPE_') || k === 'LAG_OCCUPIED') delete D.location_ores[k];
+    }
+  }
+}
 
 // Cornerstone (cstone.space) deep-link helper — returns a URL to that item's
 // "where to buy" page on cstone, or null if we don't have a mapping for it.
