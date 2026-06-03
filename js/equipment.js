@@ -100,7 +100,7 @@ function renderLasers(container) {
         ${items.map(l => `
           <tr${l.bespoke ? ' style="opacity:0.7"' : ''}>
             <td style="text-align:left">
-              <div style="font-weight:600">${l.name}</div>
+              <div style="font-weight:600">${nameWithBuyLink(l.key, l.name)}</div>
               <div style="font-size:10px;color:var(--text-dim)">${l.manufacturer || ''}${l.bespoke ? ' (bespoke)' : ''}</div>
             </td>
             <td><span class="tag tag-${l.size === 1 ? 'uncommon' : 'rare'}">S${l.size}</span></td>
@@ -153,10 +153,10 @@ function renderModules(container) {
         ${items.map(m => `
           <tr>
             <td style="text-align:left">
-              <div style="font-weight:600">${m.name}</div>
+              <div style="font-weight:600">${nameWithBuyLink(m.key, m.name)}</div>
               <div style="font-size:10px;color:var(--text-dim)">${m.manufacturer || ''}</div>
             </td>
-            <td>${m.type === 'active' 
+            <td>${m.type === 'active'
               ? '<span class="tag" style="background:rgba(232,117,26,0.15);color:var(--accent);border:1px solid rgba(232,117,26,0.3)">ACTIVE</span>'
               : '<span class="tag" style="background:rgba(90,98,112,0.15);color:var(--text-secondary);border:1px solid var(--border)">PASSIVE</span>'
             }</td>
@@ -203,7 +203,7 @@ function renderGadgets(container) {
         ${items.map(g => `
           <tr>
             <td style="text-align:left">
-              <div style="font-weight:600">${g.name}</div>
+              <div style="font-weight:600">${nameWithBuyLink(g.key, g.name)}</div>
               <div style="font-size:10px;color:var(--text-dim)">${g.manufacturer || ''}</div>
             </td>
             <td class="mono ${modClass(g.resistance)}">${modValue(g.resistance)}</td>

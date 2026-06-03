@@ -1,0 +1,252 @@
+{
+  "drak_golem_s1": {
+    "cat": "laser",
+    "id": "5a704f96-c339-43e7-b918-7fc9957673ed",
+    "name": "Pitman Mining Laser"
+  },
+  "grin_arbor_s0": {
+    "cat": "laser",
+    "id": "0982203d-579f-4c3c-8b7a-c5f1c4a7ddd6",
+    "name": "Arbor MHV Mining Laser"
+  },
+  "grin_arbor_s1": {
+    "cat": "laser",
+    "id": "8bfc261a-6c67-4bec-b5b5-71407e086ec9",
+    "name": "Arbor MH1 Mining Laser"
+  },
+  "grin_arbor_s2": {
+    "cat": "laser",
+    "id": "4435898e-a6cc-4f51-ab2a-805d0cf1a44a",
+    "name": "Arbor MH2 Mining Laser"
+  },
+  "grin_lancet_s1": {
+    "cat": "laser",
+    "id": "ba94a262-bc0a-4484-9bbd-a4be7a2ec3e7",
+    "name": "Lancet MH1 Mining Laser"
+  },
+  "grin_lancet_s2": {
+    "cat": "laser",
+    "id": "c2006c91-f8f7-4bda-ae38-e0ca5af5c737",
+    "name": "Lancet MH2 Mining Laser"
+  },
+  "shin_hofstede_s0": {
+    "cat": "laser",
+    "id": "1c2bab01-941b-4515-a6a4-5845aaa95696",
+    "name": "S00 Hofstede"
+  },
+  "shin_hofstede_s1": {
+    "cat": "laser",
+    "id": "077a4a94-6296-4a83-a6c4-f215f7efd1df",
+    "name": "Hofstede-S1 Mining Laser"
+  },
+  "shin_hofstede_s2": {
+    "cat": "laser",
+    "id": "b422bcf8-b553-4b09-b2be-e92ab2f80e9a",
+    "name": "Hofstede-S2 Mining Laser"
+  },
+  "shin_klein_s0": {
+    "cat": "laser",
+    "id": "40bd6a85-5695-409c-9d6c-ae1babde416a",
+    "name": "Lawson Mining Laser"
+  },
+  "shin_klein_s1": {
+    "cat": "laser",
+    "id": "e6b284b9-456a-4444-b5fc-7c33bf5a6945",
+    "name": "Klein-S1 Mining Laser"
+  },
+  "shin_klein_s2": {
+    "cat": "laser",
+    "id": "41850766-d4a8-4255-be75-0d24af7280b0",
+    "name": "Klein-S2 Mining Laser"
+  },
+  "thcn_helix_s0": {
+    "cat": "laser",
+    "id": "8c95c978-9e47-46ec-88e3-a0662c13d76a",
+    "name": "S0 Helix"
+  },
+  "thcn_helix_s1": {
+    "cat": "laser",
+    "id": "81e1a10a-c7bd-401f-92e1-284115dcd6e1",
+    "name": "Helix I Mining Laser"
+  },
+  "thcn_helix_s2": {
+    "cat": "laser",
+    "id": "3bcde69d-3e3a-4f78-b2cb-8189b349e4d2",
+    "name": "Helix II Mining Laser"
+  },
+  "thcn_impact_s1": {
+    "cat": "laser",
+    "id": "6429e3d3-c813-4dfc-bc68-c95b54123722",
+    "name": "Impact I Mining Laser"
+  },
+  "thcn_impact_s2": {
+    "cat": "laser",
+    "id": "30545178-b09e-495d-a8b8-c6267ce2b495",
+    "name": "Impact II Mining Laser"
+  },
+  "active_brandt": {
+    "cat": "module",
+    "id": "18a62ae8-e1aa-453f-8631-df928a71abda",
+    "name": "Brandt Module"
+  },
+  "active_forel": {
+    "cat": "module",
+    "id": "6c072263-8f32-4ca1-b64b-37d820b0786f",
+    "name": "Forel Module"
+  },
+  "active_lifeline": {
+    "cat": "module",
+    "id": "a133320c-1cd0-4622-99dd-715924d6f928",
+    "name": "Lifeline Module"
+  },
+  "active_optimum": {
+    "cat": "module",
+    "id": "688d8f8b-b3ca-4f5c-acc5-f71dfaf2f5bd",
+    "name": "Optimum Module"
+  },
+  "active_rime": {
+    "cat": "module",
+    "id": "4af4857b-b564-4448-afbc-820ff288c0af",
+    "name": "Rime Module"
+  },
+  "active_stampede": {
+    "cat": "module",
+    "id": "1bb6ee6d-3930-4c03-b6c6-38aad3a4703b",
+    "name": "Stampede Module"
+  },
+  "active_surge": {
+    "cat": "module",
+    "id": "46643b07-bb39-4ac1-83e4-d428f0c01a75",
+    "name": "Surge Module"
+  },
+  "active_torpid": {
+    "cat": "module",
+    "id": "47ba04b0-010b-47cd-9f7d-209e2ec190b9",
+    "name": "Torpid Module"
+  },
+  "passive_fltr_mk1": {
+    "cat": "module",
+    "id": "fb3be543-707b-4582-a25b-c118325fc024",
+    "name": "FLTR Module"
+  },
+  "passive_fltr_mk2": {
+    "cat": "module",
+    "id": "e2647306-e5d7-452a-8af6-d7141b540a6b",
+    "name": "FLTR-L Module"
+  },
+  "passive_fltr_mk3": {
+    "cat": "module",
+    "id": "6ebc1ebe-3058-4d41-b45b-6022f322d623",
+    "name": "FLTR-XL Module"
+  },
+  "passive_focus_mk1": {
+    "cat": "module",
+    "id": "bb54a97f-bdfb-4772-91a1-7273d88bec19",
+    "name": "Focus II Module"
+  },
+  "passive_focus_mk2": {
+    "cat": "module",
+    "id": "bb54a97f-bdfb-4772-91a1-7273d88bec19",
+    "name": "Focus II Module"
+  },
+  "passive_focus_mk3": {
+    "cat": "module",
+    "id": "91417d7d-a6ad-4ce2-9d57-1ae15a7486f9",
+    "name": "Focus III Module"
+  },
+  "passive_rieger_mk1": {
+    "cat": "module",
+    "id": "44b6d85a-ad86-479b-8cd9-5b3d9ab9eddc",
+    "name": "Rieger Module"
+  },
+  "passive_rieger_mk2": {
+    "cat": "module",
+    "id": "369d2b1b-d42e-41b4-aff4-74de9712ab68",
+    "name": "Rieger-C2 Module"
+  },
+  "passive_rieger_mk3": {
+    "cat": "module",
+    "id": "2ceb0de9-105b-434e-a152-8af1fd1660d0",
+    "name": "Rieger-C3 Module"
+  },
+  "passive_torrent_mk1": {
+    "cat": "module",
+    "id": "c9944e4b-d911-4f92-9840-1a078659b123",
+    "name": "Torrent II Module"
+  },
+  "passive_torrent_mk2": {
+    "cat": "module",
+    "id": "c9944e4b-d911-4f92-9840-1a078659b123",
+    "name": "Torrent II Module"
+  },
+  "passive_torrent_mk3": {
+    "cat": "module",
+    "id": "54f4471f-592d-49c1-a12f-fb24c4771ab2",
+    "name": "Torrent III Module"
+  },
+  "passive_vaux_mk1": {
+    "cat": "module",
+    "id": "586a6f24-c94f-4cfc-9370-0df8a5ed3fe2",
+    "name": "Vaux Module"
+  },
+  "passive_vaux_mk2": {
+    "cat": "module",
+    "id": "c60c2615-ec40-491b-9d60-adddf88782f0",
+    "name": "Vaux-C2 Module"
+  },
+  "passive_vaux_mk3": {
+    "cat": "module",
+    "id": "e40337f2-7f52-4160-95eb-0e96752bc3c2",
+    "name": "Vaux-C3 Module"
+  },
+  "passive_xtr_mk1": {
+    "cat": "module",
+    "id": "37d62503-f13e-4f41-8ba1-7a3a692dd79f",
+    "name": "XTR Module"
+  },
+  "passive_xtr_mk2": {
+    "cat": "module",
+    "id": "79a47fc7-4950-41a8-b58d-aa3a6b7f686e",
+    "name": "XTR-L Module"
+  },
+  "passive_xtr_mk3": {
+    "cat": "module",
+    "id": "a0595561-6252-4340-bd02-c9a748e2fe7b",
+    "name": "XTR-XL Module"
+  },
+  "vehiclemod_rocds": {
+    "cat": "module",
+    "id": "e17408e8-e1ad-4402-9cd9-3e05425a291a",
+    "name": "ROC Module"
+  },
+  "grin_optimax": {
+    "cat": "gadget",
+    "id": "1a6b9b13-d3f8-4f32-b7db-146b90aad2da",
+    "name": "OptiMax"
+  },
+  "grin_waveshift": {
+    "cat": "gadget",
+    "id": "478ffd41-77dc-4239-a842-9fdf3d2072ac",
+    "name": "Waveshift"
+  },
+  "shin_okunis": {
+    "cat": "gadget",
+    "id": "715a41ad-b297-44fa-b792-8561687e5220",
+    "name": "Okunis"
+  },
+  "shin_sabir": {
+    "cat": "gadget",
+    "id": "d539a485-4a68-4426-8678-2cff115e6051",
+    "name": "Sabir"
+  },
+  "thcn_boremax": {
+    "cat": "gadget",
+    "id": "06be9c06-120f-46d8-8179-e95ccd1f137a",
+    "name": "BoreMax"
+  },
+  "thcn_stalwart": {
+    "cat": "gadget",
+    "id": "14398612-495b-498b-90d1-e55a346be810",
+    "name": "Stalwart"
+  }
+}

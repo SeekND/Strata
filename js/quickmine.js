@@ -403,7 +403,7 @@ function computeOptimizedLoadout(shipKey, oreDiff) {
   let laser=null, laserKey=null;
   if (isBespoke) {
     laserKey='drak_golem_s1'; laser=lasers[laserKey];
-    if (laser) reasoning.push(`<strong>${laser.name}</strong> — Golem bespoke laser (no other option for this ship)`);
+    if (laser) reasoning.push(`<strong>${nameWithBuyLink(laserKey, laser.name)}</strong> — Golem bespoke laser (no other option for this ship)`);
   } else {
     const cands=Object.entries(lasers).filter(([,l])=>l.size===laserSize&&!l.bespoke);
     let pick, why;
@@ -417,7 +417,7 @@ function computeOptimizedLoadout(shipKey, oreDiff) {
       pick=cands.find(([k])=>k.includes('helix'))||cands[0];
       why=`easy rock → solid all-rounder`;
     }
-    if(pick){ [laserKey,laser]=pick; reasoning.push(`<strong>${laser.name}</strong> — ${why}`); }
+    if(pick){ [laserKey,laser]=pick; reasoning.push(`<strong>${nameWithBuyLink(laserKey, laser.name)}</strong> — ${why}`); }
   }
   if (!laser) return null;
 
@@ -426,7 +426,7 @@ function computeOptimizedLoadout(shipKey, oreDiff) {
   if(slots>0){
     const riegers=Object.entries(modules).filter(([k])=>k.includes('rieger'));
     const br=riegers.find(([k])=>k.includes('mk3'))||riegers[0];
-    if(br){ selMods.push(br[0]); reasoning.push(`<strong>${modules[br[0]]?.name||br[0]}</strong> — baseline power boost, always worth slot 1`); }
+    if(br){ selMods.push(br[0]); reasoning.push(`<strong>${nameWithBuyLink(br[0], modules[br[0]]?.name||br[0])}</strong> — baseline power boost, always worth slot 1`); }
     if(slots>1){
       let p, why;
       if(oreDiff.instability>=500){
@@ -440,12 +440,12 @@ function computeOptimizedLoadout(shipKey, oreDiff) {
         p=f.find(([k])=>k.includes('mk3'))||f[0];
         why=`easy rock — Focus widens the green window`;
       }
-      if(p){ selMods.push(p[0]); reasoning.push(`<strong>${modules[p[0]]?.name||p[0]}</strong> — ${why}`); }
+      if(p){ selMods.push(p[0]); reasoning.push(`<strong>${nameWithBuyLink(p[0], modules[p[0]]?.name||p[0])}</strong> — ${why}`); }
     }
     if(slots>2&&selMods.length<slots){
       const f=Object.entries(modules).filter(([k])=>k.includes('focus'));
       const p=f.find(([k])=>k.includes('mk3'))||f[0];
-      if(p&&!selMods.includes(p[0])){ selMods.push(p[0]); reasoning.push(`<strong>${modules[p[0]]?.name||p[0]}</strong> — spare slot, Focus is the safe pick`); }
+      if(p&&!selMods.includes(p[0])){ selMods.push(p[0]); reasoning.push(`<strong>${nameWithBuyLink(p[0], modules[p[0]]?.name||p[0])}</strong> — spare slot, Focus is the safe pick`); }
     }
   }
 
@@ -470,14 +470,14 @@ function computeOptimizedLoadout(shipKey, oreDiff) {
       if (s) {
         selGadgets.push(s[0]);
         const ctx = isBespoke ? `Golem's +25% penalty makes effective resistance ${effRes.toFixed(2)}` : `resistance ${oreDiff.resistance.toFixed(2)}`;
-        reasoning.push(`<strong>${gadgets[s[0]]?.name||s[0]}</strong> — ${ctx}, too high to crack without help; accept the instability ${oreDiff.instability} risk`);
+        reasoning.push(`<strong>${nameWithBuyLink(s[0], gadgets[s[0]]?.name||s[0])}</strong> — ${ctx}, too high to crack without help; accept the instability ${oreDiff.instability} risk`);
       }
     } else {
       const b = findGadget('boremax');
       if (b) {
         selGadgets.push(b[0]);
         const ctx = isBespoke ? `effective resistance ${effRes.toFixed(2)} (Golem penalty included) is crackable` : `resistance ${oreDiff.resistance.toFixed(2)} is crackable`;
-        reasoning.push(`<strong>${gadgets[b[0]]?.name||b[0]}</strong> — ${ctx}; instability ${oreDiff.instability} would detonate the rock — BoreMax cuts that 70%`);
+        reasoning.push(`<strong>${nameWithBuyLink(b[0], gadgets[b[0]]?.name||b[0])}</strong> — ${ctx}; instability ${oreDiff.instability} would detonate the rock — BoreMax cuts that 70%`);
       }
     }
   } else if (effRes >= 0.5) {
@@ -485,7 +485,7 @@ function computeOptimizedLoadout(shipKey, oreDiff) {
     if (s) {
       selGadgets.push(s[0]);
       const ctx = isBespoke ? `Golem +25% → effective resistance ${effRes.toFixed(2)}` : `resistance ${oreDiff.resistance.toFixed(2)}`;
-      reasoning.push(`<strong>${gadgets[s[0]]?.name||s[0]}</strong> — ${ctx}; low instability so cracking speed is the bottleneck — Sabir cuts resistance 50%`);
+      reasoning.push(`<strong>${nameWithBuyLink(s[0], gadgets[s[0]]?.name||s[0])}</strong> — ${ctx}; low instability so cracking speed is the bottleneck — Sabir cuts resistance 50%`);
     }
   }
   // else: mild rock on both axes — no gadget needed

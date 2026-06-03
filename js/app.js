@@ -27,6 +27,13 @@ async function init() {
     return;
   }
 
+  // Optional: cstone item links for "where to buy" deep-links. Missing/failed
+  // load is non-fatal — the rest of the site works fine without it.
+  try {
+    const lr = await fetch('data/cstone_links.json');
+    if (lr.ok) D.cstone_links = await lr.json();
+  } catch (e) { /* non-fatal */ }
+
   loadingEl.style.display = 'none';
 
   // Initialize modules — each wrapped so one failure doesn't crash everything
@@ -501,6 +508,21 @@ function confChip(label, scans) {
 
 // Location types the game does not show info panels for — trust the preset ore list directly.
 const PRESET_ONLY_TYPES = new Set(['ring', 'asteroid_belt', 'asteroid_cluster', 'lagrange_field', 'mission_location', 'hathor']);
+
+// Cornerstone (cstone.space) deep-link helper — returns a URL to that item's
+// "where to buy" page on cstone, or null if we don't have a mapping for it.
+const CSTONE_PATHS = { laser: 'ShipMiningHeads1', module: 'ShipMiningMods1', gadget: 'FPSMiningMods1' };
+function cstoneUrl(equipKey) {
+  const link = D?.cstone_links?.[equipKey];
+  if (!link || !CSTONE_PATHS[link.cat]) return null;
+  return `https://finder.cstone.space/${CSTONE_PATHS[link.cat]}/${link.id}`;
+}
+// Wrap an item name in a small "where to buy on Cornerstone" link.
+function nameWithBuyLink(equipKey, name) {
+  const url = cstoneUrl(equipKey);
+  if (!url) return name;
+  return `${name} <a href="${url}" target="_blank" rel="noopener" title="Where to buy on Cornerstone" style="text-decoration:none;font-size:11px;opacity:0.6;margin-left:4px">🛒</a>`;
+}
 
 /** True if an ore entry should be displayed for this location type. */
 function isOreVisible(entry, locType) {
