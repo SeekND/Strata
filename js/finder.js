@@ -519,7 +519,17 @@ function renderExpeditionPlanner() {
     html += `<div style="margin-bottom:12px;font-size:12px;color:var(--text-secondary);padding:8px 12px;border-left:2px solid var(--accent)"><span style="color:var(--accent)">ROUTE:</span> ${routeNames.join(' \u2192 ')}${refStops.length ? ' \u2192 <span style="color:var(--green)">' + refStops[0] + '</span> (refine)' : ''}</div>`;
   }
 
-  for (const a of optimized) html += renderExpStopCard(a);
+  // Stash assignments for the global "shopping list" button
+  window._expAssignments = optimized;
+  const hasAnyShip = optimized.some(a => a.ship?.type && a.loadout);
+  if (hasAnyShip && typeof openShoppingForExpedition === 'function') {
+    html += `<div style="margin-bottom:12px"><button onclick="openShoppingForExpedition(window._expAssignments)" style="background:var(--bg-card,#1a1d26);border:1px solid var(--accent);color:var(--accent);padding:6px 12px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:600">\ud83d\uded2 All-stops shopping list</button></div>`;
+  }
+
+  for (let i = 0; i < optimized.length; i++) {
+    window['_expStop_' + i] = optimized[i];
+    html += renderExpStopCard(optimized[i], i);
+  }
 
   // Refinery + ground notes
   const shipOreList = stops.flatMap(s => s.oreDetails).filter(od => !od.isGround);
@@ -726,7 +736,7 @@ function optimizeRoute(assignments) {
 // ============================================================
 // RENDER STOP CARD
 // ============================================================
-function renderExpStopCard(a) {
+function renderExpStopCard(a, stopIdx) {
   let oreRows = a.oreDetails.map(od => {
     const dc = od.difficulty?.resistance >= 0.7 ? 'var(--red)' : od.difficulty?.resistance >= 0.4 ? 'var(--accent)' : od.difficulty?.resistance >= 0 ? 'var(--yellow)' : 'var(--green)';
     const dl = od.difficulty?.resistance >= 0.7 ? 'EXTREME' : od.difficulty?.resistance >= 0.4 ? 'HARD' : od.difficulty?.resistance >= 0 ? 'MEDIUM' : 'EASY';
@@ -841,6 +851,9 @@ function renderExpStopCard(a) {
     const title = a.ship?.id ? (a.isExtraShip ? 'EXTRA SHIP' : a.isReuse ? 'ASSIGNED (sequential)' : 'ASSIGNED') : 'RECOMMENDED';
     shipHtml = `<div style="text-align:right;max-width:400px"><div style="font-size:11px;color:var(--text-dim)">${title}</div><div style="font-size:14px;font-weight:600">${a.shipLabel}</div><div style="font-size:11px;color:var(--text-secondary);line-height:1.5">${loInfo}</div>`;
     if (a.warnings?.length) shipHtml += a.warnings.map(w => `<div style="font-size:10px;color:var(--red)">\u26A0 ${w}</div>`).join('');
+    if (typeof openShoppingForStop === 'function' && stopIdx != null && a.loadout && !a.loadout.turrets) {
+      shipHtml += `<button onclick="openShoppingForStop(window._expStop_${stopIdx})" style="margin-top:6px;background:transparent;border:1px solid var(--accent);color:var(--accent);padding:4px 8px;border-radius:3px;cursor:pointer;font-size:11px;font-weight:600">\u{1F6D2} Shopping list</button>`;
+    }
     shipHtml += '</div>';
   }
 

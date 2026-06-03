@@ -287,6 +287,13 @@ function renderSingleLaserLoadout(loadout, ore, diff) {
     whyHtml = `<div style="margin-top:10px;padding:8px 10px;background:rgba(232,117,26,0.06);border-left:2px solid var(--accent);border-radius:3px"><div style="font-size:10px;color:var(--accent);font-weight:600;margin-bottom:4px">WHY THESE PICKS</div><div style="font-size:12px;line-height:1.6;color:var(--text-secondary)">${loadout.reasoning.map(r => '\u2022 ' + r).join('<br>')}</div></div>`;
   }
 
+  // Shopping list button \u2014 opens a modal listing every item with cstone links
+  const shopBtn = (typeof openShoppingForQuickMine === 'function' && (loadout.modules?.length || loadout.gadgets?.length))
+    ? `<div style="margin-top:10px"><button onclick="openShoppingForQuickMine(window._qmCurrentLoadout, '${ore}')" style="background:var(--bg-card,#1a1d26);border:1px solid var(--accent);color:var(--accent);padding:6px 12px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:600">\ud83d\uded2 Shopping list</button></div>`
+    : '';
+  // Stash for the button's onclick (avoids serializing the loadout into HTML)
+  window._qmCurrentLoadout = loadout;
+
   let html = `<div class="card" style="margin-top:16px;border-left:3px solid var(--accent)">
     <div class="map-info-title">${modeLabel} \u2014 ${QM_SHIPS[qmState.ship]?.label}</div>
     <div style="font-size:10px;color:var(--text-dim);margin-bottom:4px">${sourceLabel}</div>
@@ -295,6 +302,7 @@ function renderSingleLaserLoadout(loadout, ore, diff) {
     ${loadout.max_mass?`<div style="margin-top:8px;font-size:12px;color:var(--text-secondary)">Max rock mass: ~${loadout.max_mass.toLocaleString()}</div>`:''}
     ${loadout.effective_power?`<div style="font-size:12px;color:var(--text-dim)">Effective power: ${loadout.effective_power.toLocaleString()}</div>`:''}
     ${whyHtml}
+    ${shopBtn}
   </div>`;
   if (diff) html += renderGearRecommendations(diff, loadout);
   return html;
