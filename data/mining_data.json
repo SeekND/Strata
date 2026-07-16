@@ -1,8 +1,8 @@
 {
   "meta": {
-    "uex_fetch_date": "2026-05-25T13:51:25.718815+00:00",
-    "current_patch": "4.8",
-    "data_updated": "2026-05-27",
+    "uex_fetch_date": "2026-07-16T08:29:48.302846+00:00",
+    "current_patch": "4.9",
+    "data_updated": "2026-07-16",
     "news_reel": "",
     "total_mining_locations": 86,
     "total_ores": 38,
@@ -3434,15 +3434,11 @@
         "ship": [
           {
             "ore": "ICE",
-            "relative_probability": 13.9
-          },
-          {
-            "ore": "ALUMINUM",
-            "relative_probability": 13.8
+            "relative_probability": 20.75
           },
           {
             "ore": "IRON",
-            "relative_probability": 13.8
+            "relative_probability": 20.75
           },
           {
             "ore": "LINDINIUM",
@@ -3474,15 +3470,11 @@
         "ship": [
           {
             "ore": "ICE",
-            "relative_probability": 13.9
+            "relative_probability": 20.75
           },
           {
             "ore": "ALUMINUM",
-            "relative_probability": 13.8
-          },
-          {
-            "ore": "IRON",
-            "relative_probability": 13.8
+            "relative_probability": 20.75
           },
           {
             "ore": "LINDINIUM",
@@ -3540,12 +3532,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "HADANITE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "HADANITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -3623,12 +3615,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "HADANITE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "HADANITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -3789,12 +3781,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "HADANITE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "HADANITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -3877,12 +3869,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "HADANITE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "HADANITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -3955,12 +3947,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "HADANITE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "HADANITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -4038,12 +4030,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "HADANITE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "HADANITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -4116,12 +4108,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "HADANITE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "HADANITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -4277,12 +4269,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "HADANITE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "HADANITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -4657,12 +4649,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "HADANITE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "HADANITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -4777,12 +4769,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "HADANITE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "HADANITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -4870,12 +4862,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "HADANITE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "HADANITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -4963,12 +4955,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "HADANITE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "HADANITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -5051,12 +5043,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "HADANITE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "HADANITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -5144,12 +5136,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "HADANITE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "HADANITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -5237,12 +5229,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "HADANITE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "HADANITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -5325,12 +5317,12 @@
             "panel_confirmed": true
           },
           {
-            "ore": "HADANITE",
+            "ore": "APHORITE",
             "relative_probability": null,
             "panel_confirmed": true
           },
           {
-            "ore": "APHORITE",
+            "ore": "HADANITE",
             "relative_probability": null,
             "panel_confirmed": true
           }
@@ -9390,7 +9382,7 @@
     "stations": {
       "Refinement Center - Checkmate": {
         "system": "Pyro",
-        "capacity_scu": 5771,
+        "capacity_scu": 9518,
         "yields": {
           "AGRICIUM": {
             "value": -8,
@@ -9451,7 +9443,7 @@
       },
       "Refinement Center - Levski": {
         "system": "Nyx",
-        "capacity_scu": 14935,
+        "capacity_scu": 25439,
         "yields": {
           "Construction Material Salvage": {
             "value": 8,
@@ -9523,7 +9515,7 @@
             "value_week": 8,
             "value_month": 8
           },
-          "LINDINIUM": {
+          "Lindinium (Ore)": {
             "value": 4,
             "value_week": 4,
             "value_month": 4
@@ -9548,12 +9540,12 @@
             "value_week": 8,
             "value_month": 8
           },
-          "SAVRILIUM": {
+          "Savrilium (Ore)": {
             "value": 1,
             "value_week": 1,
             "value_month": 1
           },
-          "ICE": {
+          "Ice (Raw)": {
             "value": 10,
             "value_week": 10,
             "value_month": 10
@@ -9638,7 +9630,7 @@
       },
       "Refinement Center - Orbituary": {
         "system": "Pyro",
-        "capacity_scu": 2254,
+        "capacity_scu": 8971,
         "yields": {
           "AGRICIUM": {
             "value": -8,
@@ -9882,7 +9874,7 @@
       },
       "Refinement Processing - ARC-L1": {
         "system": "Stanton",
-        "capacity_scu": 12549,
+        "capacity_scu": 8343,
         "yields": {
           "BERYL": {
             "value": 7,
@@ -9938,7 +9930,7 @@
       },
       "Refinement Processing - ARC-L2": {
         "system": "Stanton",
-        "capacity_scu": 2623,
+        "capacity_scu": 3458,
         "yields": {
           "BEXALITE": {
             "value": 2,
@@ -9989,7 +9981,7 @@
       },
       "Refinement Processing - ARC-L4": {
         "system": "Stanton",
-        "capacity_scu": 10636,
+        "capacity_scu": 5339,
         "yields": {
           "COPPER": {
             "value": -4,
@@ -10050,7 +10042,7 @@
       },
       "Refinement Processing - CRU-L1": {
         "system": "Stanton",
-        "capacity_scu": 14474,
+        "capacity_scu": 24242,
         "yields": {
           "IRON": {
             "value": 2,
@@ -10101,7 +10093,7 @@
       },
       "Refinement Processing - HUR-L1": {
         "system": "Stanton",
-        "capacity_scu": 17161,
+        "capacity_scu": 27389,
         "yields": {
           "BEXALITE": {
             "value": -2,
@@ -10208,7 +10200,7 @@
       },
       "Refinement Processing - MIC-L1": {
         "system": "Stanton",
-        "capacity_scu": 11881,
+        "capacity_scu": 27726,
         "yields": {
           "CORUNDUM": {
             "value": 2,
@@ -10254,7 +10246,7 @@
       },
       "Refinement Processing - MIC-L2": {
         "system": "Stanton",
-        "capacity_scu": 4556,
+        "capacity_scu": 17255,
         "yields": {
           "TITANIUM": {
             "value": 6,
@@ -10315,14 +10307,14 @@
       },
       "Refinement Processing - MIC-L5": {
         "system": "Stanton",
-        "capacity_scu": 4607,
+        "capacity_scu": 5388,
         "yields": {
-          "LINDINIUM": {
+          "Lindinium (Ore)": {
             "value": 7,
             "value_week": 7,
             "value_month": 7
           },
-          "SAVRILIUM": {
+          "Savrilium (Ore)": {
             "value": 6,
             "value_week": 6,
             "value_month": 6
@@ -10427,7 +10419,7 @@
       },
       "Refinement Processing - Pyro Gateway (Stanton)": {
         "system": "Stanton",
-        "capacity_scu": 6959,
+        "capacity_scu": 11907,
         "yields": {
           "IRON": {
             "value": 2,
@@ -10478,7 +10470,7 @@
       },
       "Refinement Processing - Stanton Gateway (Pyro)": {
         "system": "Pyro",
-        "capacity_scu": 308,
+        "capacity_scu": 1379,
         "yields": {
           "TUNGSTEN": {
             "value": 4,
@@ -10539,7 +10531,7 @@
       },
       "Refinement Processing - Terra Gateway (Stanton)": {
         "system": "Stanton",
-        "capacity_scu": 4895,
+        "capacity_scu": 44297,
         "yields": {
           "QUARTZ": {
             "value": -3,
@@ -10743,7 +10735,7 @@
         "value": 11,
         "system": "Stanton"
       },
-      "LINDINIUM": {
+      "Lindinium (Ore)": {
         "station": "Refinement Processing - MIC-L5",
         "value": 7,
         "system": "Stanton"
@@ -10758,12 +10750,12 @@
         "value": 8,
         "system": "Nyx"
       },
-      "SAVRILIUM": {
+      "Savrilium (Ore)": {
         "station": "Refinement Processing - MIC-L5",
         "value": 6,
         "system": "Stanton"
       },
-      "ICE": {
+      "Ice (Raw)": {
         "station": "Refinement Center - Levski",
         "value": 10,
         "system": "Nyx"
