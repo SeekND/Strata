@@ -227,14 +227,13 @@ function closeShoppingModal() {
 }
 
 function openShoppingTabs(urls) {
-  // Browsers usually allow only the first popup per click. Open the first one
-  // synchronously (most reliable) and stagger the rest. Some popups may still
-  // get blocked — that's why we render clickable rows for manual fallback.
+  // Open EVERY tab synchronously inside the click gesture. Browsers attribute all
+  // synchronous window.open() calls to the originating user gesture and allow them;
+  // deferring any with setTimeout (the old code) detaches it from the gesture and
+  // the pop-up blocker kills it — that was the "open all (4) only opens 2" bug.
+  // Clickable rows remain as a manual fallback for anyone with a strict blocker.
   if (!urls.length) return;
-  window.open(urls[0], '_blank', 'noopener');
-  for (let i = 1; i < urls.length; i++) {
-    setTimeout(() => window.open(urls[i], '_blank', 'noopener'), i * 50);
-  }
+  for (const url of urls) window.open(url, '_blank', 'noopener');
 }
 
 function copyShoppingList(text) {
