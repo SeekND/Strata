@@ -492,7 +492,7 @@ function renderExpeditionPlanner() {
   const assignments = hasFleet ? assignFleetToStops(stops, pool) : stops.map(s => {
     if (s.allGround) return { ...s, ship: null, shipLabel: getGroundEquip(s), loadout: null, warnings: [] };
     const rec = getShipRecommendation(s.hardestDiff);
-    const lo = getLoadoutForOre(rec.key === 'mole' ? 'mole_crew' : rec.key || 'prospector', 'medium', s.oreDetails.find(o => !o.isGround)?.ore, s.hardestDiff);
+    const lo = getLoadoutForOre(rec.key === 'mole' ? 'mole_crew' : rec.key || 'prospector', 'optimized', s.oreDetails.find(o => !o.isGround)?.ore, s.hardestDiff);
     return { ...s, ship: { type: rec.key }, shipLabel: rec.ship, loadout: lo, warnings: [] };
   });
 
@@ -851,7 +851,7 @@ function renderExpStopCard(a, stopIdx) {
     const title = a.ship?.id ? (a.isExtraShip ? 'EXTRA SHIP' : a.isReuse ? 'ASSIGNED (sequential)' : 'ASSIGNED') : 'RECOMMENDED';
     shipHtml = `<div style="text-align:right;max-width:400px"><div style="font-size:11px;color:var(--text-dim)">${title}</div><div style="font-size:14px;font-weight:600">${a.shipLabel}</div><div style="font-size:11px;color:var(--text-secondary);line-height:1.5">${loInfo}</div>`;
     if (a.warnings?.length) shipHtml += a.warnings.map(w => `<div style="font-size:10px;color:var(--red)">\u26A0 ${w}</div>`).join('');
-    if (typeof openShoppingForStop === 'function' && stopIdx != null && a.loadout && !a.loadout.turrets) {
+    if (typeof openShoppingForStop === 'function' && stopIdx != null && a.loadout) {
       shipHtml += `<button onclick="openShoppingForStop(window._expStop_${stopIdx})" style="margin-top:6px;background:transparent;border:1px solid var(--accent);color:var(--accent);padding:4px 8px;border-radius:3px;cursor:pointer;font-size:11px;font-weight:600">\u{1F6D2} Shopping list</button>`;
     }
     shipHtml += '</div>';
@@ -884,7 +884,7 @@ function exportExpedition() {
   });
 
   const pool = buildFleetPool(); const hasFleet = pool.length > 0;
-  const assignments = hasFleet ? assignFleetToStops(stops, pool) : stops.map(s => { if (s.allGround) return { ...s, shipLabel: getGroundEquip(s), loadout: null }; const rec = getShipRecommendation(s.hardestDiff); const lo = getLoadoutForOre(rec.key === 'mole' ? 'mole_crew' : rec.key || 'prospector', 'medium', s.oreDetails.find(o => !o.isGround)?.ore, s.hardestDiff); return { ...s, ship: { type: rec.key }, shipLabel: rec.ship, loadout: lo }; });
+  const assignments = hasFleet ? assignFleetToStops(stops, pool) : stops.map(s => { if (s.allGround) return { ...s, shipLabel: getGroundEquip(s), loadout: null }; const rec = getShipRecommendation(s.hardestDiff); const lo = getLoadoutForOre(rec.key === 'mole' ? 'mole_crew' : rec.key || 'prospector', 'optimized', s.oreDetails.find(o => !o.isGround)?.ore, s.hardestDiff); return { ...s, ship: { type: rec.key }, shipLabel: rec.ship, loadout: lo }; });
 
   let text = `**\u2550\u2550\u2550 EXPEDITION PLAN \u2550\u2550\u2550**\n**Materials:** ${selectedOres.map(oreName).join(', ')}\n`;
   text += `**Stops:** ${plan.length} | **Systems:** ${[...new Set(plan.map(s => s.system))].join(', ')}`;
