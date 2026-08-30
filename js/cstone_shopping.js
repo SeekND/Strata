@@ -53,17 +53,27 @@ function openShoppingForExpedition(assignments) {
   }
   const ships = [];
   for (const [type, entry] of byShip) {
-    // Build a synthesized "kit" loadout: union all lasers/modules/gadgets across stops
-    const lasers = new Set();
-    const modules = new Set();
-    const gadgets = new Set();
-    for (const lo of entry.loadouts) {
-      if (lo.laser) lasers.add(lo.laser);
-      for (const m of (lo.modules || [])) modules.add(m);
-      for (const g of (lo.gadgets || [])) gadgets.add(g);
+    const oreCodes = [...new Set(entry.oreCodes)];
+    let ship;
+    const turretLo = entry.loadouts.find(lo => Array.isArray(lo.turrets) && lo.turrets.length);
+    if (turretLo) {
+      // MOLE-type: turret loadouts don't vary by ore here, so one representative
+      // loadout describes the whole kit. Don't concatenate turrets across stops —
+      // it's one physical ship reused, not N ships (would inflate the counts).
+      ship = _buildShipKit(turretLo, type, oreCodes);
+    } else {
+      // Single-laser ships: union all lasers/modules/gadgets across stops.
+      const lasers = new Set();
+      const modules = new Set();
+      const gadgets = new Set();
+      for (const lo of entry.loadouts) {
+        if (lo.laser) lasers.add(lo.laser);
+        for (const m of (lo.modules || [])) modules.add(m);
+        for (const g of (lo.gadgets || [])) gadgets.add(g);
+      }
+      const merged = { laser: [...lasers][0], modules: [...modules], gadgets: [...gadgets] };
+      ship = _buildShipKit(merged, type, oreCodes);
     }
-    const merged = { laser: [...lasers][0], modules: [...modules], gadgets: [...gadgets] };
-    const ship = _buildShipKit(merged, type, [...new Set(entry.oreCodes)]);
     ship.label = entry.shipLabel;
     ships.push(ship);
   }
@@ -80,6 +90,14 @@ function _buildShipKit(loadout, shipType, oreCodes) {
   const lasers = D.equipment?.lasers || {};
   const modules = D.equipment?.modules || {};
   const gadgets = D.equipment?.gadgets || {};
+
+  // Multi-turret loadouts (MOLE): every turret carries its own laser + modules,
+  // so there's no single top-level laser/module list to shop from. Aggregate
+  // across all turrets and count quantities — outfitting 3 turrets can need
+  // several of the same module. Returns a `lasers` array (not a single `laser`).
+  if (Array.isArray(loadout.turrets) && loadout.turrets.length) {
+    return _buildTurretKit(loadout, lasers, modules, gadgets);
+  }
 
   // Start with the loadout's modules/gadgets
   const modSet = new Set(loadout.modules || []);
@@ -122,6 +140,30 @@ function _buildShipKit(loadout, shipType, oreCodes) {
   return { laser, modules: moduleItems, gadgets: gadgetItems, alternatives: altItems };
 }
 
+// Build a shopping kit from a multi-turret (MOLE) loadout. Each turret has its
+// own laser + module list; we tally unique items across all turrets with a
+// quantity so the list shows e.g. "Rieger-C3 ×4". No per-rock alternatives —
+// a MOLE swaps between turrets it already owns, so nothing extra to buy.
+function _buildTurretKit(loadout, lasers, modules, gadgets) {
+  const laserCount = new Map();
+  const moduleCount = new Map();
+  for (const t of loadout.turrets) {
+    if (t.laser) laserCount.set(t.laser, (laserCount.get(t.laser) || 0) + 1);
+    for (const m of (t.modules || [])) moduleCount.set(m, (moduleCount.get(m) || 0) + 1);
+  }
+  const laserItems = [...laserCount].map(([k, qty]) => ({
+    key: k, name: lasers[k]?.name || k, qty,
+    isBespoke: !!lasers[k]?.bespoke, role: 'Turret laser',
+  }));
+  const moduleItems = [...moduleCount].map(([k, qty]) => ({
+    key: k, name: modules[k]?.name || k, qty, role: _moduleRole(k, modules[k]),
+  }));
+  const gadgetItems = [...new Set(loadout.gadgets || [])].map(k => ({
+    key: k, name: gadgets[k]?.name || k, role: _gadgetRole(k),
+  }));
+  return { lasers: laserItems, modules: moduleItems, gadgets: gadgetItems, alternatives: [] };
+}
+
 function _moduleRole(key, m) {
   const k = key.toLowerCase();
   if (k.includes('rieger')) return 'Power boost — slot 1 baseline';
@@ -158,14 +200,16 @@ function openShoppingModal(kit) {
   const renderItem = (it) => {
     const url = cstoneUrl(it.key);
     if (url && !it.isBespoke) allUrls.push(url);
-    textLines.push(`• ${it.name}${url ? ` — ${url}` : ''}${it.isBespoke ? ' (already on ship)' : ''}`);
+    const qtyTxt = it.qty > 1 ? ` ×${it.qty}` : '';
+    const qtyHtml = it.qty > 1 ? ` <span style="color:var(--text-dim);font-weight:400;font-size:12px">×${it.qty}</span>` : '';
+    textLines.push(`• ${it.name}${qtyTxt}${url ? ` — ${url}` : ''}${it.isBespoke ? ' (already on ship)' : ''}`);
     const badge = it.isBespoke
       ? '<span style="color:var(--text-dim);font-size:11px">already on ship</span>'
       : url ? '<span style="font-size:14px">🛒</span>'
             : '<span style="color:var(--text-dim);font-size:11px">not on cstone</span>';
     const wrapOpen  = url ? `<a href="${url}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">` : '<div>';
     const wrapClose = url ? '</a>' : '</div>';
-    return `${wrapOpen}<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;margin-top:4px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:4px"><div><strong>${it.name}</strong>${it.role ? `<div style="font-size:11px;color:var(--text-dim);margin-top:2px">${it.role}</div>` : ''}</div><div>${badge}</div></div>${wrapClose}`;
+    return `${wrapOpen}<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;margin-top:4px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:4px"><div><strong>${it.name}${qtyHtml}</strong>${it.role ? `<div style="font-size:11px;color:var(--text-dim);margin-top:2px">${it.role}</div>` : ''}</div><div>${badge}</div></div>${wrapClose}`;
   };
 
   const renderSection = (label, items) => {
@@ -183,7 +227,8 @@ function openShoppingModal(kit) {
     } else if (ship.label) {
       body += `<div style="margin-top:8px;color:var(--text-secondary);font-size:12px">${ship.label}</div>`;
     }
-    body += renderSection('LASER',        ship.laser ? [ship.laser] : []);
+    const laserItems = ship.lasers || (ship.laser ? [ship.laser] : []);
+    body += renderSection(laserItems.length > 1 ? 'LASERS' : 'LASER', laserItems);
     body += renderSection('MODULES',      ship.modules);
     body += renderSection('GADGETS',      ship.gadgets);
     body += renderSection('PER-ROCK SWAPS', ship.alternatives);
