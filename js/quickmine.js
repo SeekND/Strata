@@ -1,7 +1,7 @@
 // ============================================================
 // SC Hub Mining v3 — quickmine.js (Quick Mine)
 // ============================================================
-let qmState = { ship: 'prospector', ore: null, mode: 'medium', system: 'all' };
+let qmState = { ship: 'prospector', ore: null, mode: 'optimized', system: 'all' };
 
 const QM_SHIPS = {
   prospector: { label: 'Prospector', method: 'ship', laserSize: 1, turrets: 1, hasModules: true },
@@ -27,21 +27,12 @@ function initQuickMine() {
         <select id="qm-ore" class="dm-select"><option value="">\u2014 Select Ore \u2014</option>${buildQmOreOptions()}</select></div>
       <div><label style="font-size:11px;color:var(--text-dim);display:block;margin-bottom:4px">SYSTEM</label>
         <select id="qm-system" class="dm-select"><option value="all">Any</option><option value="Stanton">Stanton</option><option value="Pyro">Pyro</option><option value="Nyx">Nyx</option></select></div>
-      <div id="qm-mode-wrap"><label style="font-size:11px;color:var(--text-dim);display:block;margin-bottom:4px">MODE</label>
-        <select id="qm-mode" class="dm-select"><option value="easy">Easy (community)</option><option value="medium" selected>Medium (community)</option><option value="hard">Hard (community)</option><option value="optimized">Optimized for Ore (computed)</option></select></div>
     </div>
     <div id="qm-results"></div>`;
 
-  document.getElementById('qm-ship').addEventListener('change', e => { qmState.ship=e.target.value; syncQmUI(); updateQmOreOptions(); runQuickMine(); });
+  document.getElementById('qm-ship').addEventListener('change', e => { qmState.ship=e.target.value; updateQmOreOptions(); runQuickMine(); });
   document.getElementById('qm-ore').addEventListener('change', e => { qmState.ore=e.target.value; runQuickMine(); });
   document.getElementById('qm-system').addEventListener('change', e => { qmState.system=e.target.value; runQuickMine(); });
-  document.getElementById('qm-mode').addEventListener('change', e => { qmState.mode=e.target.value; runQuickMine(); });
-  syncQmUI();
-}
-
-function syncQmUI() {
-  const modeWrap = document.getElementById('qm-mode-wrap');
-  if (modeWrap) modeWrap.style.display = QM_SHIPS[qmState.ship]?.hasModules ? '' : 'none';
 }
 
 /** Check if an ore is mineable by a given method */
@@ -247,6 +238,13 @@ function renderMoleTurrets(loadout, ore, shipDef, diff) {
     </div>`;
   });
   if (loadout.notes) html += `<div style="font-size:11px;color:var(--text-dim);margin-top:4px">${loadout.notes}</div>`;
+
+  // Shopping list button — turret-aware kit (all turrets' lasers + modules, with counts)
+  window._qmCurrentLoadout = loadout;
+  const moleHasGear = (loadout.turrets || []).some(t => t.laser || (t.modules?.length));
+  if (typeof openShoppingForQuickMine === 'function' && moleHasGear) {
+    html += `<div style="margin-top:10px"><button onclick="openShoppingForQuickMine(window._qmCurrentLoadout, '${ore}')" style="background:var(--bg-card,#1a1d26);border:1px solid var(--accent);color:var(--accent);padding:6px 12px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:600">🛒 Shopping list</button></div>`;
+  }
   html += '</div>';
 
   if (diff) html += renderGearRecommendations(diff);
@@ -388,7 +386,12 @@ function getLoadoutForOre(shipKey, mode, oreCode, oreDiff) {
   let loadoutKey = shipKey;
   if (shipKey==='mole_crew') loadoutKey='mole_3crew';
   if (shipKey==='mole_solo') loadoutKey='mole_solo';
-  if (mode==='optimized') return computeOptimizedLoadout(shipKey, oreDiff);
+  if (mode==='optimized') {
+    const opt = computeOptimizedLoadout(shipKey, oreDiff);
+    if (opt) return opt;
+    // No difficulty data for this ore — fall back to a stored preset so the card
+    // still shows a usable loadout (community modes are no longer user-selectable).
+  }
   const sl = loadouts[loadoutKey];
   if (sl && typeof sl==='object') { if(sl[mode]) return sl[mode]; return sl.medium||sl.easy||Object.values(sl)[0]; }
   return null;
