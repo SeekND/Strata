@@ -1,8 +1,8 @@
 {
   "meta": {
-    "uex_fetch_date": "2026-10-09T17:37:56.241347+00:00",
-    "current_patch": "4.10.2",
-    "data_updated": "2026-10-09",
+    "uex_fetch_date": "2026-11-17T23:25:01.940657+00:00",
+    "current_patch": "4.10.3",
+    "data_updated": "2026-11-17",
     "news_reel": "",
     "total_mining_locations": 86,
     "total_ores": 38,
@@ -7560,6 +7560,27 @@
         "notes": "",
         "bespoke": true
       },
+      "gama_hyun_s1": {
+        "name": "@item_Mining_MiningLaser_GAMA_Hyun_S1_Name",
+        "size": 1,
+        "manufacturer": "Unknown (31907472)",
+        "module_slots": 2,
+        "instability": 0,
+        "resistance": 0,
+        "optimal_window_size": 0,
+        "optimal_window_rate": 0,
+        "catastrophic_rate": 0,
+        "shatter_damage": 0,
+        "cluster": 0,
+        "filter": 0,
+        "max_power": 0,
+        "min_power": 0,
+        "min_power_pct": 0,
+        "extract_power": 0,
+        "optimum_range": 0,
+        "max_range": 0,
+        "notes": ""
+      },
       "grin_arbor_s0": {
         "name": "Arbor MHV Mining Laser",
         "size": 0,
@@ -9038,7 +9059,7 @@
     "stations": {
       "Refinement Center - Checkmate": {
         "system": "Pyro",
-        "capacity_scu": 7224,
+        "capacity_scu": 95,
         "yields": {
           "AGRICIUM": {
             "value": -8,
@@ -9099,7 +9120,7 @@
       },
       "Refinement Center - Levski": {
         "system": "Nyx",
-        "capacity_scu": 181924,
+        "capacity_scu": 1075,
         "yields": {
           "Construction Material Salvage": {
             "value": 8,
@@ -9225,7 +9246,7 @@
       },
       "Refinement Center - Nyx Gateway (Pyro)": {
         "system": "Pyro",
-        "capacity_scu": 1605,
+        "capacity_scu": 8,
         "yields": {
           "IRON": {
             "value": -5,
@@ -9286,7 +9307,7 @@
       },
       "Refinement Center - Orbituary": {
         "system": "Pyro",
-        "capacity_scu": 10167,
+        "capacity_scu": 192,
         "yields": {
           "AGRICIUM": {
             "value": -8,
@@ -9347,7 +9368,7 @@
       },
       "Refinement Center - Pyro Gateway (Nyx)": {
         "system": "Nyx",
-        "capacity_scu": 3976,
+        "capacity_scu": 4,
         "yields": {
           "BEXALITE": {
             "value": -2,
@@ -9408,7 +9429,7 @@
       },
       "Refinement Center - Ruin Station": {
         "system": "Pyro",
-        "capacity_scu": 9463,
+        "capacity_scu": 32,
         "yields": {
           "ALUMINUM": {
             "value": -4,
@@ -9469,7 +9490,7 @@
       },
       "Refinement Center - Stanton Gateway (Nyx)": {
         "system": "Nyx",
-        "capacity_scu": 4845,
+        "capacity_scu": 18,
         "yields": {
           "IRON": {
             "value": -5,
@@ -9530,7 +9551,7 @@
       },
       "Refinement Processing - ARC-L1": {
         "system": "Stanton",
-        "capacity_scu": 39821,
+        "capacity_scu": 303,
         "yields": {
           "BERYL": {
             "value": 7,
@@ -9586,7 +9607,7 @@
       },
       "Refinement Processing - ARC-L2": {
         "system": "Stanton",
-        "capacity_scu": 594,
+        "capacity_scu": 46,
         "yields": {
           "BEXALITE": {
             "value": 2,
@@ -9637,7 +9658,7 @@
       },
       "Refinement Processing - ARC-L4": {
         "system": "Stanton",
-        "capacity_scu": 4223,
+        "capacity_scu": 63,
         "yields": {
           "COPPER": {
             "value": -4,
@@ -9698,7 +9719,7 @@
       },
       "Refinement Processing - CRU-L1": {
         "system": "Stanton",
-        "capacity_scu": 28610,
+        "capacity_scu": 932,
         "yields": {
           "IRON": {
             "value": 2,
@@ -9749,7 +9770,7 @@
       },
       "Refinement Processing - HUR-L1": {
         "system": "Stanton",
-        "capacity_scu": 18321,
+        "capacity_scu": 420,
         "yields": {
           "BEXALITE": {
             "value": -2,
@@ -9810,7 +9831,7 @@
       },
       "Refinement Processing - HUR-L2": {
         "system": "Stanton",
-        "capacity_scu": 6634,
+        "capacity_scu": 150,
         "yields": {
           "COPPER": {
             "value": -3,
@@ -9856,7 +9877,7 @@
       },
       "Refinement Processing - MIC-L1": {
         "system": "Stanton",
-        "capacity_scu": 16621,
+        "capacity_scu": 295,
         "yields": {
           "CORUNDUM": {
             "value": 2,
@@ -9902,7 +9923,7 @@
       },
       "Refinement Processing - MIC-L2": {
         "system": "Stanton",
-        "capacity_scu": 3202,
+        "capacity_scu": 135,
         "yields": {
           "TITANIUM": {
             "value": 6,
@@ -9963,7 +9984,7 @@
       },
       "Refinement Processing - MIC-L5": {
         "system": "Stanton",
-        "capacity_scu": 7162,
+        "capacity_scu": 91,
         "yields": {
           "Lindinium (Ore)": {
             "value": 7,
@@ -10019,7 +10040,7 @@
       },
       "Refinement Processing - Nyx Gateway (Stanton)": {
         "system": "Stanton",
-        "capacity_scu": 2802,
+        "capacity_scu": 13,
         "yields": {
           "BERYL": {
             "value": 7,
@@ -10075,7 +10096,7 @@
       },
       "Refinement Processing - Pyro Gateway (Stanton)": {
         "system": "Stanton",
-        "capacity_scu": 2379,
+        "capacity_scu": 52,
         "yields": {
           "IRON": {
             "value": 2,
@@ -10126,7 +10147,7 @@
       },
       "Refinement Processing - Stanton Gateway (Pyro)": {
         "system": "Pyro",
-        "capacity_scu": 840,
+        "capacity_scu": 20,
         "yields": {
           "TUNGSTEN": {
             "value": 4,
@@ -10187,7 +10208,7 @@
       },
       "Refinement Processing - Terra Gateway (Stanton)": {
         "system": "Stanton",
-        "capacity_scu": 3774,
+        "capacity_scu": 10,
         "yields": {
           "QUARTZ": {
             "value": -3,
